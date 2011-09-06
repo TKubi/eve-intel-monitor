@@ -188,5 +188,18 @@ namespace EVEIntelManager.Properties {
                 this["KeywordArrayList"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("file:\\\\\\C:\\Users\\Simon\\Documents\\Visual Studio 2008\\Projects\\eve-intel-monitor\\do" +
+            "c\\versions.xml")]
+        public string UpdateVersionPath {
+            get {
+                return ((string)(this["UpdateVersionPath"]));
+            }
+            set {
+                this["UpdateVersionPath"] = value;
+            }
+        }
     }
 }

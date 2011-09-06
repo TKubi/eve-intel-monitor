@@ -87,6 +87,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApplicationInstaller.cs" />
     <Compile Include="IntelWindow.cs">
       <SubType>Form</SubType>
     </Compile>

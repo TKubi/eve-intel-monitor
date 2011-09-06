@@ -16,7 +16,9 @@ using System.Media;
 using System.Speech.Synthesis;
 
 namespace EVEIntelManager
-{  public delegate void NotifyIntel(Intel intel);
+{ 
+    public delegate void NotifyIntel(Intel intel);
+    public delegate void CheckForUpdates();
 
     public partial class IntelWindow : Form
     {
@@ -52,6 +54,11 @@ namespace EVEIntelManager
                 {
                     LoadStartupChannels();
                 }
+
+                if (Properties.Settings.Default.UpgrateOnStartup)
+                {
+                    backgroundUpdateWorker.RunWorkerAsync();
+                }
             }
             get { return this.monitor; }
         }
@@ -73,6 +80,8 @@ namespace EVEIntelManager
             Analyzer.ChangedIntel += NotifyIntel;
             Analyzer.ChangedIntelActive += NotifyIntelActive;
             Analyzer.Active = true;
+
+            this.Text = "EVE Intel Monitor - " + ApplicationInstaller.GetCurrentVersion();
         }
 
         private void ApplySettings()
@@ -348,6 +357,22 @@ namespace EVEIntelManager
                 setPausingText("");
             }
 
+        }
+
+        private void backgroundUpdateWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            if (this.InvokeRequired)
+            {
+                this.Invoke((CheckForUpdates)CheckForUpdates);
+                return;
+            }
+
+            CheckForUpdates();
+        }
+
+        private void CheckForUpdates()
+        {
+            ApplicationInstaller.CheckForUpdates(this);
         }
     }
 

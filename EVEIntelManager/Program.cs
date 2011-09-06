@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using System.Reflection;
 using EVELogMonitor;
 using System.IO;
+using System.Xml;
 
 namespace EVEIntelManager
 {
@@ -15,7 +16,7 @@ namespace EVEIntelManager
         [STAThread]
         static void Main()
         {
-          
+
             LogDirectoryMonitor monitor = new LogDirectoryMonitor();
 
             Application.EnableVisualStyles();
@@ -27,7 +28,7 @@ namespace EVEIntelManager
 
             window.Text = GetTitle();
 
-            monitor.Path = GetEVELogDirectory();            
+            monitor.Path = GetEVELogDirectory();
             window.Monitor = monitor;
 
             Application.Run(window);
@@ -48,7 +49,12 @@ namespace EVEIntelManager
         private static string GetTitle()
         {
             Assembly appAssembly = Assembly.GetExecutingAssembly();
-            return "EVE Intel Monitor - " + GetConfiguration(appAssembly) + " " + GetVersion(appAssembly);
+
+            AppVersion appVersion = new AppVersion();
+            appVersion.Configuration = GetConfiguration(appAssembly);
+            appVersion.SetVersion(GetVersion(appAssembly));
+            
+            return "EVE Intel Monitor - " + appVersion;
         }
 
         private static string GetConfiguration(Assembly appAssembly)
@@ -67,14 +73,9 @@ namespace EVEIntelManager
             }
         }
 
-        private static string GetVersion(Assembly appAssembly)
+        private static Version GetVersion(Assembly appAssembly)
         {
-            Version appVersion = appAssembly.GetName().Version;
-            return appVersion.Major + "." + appVersion.Minor;
+            return appAssembly.GetName().Version;
         }
-
-
     }
-
-   
 }
