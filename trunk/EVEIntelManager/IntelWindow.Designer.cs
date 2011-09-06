@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(IntelWindow));
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabSettings = new System.Windows.Forms.TabPage();
+            this.settingsUI = new EVEIntelManager.SettingsUI();
             this.tabChannels = new System.Windows.Forms.TabPage();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.label7 = new System.Windows.Forms.Label();
@@ -39,6 +40,7 @@
             this.listLoadedChannels = new System.Windows.Forms.ListBox();
             this.buttonLoadChannels = new System.Windows.Forms.Button();
             this.listFiles = new System.Windows.Forms.CheckedListBox();
+            this.logReaderUI = new EVEIntelManager.LogReaderUI();
             this.buttonRead = new System.Windows.Forms.Button();
             this.textChannelName = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -49,8 +51,7 @@
             this.buttonClearIntel = new System.Windows.Forms.Button();
             this.checkAlwaysOnTop = new System.Windows.Forms.CheckBox();
             this.backgroundIntelSound = new System.ComponentModel.BackgroundWorker();
-            this.settingsUI = new EVEIntelManager.SettingsUI();
-            this.logReaderUI = new EVEIntelManager.LogReaderUI();
+            this.backgroundUpdateWorker = new System.ComponentModel.BackgroundWorker();
             this.tabControl.SuspendLayout();
             this.tabSettings.SuspendLayout();
             this.tabChannels.SuspendLayout();
@@ -84,6 +85,17 @@
             this.tabSettings.Size = new System.Drawing.Size(593, 343);
             this.tabSettings.TabIndex = 1;
             this.tabSettings.Text = "Settings";
+            // 
+            // settingsUI
+            // 
+            this.settingsUI.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.settingsUI.Location = new System.Drawing.Point(0, 0);
+            this.settingsUI.Name = "settingsUI";
+            this.settingsUI.Size = new System.Drawing.Size(593, 347);
+            this.settingsUI.TabIndex = 0;
+            this.settingsUI.ChangedSettings += new EVEIntelManager.NotifySettingsChanged(this.ApplySettings);
             // 
             // tabChannels
             // 
@@ -189,6 +201,19 @@
             this.listFiles.Name = "listFiles";
             this.listFiles.Size = new System.Drawing.Size(192, 124);
             this.listFiles.TabIndex = 4;
+            // 
+            // logReaderUI
+            // 
+            this.logReaderUI.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.logReaderUI.BackColor = System.Drawing.SystemColors.Control;
+            this.logReaderUI.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.logReaderUI.Location = new System.Drawing.Point(3, 3);
+            this.logReaderUI.Name = "logReaderUI";
+            this.logReaderUI.Size = new System.Drawing.Size(377, 303);
+            this.logReaderUI.TabIndex = 6;
+            this.logReaderUI.TimerInterval = 5000;
             // 
             // buttonRead
             // 
@@ -296,29 +321,9 @@
             // 
             this.backgroundIntelSound.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundIntelSound_DoWork);
             // 
-            // settingsUI
+            // backgroundUpdateWorker
             // 
-            this.settingsUI.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.settingsUI.Location = new System.Drawing.Point(0, 0);
-            this.settingsUI.Name = "settingsUI";
-            this.settingsUI.Size = new System.Drawing.Size(593, 347);
-            this.settingsUI.TabIndex = 0;
-            this.settingsUI.ChangedSettings += new EVEIntelManager.NotifySettingsChanged(this.ApplySettings);
-            // 
-            // logReaderUI
-            // 
-            this.logReaderUI.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.logReaderUI.BackColor = System.Drawing.SystemColors.Control;
-            this.logReaderUI.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.logReaderUI.Location = new System.Drawing.Point(3, 3);
-            this.logReaderUI.Name = "logReaderUI";
-            this.logReaderUI.Size = new System.Drawing.Size(377, 303);
-            this.logReaderUI.TabIndex = 6;
-            this.logReaderUI.TimerInterval = 5000;
+            this.backgroundUpdateWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundUpdateWorker_DoWork);
             // 
             // IntelWindow
             // 
@@ -369,6 +374,7 @@
         private SettingsUI settingsUI;
         private System.Windows.Forms.ListBox listIntel;
         private System.Windows.Forms.Label labelPausingIntel;
+        private System.ComponentModel.BackgroundWorker backgroundUpdateWorker;
     }
 }
 

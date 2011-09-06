@@ -32,7 +32,7 @@ namespace EVEIntelManager
             get { return message; }
             set { 
                 this.message = value;
-                textMessage.Rtf = message;
+                textMessage.Text = message;
             }
         }
 
@@ -65,8 +65,11 @@ namespace EVEIntelManager
             window.Text = title;
             window.Message = message;
             window.textInput.Text = defaultValue;
-            window.Validator = validator;
-           
+            if (validator != null)
+            {
+                window.Validator = validator;
+            }
+
             DialogResult result = window.ShowDialog(parent);
             if (result == DialogResult.OK)
             {
