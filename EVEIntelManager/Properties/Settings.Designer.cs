@@ -157,23 +157,12 @@ namespace EVEIntelManager.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public string StartupChannels {
+        public global::System.Collections.Specialized.StringCollection StartupChannelList {
             get {
-                return ((string)(this["StartupChannels"]));
+                return ((global::System.Collections.Specialized.StringCollection)(this["StartupChannelList"]));
             }
             set {
-                this["StartupChannels"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::System.Collections.ArrayList KeywordArrayList {
-            get {
-                return ((global::System.Collections.ArrayList)(this["KeywordArrayList"]));
-            }
-            set {
-                this["KeywordArrayList"] = value;
+                this["StartupChannelList"] = value;
             }
         }
         
@@ -186,6 +175,17 @@ namespace EVEIntelManager.Properties {
             }
             set {
                 this["UpgrateOnStartup"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Collections.Specialized.StringCollection KeywordArrayList {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["KeywordArrayList"]));
+            }
+            set {
+                this["KeywordArrayList"] = value;
             }
         }
     }

@@ -103,6 +103,7 @@ namespace EVEIntelManager
             Properties.Settings.Default.ReadLogsAferSeconds = readLogsAferSeconds;
             Properties.Settings.Default.LogRefreshRate      = refreshRate.Value;
             Properties.Settings.Default.DefaultChannel      = textDefaultChannel.Text;
+            Properties.Settings.Default.StartupChannels     = GetStartupChannels();
             Properties.Settings.Default.SettingsTabLast     = checkSettingsLastTab.Checked;
 
             Properties.Settings.Default.PlayIntelSound      = !checkSynthesizeSpeech.Checked;
@@ -139,6 +140,8 @@ namespace EVEIntelManager
             textReadLogsAferSeconds.Text = Properties.Settings.Default.ReadLogsAferSeconds.ToString();
             textRefreshRate.Text = GetRefreshRateAsString();
             textDefaultChannel.Text = Properties.Settings.Default.DefaultChannel;
+            SetStartupChannels(Properties.Settings.Default.StartupChannels);
+
             checkAutoLoad.Checked = Properties.Settings.Default.AutoLoadDefaultChannel;
             checkUpgrateOnStartup.Checked = Properties.Settings.Default.UpgrateOnStartup;
             checkSettingsLastTab.Checked = Properties.Settings.Default.SettingsTabLast;
@@ -258,5 +261,90 @@ namespace EVEIntelManager
                 labelError.Text = "Click 'Apply' to apply changes to Keywords";
             }
         }
+        
+        private string[] GetStartupChannels()
+        {
+            string[] channels = new string[textDefaultChannel.Items.Count];
+
+            for (int i = 0; i < textDefaultChannel.Items.Count; i++)
+            {
+                channels[i] = textDefaultChannel.Items[i].ToString().Trim();
+            }
+
+            return channels;
+        }
+
+        private bool AddStartupChannel(string channel)
+        {
+            if (!string.IsNullOrEmpty(channel))
+            {
+                channel = channel.Trim();
+
+                if (!textDefaultChannel.Items.Contains(channel))
+                {
+                    textDefaultChannel.Items.Add(channel);
+
+                    labelError.Text = "Click 'Apply' to apply changes to Startup Channels";
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private void SetStartupChannels(string[] channels)
+        {
+            textDefaultChannel.Items.Clear();
+            textDefaultChannel.Items.AddRange(channels);
+        }
+
+        private void buttonAddChannel_Click(object sender, EventArgs e)
+        {
+            if (AddStartupChannel(textDefaultChannel.Text))
+            {
+                SystemSounds.Asterisk.Play();
+            }
+            else
+            {
+                labelError.Text = "Channel " + textDefaultChannel.Text + " is already added.";
+                SystemSounds.Beep.Play();
+            }
+        }
+
+        private void buttonRemoveChannel_Click(object sender, EventArgs e)
+        {
+            if (textDefaultChannel.SelectedItem != null)
+            {
+                textDefaultChannel.Items.Remove(textDefaultChannel.SelectedItem);
+
+                if (textDefaultChannel.Items.Count > 0)
+                {
+                    textDefaultChannel.SelectedIndex = 0;
+                }
+
+                labelError.Text = "Click 'Apply' to apply changes to Startup Channels";
+                SystemSounds.Asterisk.Play();
+            }
+            else
+            {
+                labelError.Text = "Unable to remove " + textDefaultChannel.Text + ", channel is not in the list.";
+                SystemSounds.Beep.Play();
+            }
+        }
+
+        private void textDefaultChannel_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                buttonAddChannel_Click(sender, e);
+            }
+        }
+
     }
 }

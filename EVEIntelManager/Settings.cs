@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Specialized;
 namespace EVEIntelManager.Properties {
     
     
@@ -24,7 +25,9 @@ namespace EVEIntelManager.Properties {
             {
                 if (this.KeywordArrayList != null)
                 {
-                    return (string[])(this.KeywordArrayList.ToArray(typeof(string)));
+                    string[] keywords = new string[this.KeywordArrayList.Count];
+                    this.KeywordArrayList.CopyTo(keywords, 0);
+                    return keywords;
                 }
                 else
                 {
@@ -33,10 +36,47 @@ namespace EVEIntelManager.Properties {
             }
             set
             {
-                this.KeywordArrayList = new ArrayList(value);
+                if (this.KeywordArrayList == null)
+                {
+                    this.KeywordArrayList = new StringCollection();
+                }
+                else
+                {
+                    this.KeywordArrayList.Clear();
+                }
+                this.KeywordArrayList.AddRange(value);
             }
         }
-
+        
+        public string[] StartupChannels
+        {
+            get
+            {
+                if (this.StartupChannelList != null)
+                {
+                    string[] keywords = new string[this.StartupChannelList.Count];
+                    this.StartupChannelList.CopyTo(keywords, 0);
+                    return keywords;
+                }
+                else
+                {
+                    return new string[] {};
+                }
+            }
+            set
+            {
+                if (this.StartupChannelList == null)
+                {
+                    this.StartupChannelList = new StringCollection();
+                }
+                else
+                {
+                    this.StartupChannelList.Clear();
+                }
+                this.StartupChannelList.AddRange(value);
+            }
+        }
+        
         private void SettingChangingEventHandler(object sender, System.Configuration.SettingChangingEventArgs e) {
             // Add code to handle the SettingChangingEvent event here.
         }

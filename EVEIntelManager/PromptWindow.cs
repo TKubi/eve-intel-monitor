@@ -14,6 +14,7 @@ namespace EVEIntelManager
         public delegate bool InputValidator(string input);
 
         private InputValidator validator;
+        private string message;
 
         public PromptWindow()
         {
@@ -26,12 +27,23 @@ namespace EVEIntelManager
             set { this.validator = value; }
         }
 
+        public string Message
+        {
+            get { return message; }
+            set { 
+                this.message = value;
+                textMessage.Rtf = message;
+            }
+        }
+
+
         private void buttonAccept_Click(object sender, EventArgs e)
         {
             string value = textInput.Text;
             if (!validator(value))
             {
-                labelError.Text = "Invalid value, please try again";
+                textMessage.Text = "Invalid value, please try again.";
+                textMessage.ForeColor = Color.DarkRed;
             }
             else
             {
@@ -47,13 +59,14 @@ namespace EVEIntelManager
             return int.TryParse(input, out value);
         }
 
-        public static string Show(IWin32Window parent, string title, string message, double defaultValue, InputValidator validator)
+        public static string Show(IWin32Window parent, string title, string message, string defaultValue, InputValidator validator)
         {
             PromptWindow window = new PromptWindow();
             window.Text = title;
-            window.labelMessage.Text = message;
-            window.textInput.Text = defaultValue.ToString();
-
+            window.Message = message;
+            window.textInput.Text = defaultValue;
+            window.Validator = validator;
+           
             DialogResult result = window.ShowDialog(parent);
             if (result == DialogResult.OK)
             {
@@ -63,6 +76,11 @@ namespace EVEIntelManager
             {
                 return null;
             }
+        }
+
+        private void PromptWindow_Shown(object sender, EventArgs e)
+        {
+            textInput.Focus();
         }
     }
 }
