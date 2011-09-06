@@ -27,11 +27,6 @@ namespace EVEIntelManager
 
             window.Text = GetTitle();
 
-
-           // string[] systems = {"E-B", "H23", "ETXT", "A-0", "I-C", "HB", "VY", "4LNE", "L-Z"};
-           // Properties.Settings.Default.KeywordsArray = systems;
-           // Properties.Settings.Default.Save();
-
             monitor.Path = GetEVELogDirectory();            
             window.Monitor = monitor;
 

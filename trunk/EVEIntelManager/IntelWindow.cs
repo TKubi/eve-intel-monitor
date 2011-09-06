@@ -50,14 +50,7 @@ namespace EVEIntelManager
                 if (!Properties.Settings.Default.FirstLoad &&
                     Properties.Settings.Default.AutoLoadDefaultChannel)
                 {
-                    buttonRead_Click(null, null);
-
-                    if (monitor.Channels.Count > 0)
-                    {
-                        LogFileMonitor firstMonitor = monitor.Channels.First();
-                        listFiles.SetItemChecked(listFiles.Items.IndexOf(firstMonitor), true);
-                        buttonLoadChannels_Click(null, null);
-                    }
+                    LoadStartupChannels();
                 }
             }
             get { return this.monitor; }
@@ -141,9 +134,34 @@ namespace EVEIntelManager
         
         private void buttonRead_Click(object sender, EventArgs e)
         {
+            LogFileMonitor monitor = ReadChannel(textChannelName.Text);
+
+            if (monitor == null)
+            {
+                MessageBox.Show(this, "Invalid Channel Name: " + textChannelName.Text + " (try replacing non-alphanumeric charecters with underscors_)", "Invalid channel name", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void LoadStartupChannels()
+        {
+            foreach (string channel in Properties.Settings.Default.StartupChannels)
+            {
+                LogFileMonitor fileMonitor = ReadChannel(channel);
+
+                if (fileMonitor != null)
+                {
+                    logReaderUI.Add(fileMonitor);
+                    listLoadedChannels.Items.Add(fileMonitor);
+                    Analyzer.Add(fileMonitor);
+                }
+            }
+        }
+
+        private LogFileMonitor ReadChannel(string channel)
+        {
             try
             {
-                monitor.ChannelName = textChannelName.Text;
+                monitor.ChannelName = channel;
                 List<LogFileMonitor> monitors = monitor.ReadDirectory();
 
                 listFiles.Items.Clear();
@@ -155,7 +173,7 @@ namespace EVEIntelManager
                         listFiles.Items.Add(logFile);
                     }
                     else
-                    {    
+                    {
                         SystemSounds.Beep.Play();
                     }
                 }
@@ -163,12 +181,14 @@ namespace EVEIntelManager
                 if (listFiles.Items.Count > 0)
                 {
                     listFiles.SetItemChecked(0, true);
+                    return (LogFileMonitor)listFiles.Items[0];
                 }
+
+                return null;
             }
             catch (Exception)
             {
-                MessageBox.Show(this, "Invalid Channel Name: " + textChannelName.Text + " (try replacing non-alphanumeric charecters with underscors_)", "Invalid channel name", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                return null;
             }
         }
 

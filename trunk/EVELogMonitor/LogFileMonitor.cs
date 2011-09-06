@@ -30,7 +30,7 @@ namespace EVELogMonitor
         {
             if (fileChannel.Channel.ChannelName != null)
             {
-                return fileChannel.Channel.ChannelName + " (" + fileChannel.Channel.Listener + ")";
+                return fileChannel.Channel.ChannelName + " (" + fileChannel.Channel.Listener + ") " + fileChannel.Channel.SessionStarted.ToShortTimeString();
             }
             else
             {

@@ -38,14 +38,28 @@
     <Setting Name="DefaultChannel" GenerateDefaultValueInCode="false" Type="System.String" Scope="User">
       <Value Profile="(Default)">Intel Cobalt</Value>
     </Setting>
-    <Setting Name="StartupChannels" GenerateDefaultValueInCode="false" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Intel Cobalt</Value>
-    </Setting>
-    <Setting Name="KeywordArrayList" GenerateDefaultValueInCode="false" Type="System.Collections.ArrayList" Scope="User">
-      <Value Profile="(Default)" />
+    <Setting Name="StartupChannelList" GenerateDefaultValueInCode="false" Type="System.Collections.Specialized.StringCollection" Scope="User">
+      <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;string&gt;Intel Cobalt&lt;/string&gt;
+&lt;/ArrayOfString&gt;</Value>
     </Setting>
     <Setting Name="UpgrateOnStartup" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="KeywordArrayList" GenerateDefaultValueInCode="false" Type="System.Collections.Specialized.StringCollection" Scope="User">
+      <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;string&gt;E-B&lt;/string&gt;
+  &lt;string&gt;H23&lt;/string&gt;
+  &lt;string&gt;ETXT&lt;/string&gt;
+  &lt;string&gt;A-0&lt;/string&gt;
+  &lt;string&gt;I-C&lt;/string&gt;
+  &lt;string&gt;HB&lt;/string&gt;
+  &lt;string&gt;VY&lt;/string&gt;
+  &lt;string&gt;4LNE&lt;/string&gt;
+  &lt;string&gt;L-Z&lt;/string&gt;
+&lt;/ArrayOfString&gt;</Value>
     </Setting>
   </Settings>
 </SettingsFile>

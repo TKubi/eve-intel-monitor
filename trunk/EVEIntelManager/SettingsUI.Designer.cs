@@ -34,13 +34,17 @@
             this.textKeywords = new System.Windows.Forms.TextBox();
             this.checkAutoLoad = new System.Windows.Forms.CheckBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.textDefaultChannel = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.buttonRemoveChannel = new System.Windows.Forms.Button();
+            this.textDefaultChannel = new System.Windows.Forms.ComboBox();
+            this.buttonAddChannel = new System.Windows.Forms.Button();
             this.listKeywords = new System.Windows.Forms.ListBox();
             this.buttonEdit = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.checkSynthesizeSpeech = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.comboSelectedVoice = new System.Windows.Forms.ComboBox();
             this.labelSpeachRateDisplay = new System.Windows.Forms.Label();
             this.scrollSpeachRate = new System.Windows.Forms.HScrollBar();
             this.label6 = new System.Windows.Forms.Label();
@@ -48,6 +52,7 @@
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.checkSettingsLastTab = new System.Windows.Forms.CheckBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.checkUpgrateOnStartup = new System.Windows.Forms.CheckBox();
             this.labelError = new System.Windows.Forms.Label();
             this.buttonApply = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
@@ -64,9 +69,6 @@
             this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.colorDialog = new System.Windows.Forms.ColorDialog();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.comboSelectedVoice = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.checkUpgrateOnStartup = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -80,7 +82,7 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.labelKeywordsDesc.Location = new System.Drawing.Point(321, 62);
             this.labelKeywordsDesc.Name = "labelKeywordsDesc";
-            this.labelKeywordsDesc.Size = new System.Drawing.Size(297, 53);
+            this.labelKeywordsDesc.Size = new System.Drawing.Size(307, 53);
             this.labelKeywordsDesc.TabIndex = 9;
             this.labelKeywordsDesc.Text = "Enter keywords to search for in the intel (separatede by new lines)\r\nIn here you " +
                 "can enter system names, partial names or other keywords that you want to match i" +
@@ -89,13 +91,13 @@
             // 
             // label2
             // 
-            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.label2.Location = new System.Drawing.Point(320, 16);
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label2.Location = new System.Drawing.Point(392, 11);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(297, 17);
+            this.label2.Size = new System.Drawing.Size(229, 45);
             this.label2.TabIndex = 8;
-            this.label2.Text = "Enter Channel Name as it appears in game";
+            this.label2.Text = "Default channel list that would be loaded at strartup. \r\nPress [enter] or use \"+\"" +
+                " to add a new channel.";
             // 
             // label3
             // 
@@ -121,31 +123,27 @@
             this.checkAutoLoad.AutoSize = true;
             this.checkAutoLoad.Location = new System.Drawing.Point(97, 39);
             this.checkAutoLoad.Name = "checkAutoLoad";
-            this.checkAutoLoad.Size = new System.Drawing.Size(165, 17);
+            this.checkAutoLoad.Size = new System.Drawing.Size(214, 17);
             this.checkAutoLoad.TabIndex = 0;
-            this.checkAutoLoad.Text = "Auto-load the default channel";
+            this.checkAutoLoad.Text = "Auto-load the channels in the startup list";
             this.checkAutoLoad.UseVisualStyleBackColor = true;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(5, 16);
+            this.label4.Location = new System.Drawing.Point(8, 16);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(86, 13);
             this.label4.TabIndex = 2;
             this.label4.Text = "Default Channel:";
             // 
-            // textDefaultChannel
-            // 
-            this.textDefaultChannel.Location = new System.Drawing.Point(97, 13);
-            this.textDefaultChannel.Name = "textDefaultChannel";
-            this.textDefaultChannel.Size = new System.Drawing.Size(217, 20);
-            this.textDefaultChannel.TabIndex = 1;
-            // 
             // groupBox1
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.buttonRemoveChannel);
+            this.groupBox1.Controls.Add(this.textDefaultChannel);
+            this.groupBox1.Controls.Add(this.buttonAddChannel);
             this.groupBox1.Controls.Add(this.listKeywords);
             this.groupBox1.Controls.Add(this.buttonEdit);
             this.groupBox1.Controls.Add(this.labelKeywordsDesc);
@@ -154,13 +152,47 @@
             this.groupBox1.Controls.Add(this.textKeywords);
             this.groupBox1.Controls.Add(this.checkAutoLoad);
             this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.textDefaultChannel);
             this.groupBox1.Location = new System.Drawing.Point(0, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(624, 190);
+            this.groupBox1.Size = new System.Drawing.Size(634, 190);
             this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Intel Settings";
+            // 
+            // buttonRemoveChannel
+            // 
+            this.buttonRemoveChannel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonRemoveChannel.Location = new System.Drawing.Point(361, 11);
+            this.buttonRemoveChannel.Name = "buttonRemoveChannel";
+            this.buttonRemoveChannel.Size = new System.Drawing.Size(21, 23);
+            this.buttonRemoveChannel.TabIndex = 14;
+            this.buttonRemoveChannel.Text = "-";
+            this.buttonRemoveChannel.UseVisualStyleBackColor = true;
+            this.buttonRemoveChannel.Click += new System.EventHandler(this.buttonRemoveChannel_Click);
+            // 
+            // textDefaultChannel
+            // 
+            this.textDefaultChannel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.textDefaultChannel.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.textDefaultChannel.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.textDefaultChannel.FormattingEnabled = true;
+            this.textDefaultChannel.Location = new System.Drawing.Point(97, 13);
+            this.textDefaultChannel.Name = "textDefaultChannel";
+            this.textDefaultChannel.Size = new System.Drawing.Size(230, 21);
+            this.textDefaultChannel.TabIndex = 13;
+            this.textDefaultChannel.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textDefaultChannel_KeyUp);
+            // 
+            // buttonAddChannel
+            // 
+            this.buttonAddChannel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonAddChannel.Location = new System.Drawing.Point(333, 11);
+            this.buttonAddChannel.Name = "buttonAddChannel";
+            this.buttonAddChannel.Size = new System.Drawing.Size(22, 23);
+            this.buttonAddChannel.TabIndex = 12;
+            this.buttonAddChannel.Text = "+";
+            this.buttonAddChannel.UseVisualStyleBackColor = true;
+            this.buttonAddChannel.Click += new System.EventHandler(this.buttonAddChannel_Click);
             // 
             // listKeywords
             // 
@@ -169,7 +201,7 @@
             this.listKeywords.FormattingEnabled = true;
             this.listKeywords.Location = new System.Drawing.Point(97, 62);
             this.listKeywords.Name = "listKeywords";
-            this.listKeywords.Size = new System.Drawing.Size(517, 121);
+            this.listKeywords.Size = new System.Drawing.Size(527, 121);
             this.listKeywords.TabIndex = 11;
             // 
             // buttonEdit
@@ -213,10 +245,29 @@
             this.groupBox2.Controls.Add(this.checkSynthesizeSpeech);
             this.groupBox2.Location = new System.Drawing.Point(0, 194);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(624, 84);
+            this.groupBox2.Size = new System.Drawing.Size(634, 84);
             this.groupBox2.TabIndex = 7;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Sound Settings";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(137, 19);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(82, 13);
+            this.label1.TabIndex = 9;
+            this.label1.Text = "Selected Voice:";
+            // 
+            // comboSelectedVoice
+            // 
+            this.comboSelectedVoice.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.comboSelectedVoice.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.comboSelectedVoice.FormattingEnabled = true;
+            this.comboSelectedVoice.Location = new System.Drawing.Point(225, 15);
+            this.comboSelectedVoice.Name = "comboSelectedVoice";
+            this.comboSelectedVoice.Size = new System.Drawing.Size(152, 21);
+            this.comboSelectedVoice.TabIndex = 8;
             // 
             // labelSpeachRateDisplay
             // 
@@ -243,7 +294,7 @@
             // 
             this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(515, 64);
+            this.label6.Location = new System.Drawing.Point(525, 64);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(98, 13);
             this.label6.TabIndex = 6;
@@ -292,10 +343,20 @@
             this.groupBox3.Controls.Add(this.checkSettingsLastTab);
             this.groupBox3.Location = new System.Drawing.Point(1, 284);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(623, 95);
+            this.groupBox3.Size = new System.Drawing.Size(633, 95);
             this.groupBox3.TabIndex = 6;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "UI Settings";
+            // 
+            // checkUpgrateOnStartup
+            // 
+            this.checkUpgrateOnStartup.AutoSize = true;
+            this.checkUpgrateOnStartup.Location = new System.Drawing.Point(8, 38);
+            this.checkUpgrateOnStartup.Name = "checkUpgrateOnStartup";
+            this.checkUpgrateOnStartup.Size = new System.Drawing.Size(187, 17);
+            this.checkUpgrateOnStartup.TabIndex = 7;
+            this.checkUpgrateOnStartup.Text = "Check for new versions on startup";
+            this.checkUpgrateOnStartup.UseVisualStyleBackColor = true;
             // 
             // labelError
             // 
@@ -305,14 +366,14 @@
             this.labelError.ForeColor = System.Drawing.Color.DarkRed;
             this.labelError.Location = new System.Drawing.Point(10, 4);
             this.labelError.Name = "labelError";
-            this.labelError.Size = new System.Drawing.Size(462, 26);
+            this.labelError.Size = new System.Drawing.Size(475, 26);
             this.labelError.TabIndex = 5;
             this.labelError.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // buttonApply
             // 
             this.buttonApply.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonApply.Location = new System.Drawing.Point(478, 4);
+            this.buttonApply.Location = new System.Drawing.Point(491, 4);
             this.buttonApply.Name = "buttonApply";
             this.buttonApply.Size = new System.Drawing.Size(68, 23);
             this.buttonApply.TabIndex = 1;
@@ -323,7 +384,7 @@
             // buttonCancel
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonCancel.Location = new System.Drawing.Point(552, 4);
+            this.buttonCancel.Location = new System.Drawing.Point(565, 4);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(69, 23);
             this.buttonCancel.TabIndex = 2;
@@ -344,7 +405,7 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.label9.Location = new System.Drawing.Point(245, 49);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(371, 23);
+            this.label9.Size = new System.Drawing.Size(381, 23);
             this.label9.TabIndex = 8;
             this.label9.Text = "Enter Modified Within in seconds (between 0 seconds and 1 days)";
             // 
@@ -354,7 +415,7 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.label10.Location = new System.Drawing.Point(245, 72);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(371, 26);
+            this.label10.Size = new System.Drawing.Size(381, 26);
             this.label10.TabIndex = 7;
             this.label10.Text = "Enter refresh cycle in seconds (between 1 and 3600 seconds).";
             // 
@@ -386,7 +447,7 @@
             // buttonBrowse
             // 
             this.buttonBrowse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonBrowse.Location = new System.Drawing.Point(590, 15);
+            this.buttonBrowse.Location = new System.Drawing.Point(600, 15);
             this.buttonBrowse.Name = "buttonBrowse";
             this.buttonBrowse.Size = new System.Drawing.Size(26, 23);
             this.buttonBrowse.TabIndex = 2;
@@ -400,7 +461,7 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.textEVELogDirectory.Location = new System.Drawing.Point(139, 17);
             this.textEVELogDirectory.Name = "textEVELogDirectory";
-            this.textEVELogDirectory.Size = new System.Drawing.Size(445, 20);
+            this.textEVELogDirectory.Size = new System.Drawing.Size(455, 20);
             this.textEVELogDirectory.TabIndex = 1;
             // 
             // label13
@@ -427,7 +488,7 @@
             this.groupBox4.Controls.Add(this.label13);
             this.groupBox4.Location = new System.Drawing.Point(1, 385);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(623, 133);
+            this.groupBox4.Size = new System.Drawing.Size(633, 133);
             this.groupBox4.TabIndex = 0;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Channel Log Settings";
@@ -444,37 +505,8 @@
             this.panel1.Controls.Add(this.groupBox2);
             this.panel1.Location = new System.Drawing.Point(3, 33);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(627, 522);
+            this.panel1.Size = new System.Drawing.Size(637, 536);
             this.panel1.TabIndex = 9;
-            // 
-            // comboSelectedVoice
-            // 
-            this.comboSelectedVoice.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.comboSelectedVoice.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.comboSelectedVoice.FormattingEnabled = true;
-            this.comboSelectedVoice.Location = new System.Drawing.Point(225, 15);
-            this.comboSelectedVoice.Name = "comboSelectedVoice";
-            this.comboSelectedVoice.Size = new System.Drawing.Size(152, 21);
-            this.comboSelectedVoice.TabIndex = 8;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(137, 19);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(82, 13);
-            this.label1.TabIndex = 9;
-            this.label1.Text = "Selected Voice:";
-            // 
-            // checkUpgrateOnStartup
-            // 
-            this.checkUpgrateOnStartup.AutoSize = true;
-            this.checkUpgrateOnStartup.Location = new System.Drawing.Point(8, 38);
-            this.checkUpgrateOnStartup.Name = "checkUpgrateOnStartup";
-            this.checkUpgrateOnStartup.Size = new System.Drawing.Size(187, 17);
-            this.checkUpgrateOnStartup.TabIndex = 7;
-            this.checkUpgrateOnStartup.Text = "Check for new versions on startup";
-            this.checkUpgrateOnStartup.UseVisualStyleBackColor = true;
             // 
             // SettingsUI
             // 
@@ -485,7 +517,7 @@
             this.Controls.Add(this.labelError);
             this.Controls.Add(this.buttonApply);
             this.Name = "SettingsUI";
-            this.Size = new System.Drawing.Size(630, 561);
+            this.Size = new System.Drawing.Size(643, 575);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -507,7 +539,6 @@
         private System.Windows.Forms.TextBox textKeywords;
         private System.Windows.Forms.CheckBox checkAutoLoad;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textDefaultChannel;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.CheckBox checkSynthesizeSpeech;
@@ -540,5 +571,8 @@
         private System.Windows.Forms.ComboBox comboSelectedVoice;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.CheckBox checkUpgrateOnStartup;
+        private System.Windows.Forms.Button buttonAddChannel;
+        private System.Windows.Forms.ComboBox textDefaultChannel;
+        private System.Windows.Forms.Button buttonRemoveChannel;
     }
 }
