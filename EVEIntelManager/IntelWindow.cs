@@ -37,7 +37,7 @@ namespace EVEIntelManager
         //public static Color FG_BUTTON_COLOR = System.Drawing.Color.FromArgb(0, 0, 0);
 
         private LogDirectoryMonitor monitor;
-        private Queue<IntelDisplay> synthesizerMessages = new Queue<IntelDisplay>();
+        private Queue<IntelPresentation> synthesizerMessages = new Queue<IntelPresentation>();
 
         public IntelAnalyzer Analyzer { set; get; }
 
@@ -53,11 +53,6 @@ namespace EVEIntelManager
                     Properties.Settings.Default.AutoLoadDefaultChannel)
                 {
                     LoadStartupChannels();
-                }
-
-                if (Properties.Settings.Default.UpgrateOnStartup)
-                {
-                    backgroundUpdateWorker.RunWorkerAsync();
                 }
             }
             get { return this.monitor; }
@@ -80,6 +75,11 @@ namespace EVEIntelManager
             Analyzer.ChangedIntel += NotifyIntel;
             Analyzer.ChangedIntelActive += NotifyIntelActive;
             Analyzer.Active = true;
+
+            if (Properties.Settings.Default.UpgrateOnStartup)
+            {
+                backgroundUpdateWorker.RunWorkerAsync();
+            }
 
             this.Text = "EVE Intel Monitor - " + ApplicationInstaller.GetCurrentVersion();
         }
@@ -117,7 +117,10 @@ namespace EVEIntelManager
                 }
             }
 
+            this.tabControl.Refresh();
+            statusStrip.Visible = Properties.Settings.Default.ShowStatusBar;
 
+            toolStripStatusLabel.Text = "Settings have been applied.";
         }
 
         private void UpdateColorScheme() {
@@ -147,7 +150,10 @@ namespace EVEIntelManager
 
             if (monitor == null)
             {
-                MessageBox.Show(this, "Invalid Channel Name: " + textChannelName.Text + " (try replacing non-alphanumeric charecters with underscors_)", "Invalid channel name", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(this, 
+                    "Invalid Channel Name: " + textChannelName.Text 
+                    + " (try replacing non-alphanumeric charecters with underscors_)", "Invalid channel name", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -254,8 +260,8 @@ namespace EVEIntelManager
                 return;
             }
 
-            IntelDisplay intelDisplay = new IntelDisplay(intel);
-
+            IntelPresentation intelDisplay = new IntelPresentation(intel);
+            
             if (listIntel.Items.Count > 0)
             {
                 listIntel.Items.Insert(0, intelDisplay);
@@ -320,6 +326,7 @@ namespace EVEIntelManager
                 return;
             }
 
+            toolStripStatusLabel.Text = text;
             labelPausingIntel.Text = text;
         }
 
@@ -339,7 +346,9 @@ namespace EVEIntelManager
                 {
                     if (Analyzer.Active)
                     {
-                        IntelDisplay message = synthesizerMessages.Dequeue();
+                        IntelPresentation message = synthesizerMessages.Dequeue();
+
+                        toolStripStatusLabel.Text = message.ToString();
                         synth.Speak(message.ToSpeach());
                     }
                     else
@@ -376,11 +385,11 @@ namespace EVEIntelManager
         }
     }
 
-    class IntelDisplay
+    class IntelPresentation
     {
         public Intel Intel { get; set; }
 
-        public IntelDisplay(Intel intel)
+        public IntelPresentation(Intel intel)
         {
             this.Intel = intel;
         }
