@@ -46,9 +46,17 @@ namespace EVEIntelManager
         }
 
         public static void CheckForUpdates(IWin32Window parent) {
-            AppVersion latestVersion = DownloadVersions();
-            if (latestVersion != null) {
-                PromptWindow.Show(parent, "Update", "Update to " + latestVersion + "? (Yes/No)", "Yes", YesNoInputValidator);
+            try
+            {
+                AppVersion latestVersion = DownloadVersions();
+                if (latestVersion != null)
+                {
+                    PromptWindow.Show(parent, "Update", "Update to " + latestVersion + "? (Yes/No)", "Yes", YesNoInputValidator);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Unable to run an update: " + e.Message);
             }
         }
 
@@ -62,7 +70,6 @@ namespace EVEIntelManager
         /// </summary>
         public static AppVersion DownloadVersions()
         {
-           // System.Threading.Thread.Sleep(5000);
             AppVersion currentVersion = GetCurrentVersion();
 
             string url = Properties.Settings.Default.UpdateVersionPath;

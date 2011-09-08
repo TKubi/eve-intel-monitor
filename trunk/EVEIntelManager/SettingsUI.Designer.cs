@@ -69,6 +69,7 @@
             this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.colorDialog = new System.Windows.Forms.ColorDialog();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.checkShowStatusBar = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -294,7 +295,7 @@
             // 
             this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(525, 64);
+            this.label6.Location = new System.Drawing.Point(525, 98);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(98, 13);
             this.label6.TabIndex = 6;
@@ -303,7 +304,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(7, 64);
+            this.label7.Location = new System.Drawing.Point(7, 98);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(148, 13);
             this.label7.TabIndex = 5;
@@ -316,7 +317,7 @@
             this.comboBox1.Items.AddRange(new object[] {
             "Default",
             "Dark"});
-            this.comboBox1.Location = new System.Drawing.Point(159, 61);
+            this.comboBox1.Location = new System.Drawing.Point(161, 95);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(121, 21);
             this.comboBox1.TabIndex = 4;
@@ -336,6 +337,7 @@
             // 
             this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox3.Controls.Add(this.checkShowStatusBar);
             this.groupBox3.Controls.Add(this.checkUpgrateOnStartup);
             this.groupBox3.Controls.Add(this.label6);
             this.groupBox3.Controls.Add(this.label7);
@@ -343,7 +345,7 @@
             this.groupBox3.Controls.Add(this.checkSettingsLastTab);
             this.groupBox3.Location = new System.Drawing.Point(1, 284);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(633, 95);
+            this.groupBox3.Size = new System.Drawing.Size(633, 119);
             this.groupBox3.TabIndex = 6;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "UI Settings";
@@ -351,7 +353,7 @@
             // checkUpgrateOnStartup
             // 
             this.checkUpgrateOnStartup.AutoSize = true;
-            this.checkUpgrateOnStartup.Location = new System.Drawing.Point(8, 38);
+            this.checkUpgrateOnStartup.Location = new System.Drawing.Point(8, 65);
             this.checkUpgrateOnStartup.Name = "checkUpgrateOnStartup";
             this.checkUpgrateOnStartup.Size = new System.Drawing.Size(187, 17);
             this.checkUpgrateOnStartup.TabIndex = 7;
@@ -486,7 +488,7 @@
             this.groupBox4.Controls.Add(this.buttonBrowse);
             this.groupBox4.Controls.Add(this.textEVELogDirectory);
             this.groupBox4.Controls.Add(this.label13);
-            this.groupBox4.Location = new System.Drawing.Point(1, 385);
+            this.groupBox4.Location = new System.Drawing.Point(1, 409);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(633, 133);
             this.groupBox4.TabIndex = 0;
@@ -505,8 +507,18 @@
             this.panel1.Controls.Add(this.groupBox2);
             this.panel1.Location = new System.Drawing.Point(3, 33);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(637, 536);
+            this.panel1.Size = new System.Drawing.Size(637, 545);
             this.panel1.TabIndex = 9;
+            // 
+            // checkShowStatusBar
+            // 
+            this.checkShowStatusBar.AutoSize = true;
+            this.checkShowStatusBar.Location = new System.Drawing.Point(8, 42);
+            this.checkShowStatusBar.Name = "checkShowStatusBar";
+            this.checkShowStatusBar.Size = new System.Drawing.Size(102, 17);
+            this.checkShowStatusBar.TabIndex = 8;
+            this.checkShowStatusBar.Text = "Show status bar";
+            this.checkShowStatusBar.UseVisualStyleBackColor = true;
             // 
             // SettingsUI
             // 
@@ -517,7 +529,7 @@
             this.Controls.Add(this.labelError);
             this.Controls.Add(this.buttonApply);
             this.Name = "SettingsUI";
-            this.Size = new System.Drawing.Size(643, 575);
+            this.Size = new System.Drawing.Size(643, 584);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -574,5 +586,6 @@
         private System.Windows.Forms.Button buttonAddChannel;
         private System.Windows.Forms.ComboBox textDefaultChannel;
         private System.Windows.Forms.Button buttonRemoveChannel;
+        private System.Windows.Forms.CheckBox checkShowStatusBar;
     }
 }

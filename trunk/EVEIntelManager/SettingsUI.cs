@@ -22,6 +22,10 @@ namespace EVEIntelManager
 
         private void buttonApply_Click(object sender, EventArgs e)
         {
+            ////////////////////////////////////////////////////////////////////////////////////
+            // Start validations
+            ////////////////////////////////////////////////////////////////////////////////////
+
             if (textEVELogDirectory.Text.Length == 0)
             {
                 labelError.Text = "Directory path is missing.";
@@ -92,9 +96,12 @@ namespace EVEIntelManager
             }
 
             ////////////////////////////////////////////////////////////////////////////////////
+            // Validations finished, start saving properties.
+            ////////////////////////////////////////////////////////////////////////////////////
 
             if (Properties.Settings.Default.FirstLoad)
             {
+                // if this is first 
                 Properties.Settings.Default.SettingsTabLast = true;
                 Properties.Settings.Default.FirstLoad = false;
             }
@@ -105,6 +112,7 @@ namespace EVEIntelManager
             Properties.Settings.Default.DefaultChannel      = textDefaultChannel.Text;
             Properties.Settings.Default.StartupChannels     = GetStartupChannels();
             Properties.Settings.Default.SettingsTabLast     = checkSettingsLastTab.Checked;
+            Properties.Settings.Default.ShowStatusBar       = checkShowStatusBar.Checked;
 
             Properties.Settings.Default.PlayIntelSound      = !checkSynthesizeSpeech.Checked;
             Properties.Settings.Default.TextToSpeech        = checkSynthesizeSpeech.Checked;
@@ -146,6 +154,7 @@ namespace EVEIntelManager
             checkUpgrateOnStartup.Checked = Properties.Settings.Default.UpgrateOnStartup;
             checkSettingsLastTab.Checked = Properties.Settings.Default.SettingsTabLast;
             checkSynthesizeSpeech.Checked = Properties.Settings.Default.TextToSpeech;
+            checkShowStatusBar.Checked = Properties.Settings.Default.ShowStatusBar;
 
             if (Properties.Settings.Default.KeywordArrayList != null)
             {

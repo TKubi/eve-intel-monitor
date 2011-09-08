@@ -62,7 +62,10 @@
 &lt;/ArrayOfString&gt;</Value>
     </Setting>
     <Setting Name="UpdateVersionPath" Type="System.String" Scope="User">
-      <Value Profile="(Default)">file:\\\C:\Users\Simon\Documents\Visual Studio 2008\Projects\eve-intel-monitor\doc\versions.xml</Value>
+      <Value Profile="(Default)">file:///C:/Users/Simon/Documents/Visual Studio 2008/Projects/eve-intel-monitor/doc/versions.xml</Value>
+    </Setting>
+    <Setting Name="ShowStatusBar" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
     </Setting>
   </Settings>
 </SettingsFile>

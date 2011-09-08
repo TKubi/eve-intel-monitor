@@ -22,7 +22,10 @@ namespace EVEIntelManager
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            Properties.Settings.Default.Reload();
+            if (Properties.Settings.Default.FirstLoad)
+            {
+                Properties.Settings.Default.Upgrade();
+            }
 
             IntelWindow window = new IntelWindow();
 
