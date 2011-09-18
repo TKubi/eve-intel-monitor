@@ -25,7 +25,11 @@ namespace EVEIntelAnalyzer
             set
             {
                 this.active = value;
-                ChangedIntelActive(this.active);
+
+                if (ChangedIntelActive != null)
+                {
+                    ChangedIntelActive(this.active);
+                }
             }
         }
 
@@ -68,7 +72,8 @@ namespace EVEIntelAnalyzer
                     string formattedMessage = message.Message.Replace("at ", "").
                                                    Replace("near ", "").
                                                    Replace("in ", "").
-                                                   Replace("the ", "");
+                                                   Replace("the ", "").
+                                                   Replace("a ", "");
 
                     string[] messageParts = formattedMessage.Split(' ');
                     if (messageParts.Contains("Solar") && messageParts.Contains("System"))

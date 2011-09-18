@@ -88,6 +88,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationInstaller.cs" />
+    <Compile Include="IntelUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="IntelUI.Designer.cs">
+      <DependentUpon>IntelUI.cs</DependentUpon>
+    </Compile>
     <Compile Include="IntelWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -108,6 +114,10 @@
       <DependentUpon>PromptWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="IntelUI.resx">
+      <DependentUpon>IntelUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="IntelWindow.resx">
       <DependentUpon>IntelWindow.cs</DependentUpon>
       <SubType>Designer</SubType>

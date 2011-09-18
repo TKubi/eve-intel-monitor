@@ -17,17 +17,16 @@ using System.Speech.Synthesis;
 
 namespace EVEIntelManager
 { 
-    public delegate void NotifyIntel(Intel intel);
     public delegate void CheckForUpdates();
 
     public partial class IntelWindow : Form
     {
-        public static Color BG_COLOR = System.Drawing.SystemColors.Control;
-        public static Color FG_COLOR = System.Drawing.SystemColors.ControlText;
-        public static Color BG_WINDOW_COLOR = System.Drawing.SystemColors.Window;
-        public static Color FG_WINDOW_COLOR = System.Drawing.SystemColors.WindowText;
-        public static Color BG_BUTTON_COLOR = System.Drawing.SystemColors.Control;
-        public static Color FG_BUTTON_COLOR = System.Drawing.SystemColors.ControlText;
+    //    public static Color BG_COLOR = System.Drawing.SystemColors.Control;
+    //    public static Color FG_COLOR = System.Drawing.SystemColors.ControlText;
+    //    public static Color BG_WINDOW_COLOR = System.Drawing.SystemColors.Window;
+    //    public static Color FG_WINDOW_COLOR = System.Drawing.SystemColors.WindowText;
+    //    public static Color BG_BUTTON_COLOR = System.Drawing.SystemColors.Control;
+    //    public static Color FG_BUTTON_COLOR = System.Drawing.SystemColors.ControlText;
 
         //public static Color BG_COLOR = System.Drawing.Color.FromArgb(29, 48, 56);
         //public static Color FG_COLOR = System.Drawing.Color.FromArgb(183, 189, 193);
@@ -37,9 +36,7 @@ namespace EVEIntelManager
         //public static Color FG_BUTTON_COLOR = System.Drawing.Color.FromArgb(0, 0, 0);
 
         private LogDirectoryMonitor monitor;
-        private Queue<IntelPresentation> synthesizerMessages = new Queue<IntelPresentation>();
-
-        public IntelAnalyzer Analyzer { set; get; }
+        public IntelAnalyzer Analyzer { set { intelUI.Analyzer = value; } get { return intelUI.Analyzer; } }
 
         public LogDirectoryMonitor Monitor
         {
@@ -62,19 +59,12 @@ namespace EVEIntelManager
         public IntelWindow()
         {
             InitializeComponent();
-            UpdateColorScheme();
             
-            this.Analyzer = new IntelAnalyzer();
-
             if (Properties.Settings.Default.SettingsTabLast)
             {
                 this.tabControl.Controls.Remove(this.tabSettings);
                 this.tabControl.Controls.Add(this.tabSettings);
             }
-
-            Analyzer.ChangedIntel += NotifyIntel;
-            Analyzer.ChangedIntelActive += NotifyIntelActive;
-            Analyzer.Active = true;
 
             if (Properties.Settings.Default.UpgrateOnStartup)
             {
@@ -90,7 +80,7 @@ namespace EVEIntelManager
             textChannelName.Text = Properties.Settings.Default.DefaultChannel;
             logReaderUI.TimerInterval = Properties.Settings.Default.LogRefreshRate;
 
-            this.Analyzer.MatchStrings = Properties.Settings.Default.Keywords;
+            intelUI.Analyzer.MatchStrings = Properties.Settings.Default.Keywords;
 
             if (Properties.Settings.Default.SettingsTabLast)
             {
@@ -123,27 +113,6 @@ namespace EVEIntelManager
             toolStripStatusLabel.Text = "Settings have been applied.";
         }
 
-        private void UpdateColorScheme() {
-            this.tabChannels.ForeColor = IntelWindow.FG_COLOR;
-            this.textChannelName.ForeColor = IntelWindow.FG_COLOR;
-            this.tabIntel.BackColor = IntelWindow.BG_COLOR;
-            this.tabIntel.ForeColor = IntelWindow.FG_COLOR;
-            this.tabSettings.BackColor = IntelWindow.BG_COLOR;
-            this.tabSettings.ForeColor = IntelWindow.FG_COLOR;
-            this.checkAlwaysOnTop.ForeColor = IntelWindow.FG_COLOR;
-            this.tabChannels.BackColor = IntelWindow.BG_COLOR;
-            this.BackColor = IntelWindow.BG_COLOR;
-
-            this.buttonLoadChannels.ForeColor = IntelWindow.FG_BUTTON_COLOR;
-            this.buttonRead.ForeColor = IntelWindow.FG_BUTTON_COLOR;
-            this.buttonMonitorIntel.ForeColor = IntelWindow.FG_BUTTON_COLOR;
-            
-            this.listFiles.BackColor = IntelWindow.BG_WINDOW_COLOR;
-            this.listFiles.ForeColor = IntelWindow.FG_WINDOW_COLOR;
-            this.listIntel.BackColor = IntelWindow.BG_WINDOW_COLOR;
-            this.listIntel.ForeColor = IntelWindow.FG_WINDOW_COLOR;
-        }
-        
         private void buttonRead_Click(object sender, EventArgs e)
         {
             LogFileMonitor monitor = ReadChannel(textChannelName.Text);
@@ -225,65 +194,6 @@ namespace EVEIntelManager
             this.TopMost = checkAlwaysOnTop.Checked;
         }
 
-        private void buttonMonitorIntel_Click(object sender, EventArgs e)
-        {
-            Analyzer.Active = !Analyzer.Active;
-        }
-        
-        private void NotifyIntelActive(bool status) 
-        {
-            if (Analyzer.Active)
-            {
-                buttonMonitorIntel.Text = "&Stop";
-                setPausingText("");
-                if (!backgroundIntelSound.IsBusy)
-                {
-                    backgroundIntelSound.RunWorkerAsync();
-                }
-            }
-            else
-            {
-                buttonMonitorIntel.Text = "&Start";
-                
-                if (backgroundIntelSound.IsBusy)
-                {
-                    setPausingText("Pausing intel...");
-                }
-            }
-        }
-
-        private void NotifyIntel(Intel intel)
-        {
-            if (InvokeRequired)
-            {
-                this.Invoke((NotifyIntel)NotifyIntel, intel);
-                return;
-            }
-
-            IntelPresentation intelDisplay = new IntelPresentation(intel);
-            
-            if (listIntel.Items.Count > 0)
-            {
-                listIntel.Items.Insert(0, intelDisplay);
-            }
-            else
-            {
-                listIntel.Items.Add(intelDisplay);
-            }
-
-            if (Properties.Settings.Default.TextToSpeech)
-            {
-                synthesizerMessages.Enqueue(intelDisplay);
-                if (!backgroundIntelSound.IsBusy)
-                {
-                    backgroundIntelSound.RunWorkerAsync();
-                }
-            }
-            else if (Properties.Settings.Default.PlayIntelSound)
-            {
-                SystemSounds.Exclamation.Play();
-            }
-        }
 
         private void buttonLoadChannels_Click(object sender, EventArgs e)
         {
@@ -308,65 +218,6 @@ namespace EVEIntelManager
             }
         }
 
-        private void buttonClearIntel_Click(object sender, EventArgs e)
-        {
-            listIntel.Items.Clear();
-            synthesizerMessages.Clear();
-            setPausingText("");
-        }
-
-        private delegate void SetText(string text);
-
-        private void setPausingText(string text)
-        {
-            if (this.InvokeRequired)
-            {
-                this.Invoke((SetText)setPausingText, text);
-
-                return;
-            }
-
-            toolStripStatusLabel.Text = text;
-            labelPausingIntel.Text = text;
-        }
-
-        private void backgroundIntelSound_DoWork(object sender, DoWorkEventArgs e)
-        {
-            using (SpeechSynthesizer synth = new SpeechSynthesizer())
-            {
-                string selectedVoiceName = Properties.Settings.Default.TextToSpeechVoice;
-                if (!string.IsNullOrEmpty(selectedVoiceName))
-                {
-                    synth.SelectVoice(selectedVoiceName);
-                }
-                synth.Rate = Properties.Settings.Default.TextToSpeechRate;
-
-                int maxItel = Properties.Settings.Default.TextToSpeechMaxMessages;
-                for (int intel = 0; synthesizerMessages.Count > 0 && intel < maxItel; intel++)
-                {
-                    if (Analyzer.Active)
-                    {
-                        IntelPresentation message = synthesizerMessages.Dequeue();
-
-                        toolStripStatusLabel.Text = message.ToString();
-                        synth.Speak(message.ToSpeach());
-                    }
-                    else
-                    {
-                        setPausingText("Intel Paused.");
-                        return;
-                    }
-                }
-
-                if (synthesizerMessages.Count > 0)
-                {
-                    synth.Speak("Additional, " + synthesizerMessages.Count + " intel reports");
-                }
-                synthesizerMessages.Clear();
-                setPausingText("");
-            }
-
-        }
 
         private void backgroundUpdateWorker_DoWork(object sender, DoWorkEventArgs e)
         {
@@ -382,128 +233,6 @@ namespace EVEIntelManager
         private void CheckForUpdates()
         {
             ApplicationInstaller.CheckForUpdates(this);
-        }
-    }
-
-    class IntelPresentation
-    {
-        public Intel Intel { get; set; }
-
-        public IntelPresentation(Intel intel)
-        {
-            this.Intel = intel;
-        }
-
-       
-        public override string ToString()
-        {
-            string message = "";
-
-            if (Intel != null)
-            {
-                message += Intel.System != null ? GetRed(Intel.Red) : "";
-                message += GetSystem(Intel.System);
-                message += (message != "" ? " > " : "") + GetRawIntel(Intel);
-            }
-
-            return message;
-        }
-
-
-        public string ToSpeach()
-        {
-            string message = "";
-
-            if (Intel != null)
-            {
-
-                if (Intel.System != null && Intel.System.Name != null)
-                {
-                    if (!Intel.Clear)
-                    {
-                        message += GetRed(Intel.Red);
-                    }
-
-                    // convert the system name into "spelled by letter" with '-' spelled as 'tac'.
-                    string system = Intel.System.Name;
-                    string speakSystem = "";
-
-                    for (int i = 0; i < system.Length; i++)
-                    {
-                        char letter = system[i];
-                        if (char.IsLetter(letter))
-                        {
-                            speakSystem += system[i] + ". ";
-                        }
-                        else if (char.IsNumber(letter))
-                        {
-                            speakSystem += system[i] + ", ";
-                        }
-                        else if (letter == '-')
-                        {
-                            speakSystem += " tac ";
-                        }
-                    }
-
-                    if (Intel.Clear)
-                    {
-                        message += speakSystem + " is clear.";
-                    }
-                    else
-                    {
-                        message += " in " + speakSystem;
-
-                        if (Intel.NoVisual)
-                        {
-                            message += " no visual";
-                        }
-                    }
-
-                }
-                else
-                {
-                    message += GetRawIntel(Intel);
-                }
-            }
-
-            return message;
-        }
-
-        private string GetRed(Player red)
-        {
-            if (red != null)
-            {
-                string name = red.name != null ? red.name : "Intel";
-                string ship = red.ship != null ? " flying " + red.ship : "";
-                return name + ship;
-            }
-            else
-            {
-                return "red";
-            }
-        }
-
-        private string GetSystem(SolarSystem system)
-        {
-            if (system != null)
-            {
-                string name = system.Name != null ? system.Name : "Unknown system";
-                return " in " + name;
-            }
-            else
-            {
-                return "";
-            }
-        }
-
-        private string GetRawIntel(Intel intel)
-        {
-            string rawIntel = Intel.Message.Message;
-            if (rawIntel.Length > 50)
-            {
-                rawIntel = rawIntel.Substring(0, 50);
-            }
-            return "Intel: " + rawIntel;
         }
     }
 }
