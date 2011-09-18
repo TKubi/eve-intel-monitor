@@ -46,13 +46,8 @@
             this.listFiles = new System.Windows.Forms.CheckedListBox();
             this.logReaderUI = new EVEIntelManager.LogReaderUI();
             this.tabIntel = new System.Windows.Forms.TabPage();
-            this.listIntel = new System.Windows.Forms.ListBox();
-            this.panelIntellHeader = new System.Windows.Forms.Panel();
-            this.buttonClearIntel = new System.Windows.Forms.Button();
-            this.labelPausingIntel = new System.Windows.Forms.Label();
-            this.buttonMonitorIntel = new System.Windows.Forms.Button();
+            this.intelUI = new EVEIntelManager.IntelUI();
             this.checkAlwaysOnTop = new System.Windows.Forms.CheckBox();
-            this.backgroundIntelSound = new System.ComponentModel.BackgroundWorker();
             this.backgroundUpdateWorker = new System.ComponentModel.BackgroundWorker();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
@@ -64,7 +59,6 @@
             this.splitContainer.Panel2.SuspendLayout();
             this.splitContainer.SuspendLayout();
             this.tabIntel.SuspendLayout();
-            this.panelIntellHeader.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -259,8 +253,7 @@
             // 
             // tabIntel
             // 
-            this.tabIntel.Controls.Add(this.listIntel);
-            this.tabIntel.Controls.Add(this.panelIntellHeader);
+            this.tabIntel.Controls.Add(this.intelUI);
             this.tabIntel.Location = new System.Drawing.Point(4, 22);
             this.tabIntel.Name = "tabIntel";
             this.tabIntel.Padding = new System.Windows.Forms.Padding(3);
@@ -269,59 +262,13 @@
             this.tabIntel.Text = "Intel";
             this.tabIntel.UseVisualStyleBackColor = true;
             // 
-            // listIntel
+            // intelUI
             // 
-            this.listIntel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listIntel.FormattingEnabled = true;
-            this.listIntel.Location = new System.Drawing.Point(3, 32);
-            this.listIntel.Name = "listIntel";
-            this.listIntel.Size = new System.Drawing.Size(723, 342);
-            this.listIntel.TabIndex = 13;
-            // 
-            // panelIntellHeader
-            // 
-            this.panelIntellHeader.Controls.Add(this.buttonClearIntel);
-            this.panelIntellHeader.Controls.Add(this.labelPausingIntel);
-            this.panelIntellHeader.Controls.Add(this.buttonMonitorIntel);
-            this.panelIntellHeader.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelIntellHeader.Location = new System.Drawing.Point(3, 3);
-            this.panelIntellHeader.Name = "panelIntellHeader";
-            this.panelIntellHeader.Size = new System.Drawing.Size(723, 29);
-            this.panelIntellHeader.TabIndex = 12;
-            // 
-            // buttonClearIntel
-            // 
-            this.buttonClearIntel.Location = new System.Drawing.Point(3, 3);
-            this.buttonClearIntel.Name = "buttonClearIntel";
-            this.buttonClearIntel.Size = new System.Drawing.Size(75, 23);
-            this.buttonClearIntel.TabIndex = 8;
-            this.buttonClearIntel.Text = "&Clear Intel";
-            this.buttonClearIntel.UseVisualStyleBackColor = true;
-            this.buttonClearIntel.Click += new System.EventHandler(this.buttonClearIntel_Click);
-            // 
-            // labelPausingIntel
-            // 
-            this.labelPausingIntel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelPausingIntel.BackColor = System.Drawing.Color.Transparent;
-            this.labelPausingIntel.ForeColor = System.Drawing.Color.DarkRed;
-            this.labelPausingIntel.Location = new System.Drawing.Point(84, 4);
-            this.labelPausingIntel.Name = "labelPausingIntel";
-            this.labelPausingIntel.Size = new System.Drawing.Size(556, 21);
-            this.labelPausingIntel.TabIndex = 10;
-            this.labelPausingIntel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // buttonMonitorIntel
-            // 
-            this.buttonMonitorIntel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonMonitorIntel.Location = new System.Drawing.Point(641, 3);
-            this.buttonMonitorIntel.Name = "buttonMonitorIntel";
-            this.buttonMonitorIntel.Size = new System.Drawing.Size(75, 23);
-            this.buttonMonitorIntel.TabIndex = 1;
-            this.buttonMonitorIntel.Tag = "";
-            this.buttonMonitorIntel.Text = "&Start";
-            this.buttonMonitorIntel.UseVisualStyleBackColor = true;
-            this.buttonMonitorIntel.Click += new System.EventHandler(this.buttonMonitorIntel_Click);
+            this.intelUI.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.intelUI.Location = new System.Drawing.Point(3, 3);
+            this.intelUI.Name = "intelUI";
+            this.intelUI.Size = new System.Drawing.Size(723, 376);
+            this.intelUI.TabIndex = 0;
             // 
             // checkAlwaysOnTop
             // 
@@ -336,10 +283,6 @@
             this.checkAlwaysOnTop.Text = "Always On Top";
             this.checkAlwaysOnTop.UseVisualStyleBackColor = true;
             this.checkAlwaysOnTop.CheckedChanged += new System.EventHandler(this.checkAlwaysOnTop_CheckedChanged);
-            // 
-            // backgroundIntelSound
-            // 
-            this.backgroundIntelSound.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundIntelSound_DoWork);
             // 
             // backgroundUpdateWorker
             // 
@@ -382,7 +325,6 @@
             this.splitContainer.Panel2.ResumeLayout(false);
             this.splitContainer.ResumeLayout(false);
             this.tabIntel.ResumeLayout(false);
-            this.panelIntellHeader.ResumeLayout(false);
             this.statusStrip.ResumeLayout(false);
             this.statusStrip.PerformLayout();
             this.ResumeLayout(false);
@@ -401,24 +343,19 @@
         private System.Windows.Forms.TabPage tabSettings;
         private System.Windows.Forms.Button buttonLoadChannels;
         private System.Windows.Forms.CheckedListBox listFiles;
-        private System.Windows.Forms.TabPage tabIntel;
-        private System.Windows.Forms.Button buttonMonitorIntel;
         private LogReaderUI logReaderUI;
         private System.Windows.Forms.SplitContainer splitContainer;
         private System.Windows.Forms.ListBox listLoadedChannels;
         private System.Windows.Forms.Button buttonUnloadChannel;
         private System.Windows.Forms.Label labelSelectedChannels;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Button buttonClearIntel;
-        private System.ComponentModel.BackgroundWorker backgroundIntelSound;
         private SettingsUI settingsUI;
-        private System.Windows.Forms.Label labelPausingIntel;
         private System.ComponentModel.BackgroundWorker backgroundUpdateWorker;
         private System.Windows.Forms.Panel panelChannelHeader;
-        private System.Windows.Forms.Panel panelIntellHeader;
-        private System.Windows.Forms.ListBox listIntel;
         private System.Windows.Forms.StatusStrip statusStrip;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel;
+        private System.Windows.Forms.TabPage tabIntel;
+        private IntelUI intelUI;
     }
 }
 
