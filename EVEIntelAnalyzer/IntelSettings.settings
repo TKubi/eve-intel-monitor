@@ -3,10 +3,31 @@
   <Profiles />
   <Settings>
     <Setting Name="ReadKnownIntel" Type="System.String" Scope="User">
-      <Value Profile="(Default)">[red.name] in [system.name] [red.location]</Value>
+      <Value Profile="(Default)">[intel.players.name] in [system.spell] [red.location] [intel.clear] [intel.novisual]</Value>
     </Setting>
     <Setting Name="ReadUnknownIntel" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Intel: [raw.intel]</Value>
+      <Value Profile="(Default)">Intel: [intel.raw]</Value>
+    </Setting>
+    <Setting Name="AdditionalIntelReports" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Additional, {0} intelligence reports</Value>
+    </Setting>
+    <Setting Name="SystemNameDash" Type="System.String" Scope="User">
+      <Value Profile="(Default)"> tac </Value>
+    </Setting>
+    <Setting Name="SystemNameLetterSeparator" Type="System.String" Scope="User">
+      <Value Profile="(Default)">.</Value>
+    </Setting>
+    <Setting Name="SystemNameNumberSeparator" Type="System.String" Scope="User">
+      <Value Profile="(Default)">,</Value>
+    </Setting>
+    <Setting Name="IsClear" Type="System.String" Scope="User">
+      <Value Profile="(Default)"> is clear.</Value>
+    </Setting>
+    <Setting Name="NoVisual" Type="System.String" Scope="User">
+      <Value Profile="(Default)"> no visual.</Value>
+    </Setting>
+    <Setting Name="InSystem" Type="System.String" Scope="User">
+      <Value Profile="(Default)">  in [system.spell]</Value>
     </Setting>
   </Settings>
 </SettingsFile>

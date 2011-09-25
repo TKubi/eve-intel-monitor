@@ -13,22 +13,50 @@ using System.Speech.Synthesis;
 namespace EVEIntelManager
 {
     public delegate void NotifyIntel(Intel intel);
+    public delegate void VoidDelegate();
 
     public partial class IntelUI : UserControl
     {
-        public IntelAnalyzer Analyzer { set; get; }
-        private Queue<IntelPresentation> synthesizerMessages = new Queue<IntelPresentation>();
+        public IntelAnalyzer Analyzer { 
+            get 
+            {
+                return analyzer; 
+            }
+            set
+            {
+                this.analyzer = value;
+                this.analyzer.ChangedIntel += NotifyIntel;
+                this.analyzer.ChangedIntelActive += NotifyIntelActive;
+            }
+        }
 
+        public void PauseSpeech()
+        {
+            if (InvokeRequired)
+            {
+                this.Invoke((VoidDelegate)PauseSpeech);
+                return;
+            }
+
+            lock (this)
+            {
+                if (lastSynth != null && lastSynth.State != SynthesizerState.Paused)
+                {
+                    lastSynth.Pause();
+                }
+            }
+        }
+
+        private IntelAnalyzer analyzer;
+        private SpeechSynthesizer lastSynth;
+
+        private Queue<IntelPresentation> synthesizerMessages = new Queue<IntelPresentation>();
+        
         public IntelUI()
         {
             InitializeComponent();
 
             this.Analyzer = new IntelAnalyzer();
-            
-            Analyzer.ChangedIntel += NotifyIntel;
-            Analyzer.ChangedIntelActive += NotifyIntelActive;
-            Analyzer.Active = true;
-
         }
 
         private void buttonMonitorIntel_Click(object sender, EventArgs e)
@@ -68,13 +96,13 @@ namespace EVEIntelManager
 
             IntelPresentation intelDisplay = new IntelPresentation(intel);
 
-            if (listIntel.Items.Count > 0)
+            if (intelBindingSource.Count > 0)
             {
-                listIntel.Items.Insert(0, intelDisplay);
+                intelBindingSource.Insert(0, intel);
             }
             else
             {
-                listIntel.Items.Add(intelDisplay);
+                intelBindingSource.Add(intel);
             }
 
             if (Properties.Settings.Default.TextToSpeech)
@@ -93,7 +121,7 @@ namespace EVEIntelManager
 
         private void buttonClearIntel_Click(object sender, EventArgs e)
         {
-            listIntel.Items.Clear();
+            intelBindingSource.Clear();
             synthesizerMessages.Clear();
             setPausingText("");
         }
@@ -109,7 +137,6 @@ namespace EVEIntelManager
                 return;
             }
 
-            //toolStripStatusLabel.Text = text;
             labelPausingIntel.Text = text;
         }
 
@@ -117,38 +144,53 @@ namespace EVEIntelManager
         {
             using (SpeechSynthesizer synth = new SpeechSynthesizer())
             {
-                string selectedVoiceName = Properties.Settings.Default.TextToSpeechVoice;
-                if (!string.IsNullOrEmpty(selectedVoiceName))
+                try
                 {
-                    synth.SelectVoice(selectedVoiceName);
-                }
-                synth.Rate = Properties.Settings.Default.TextToSpeechRate;
-
-                int maxItel = Properties.Settings.Default.TextToSpeechMaxMessages;
-                for (int intel = 0; synthesizerMessages.Count > 0 && intel < maxItel; intel++)
-                {
-                    if (Analyzer.Active)
+                    lock (this)
                     {
-                        IntelPresentation message = synthesizerMessages.Dequeue();
-
-                        //toolStripStatusLabel.Text = message.ToString();
-                        synth.Speak(message.ToSpeach());
+                        this.lastSynth = synth;
                     }
-                    else
+
+                    string selectedVoiceName = Properties.Settings.Default.TextToSpeechVoice;
+                    if (!string.IsNullOrEmpty(selectedVoiceName))
                     {
-                        setPausingText("Intel Paused.");
-                        return;
+                        synth.SelectVoice(selectedVoiceName);
+                    }
+                    synth.Rate = Properties.Settings.Default.TextToSpeechRate;
+
+                    int maxItel = Properties.Settings.Default.TextToSpeechMaxMessages;
+                    for (int intel = 0; synthesizerMessages.Count > 0 && intel < maxItel; intel++)
+                    {
+                        if (Analyzer.Active)
+                        {
+                            IntelPresentation message = synthesizerMessages.Dequeue();
+                            setPausingText(message.ToString());
+                            synth.Speak(message.ToSpeach());
+                        }
+                        else
+                        {
+                            setPausingText("Intel Paused.");
+                            return;
+                        }
+                    }
+
+                    if (synthesizerMessages.Count > 0)
+                    {
+                        string text = "Additional, " + synthesizerMessages.Count + " intelligence reports";
+                        setPausingText(text);
+                        synth.Speak(text);
+                    }
+                    synthesizerMessages.Clear();
+                    setPausingText("");
+                }
+                finally
+                {
+                    lock (this)
+                    {
+                        this.lastSynth = null;
                     }
                 }
-
-                if (synthesizerMessages.Count > 0)
-                {
-                    synth.Speak("Additional, " + synthesizerMessages.Count + " intel reports");
-                }
-                synthesizerMessages.Clear();
-                setPausingText("");
             }
-
         }
     }
 }

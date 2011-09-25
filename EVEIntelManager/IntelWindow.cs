@@ -21,20 +21,6 @@ namespace EVEIntelManager
 
     public partial class IntelWindow : Form
     {
-    //    public static Color BG_COLOR = System.Drawing.SystemColors.Control;
-    //    public static Color FG_COLOR = System.Drawing.SystemColors.ControlText;
-    //    public static Color BG_WINDOW_COLOR = System.Drawing.SystemColors.Window;
-    //    public static Color FG_WINDOW_COLOR = System.Drawing.SystemColors.WindowText;
-    //    public static Color BG_BUTTON_COLOR = System.Drawing.SystemColors.Control;
-    //    public static Color FG_BUTTON_COLOR = System.Drawing.SystemColors.ControlText;
-
-        //public static Color BG_COLOR = System.Drawing.Color.FromArgb(29, 48, 56);
-        //public static Color FG_COLOR = System.Drawing.Color.FromArgb(183, 189, 193);
-        //public static Color BG_WINDOW_COLOR = System.Drawing.Color.FromArgb(29, 48, 56);
-        //public static Color FG_WINDOW_COLOR = System.Drawing.Color.FromArgb(183, 189, 193);
-        //public static Color BG_BUTTON_COLOR = System.Drawing.Color.FromArgb(29, 48, 56);
-        //public static Color FG_BUTTON_COLOR = System.Drawing.Color.FromArgb(0, 0, 0);
-
         private LogDirectoryMonitor monitor;
         public IntelAnalyzer Analyzer { set { intelUI.Analyzer = value; } get { return intelUI.Analyzer; } }
 
@@ -51,6 +37,11 @@ namespace EVEIntelManager
                 {
                     LoadStartupChannels();
                 }
+
+                if (Properties.Settings.Default.UpgrateOnStartup)
+                {
+                    backgroundUpdateWorker.RunWorkerAsync();
+                }
             }
             get { return this.monitor; }
         }
@@ -64,11 +55,6 @@ namespace EVEIntelManager
             {
                 this.tabControl.Controls.Remove(this.tabSettings);
                 this.tabControl.Controls.Add(this.tabSettings);
-            }
-
-            if (Properties.Settings.Default.UpgrateOnStartup)
-            {
-                backgroundUpdateWorker.RunWorkerAsync();
             }
 
             this.Text = "EVE Intel Monitor - " + ApplicationInstaller.GetCurrentVersion();
@@ -120,9 +106,12 @@ namespace EVEIntelManager
             if (monitor == null)
             {
                 MessageBox.Show(this, 
-                    "Invalid Channel Name: " + textChannelName.Text 
-                    + " (try replacing non-alphanumeric charecters with underscors_)", "Invalid channel name", 
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    "Channel \"" + textChannelName.Text + "\" is not found.\n"+
+                    "Is the game currently running?\n" +
+                    "Is the channel window open in the game?\n" +
+                    "Try replacing non-alphanumeric charecters with underscors ( _ )", 
+                    "Channel not found", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -232,6 +221,7 @@ namespace EVEIntelManager
 
         private void CheckForUpdates()
         {
+            toolStripStatusLabel.Text = "Checking for updates.";
             ApplicationInstaller.CheckForUpdates(this);
         }
     }

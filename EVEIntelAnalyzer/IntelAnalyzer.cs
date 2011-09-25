@@ -67,7 +67,7 @@ namespace EVEIntelAnalyzer
                 if (match.Success)
                 {
                     Intel intel = new Intel();
-                    intel.Message = message;
+                    intel.LogMessage = message;
 
                     string formattedMessage = message.Message.Replace("at ", "").
                                                    Replace("near ", "").
@@ -83,12 +83,11 @@ namespace EVEIntelAnalyzer
                             if (messageParts[i] == "Solar" && i - 1 >= 0)
                             {
                                 intel.System = SolarSystem.GetSystem(messageParts[i - 1]);
-                                intel.Red = new Player();
                                 for (int j = 0; j < i - 1; j++)
                                 {
                                     if (messageParts[j] != "")
                                     {
-                                        intel.Red.name += messageParts[j] + " ";
+                                        intel.Players += messageParts[j] + " ";
                                     }
                                 }
                             }
@@ -105,9 +104,11 @@ namespace EVEIntelAnalyzer
                         }
 
                     }
-
-                    ChangedIntel(intel);
-                    // since we alrady matched this intel, we do not want to keep searching
+                    if (ChangedIntel != null)
+                    {
+                        ChangedIntel(intel);
+                        // since we alrady matched this intel, we do not want to keep searching
+                    }
                     return;
                 }
             }
