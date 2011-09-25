@@ -44,6 +44,11 @@ namespace EVEIntelAnalyzer
         private SolarSystem()
         {
         }
+
+        public override string ToString()
+        {
+            return name;
+        }
     }
 
     public class Player
@@ -52,13 +57,18 @@ namespace EVEIntelAnalyzer
         public string ship;
 
         public IList<Intel> intel = new List<Intel>();
+
+        public override string ToString()
+        {
+            return name;
+        }
     }
 
     public class Intel
     {
         private SolarSystem system;
 
-        public Player Red { get; set; }
+        public string Players { get; set; }
         public bool Clear { get; set; }
         public bool NoVisual { get; set; }
 
@@ -74,30 +84,44 @@ namespace EVEIntelAnalyzer
                 this.system.Add(this);
             }
         }
-
-        public string Location { get; set; }
-        public LogMessage Message { get; set; }
-
-        public override string ToString()
+        
+        public string SystemName
         {
-            string redName = Red != null ? Red.name : "unknown";
-            string systemName = system != null ? System.Name : "unknown";
-
-            if (Clear)
+            get
             {
-                if (NoVisual)
+                if (System != null)
                 {
-                    return redName + " at " + systemName + " [No Visual] > " + Message;
+                    return System.Name;
                 }
                 else
                 {
-                    return redName + " at " + systemName + " (" + Location + ") > " + Message;
+                    return null;
                 }
             }
-            else
-            {
-                return systemName + " [Clear] > " + Message;
-            }
+        }
+
+        public string Location { get; set; }
+        public DateTime Timestamp {
+            get { return LogMessage.Timestamp; } 
+        }
+        public LogChannel Channel
+        {
+            get { return LogMessage.Channel; }
+        }
+        public string ReportedBy
+        {
+            get { return LogMessage.Name; }
+        }
+        public string Message
+        {
+            get { return LogMessage.Message; }
+        }
+
+        public LogMessage LogMessage { get; set; }
+
+        public override string ToString()
+        {
+            return Message;
         }
     }
 }

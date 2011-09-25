@@ -61,11 +61,11 @@
   &lt;string&gt;L-Z&lt;/string&gt;
 &lt;/ArrayOfString&gt;</Value>
     </Setting>
-    <Setting Name="UpdateVersionPath" Type="System.String" Scope="User">
-      <Value Profile="(Default)">file:///C:/Users/Simon/Documents/Visual Studio 2008/Projects/eve-intel-monitor/doc/versions.xml</Value>
-    </Setting>
     <Setting Name="ShowStatusBar" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="UpdateVersionPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://eve-intel-monitor.googlecode.com/files/versions.xml</Value>
     </Setting>
   </Settings>
 </SettingsFile>

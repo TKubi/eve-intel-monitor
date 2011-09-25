@@ -8,6 +8,10 @@ namespace EVEIntelAnalyzer
     public class IntelPresentation
     {
         public Intel Intel { get; set; }
+        public string System { get { return GetSystem(Intel.System); } set { } }
+        public string Players { get { return Intel.Players; } set { } }
+        public string RawIntel { get { return Intel.Message; } set { } }
+
 
         public IntelPresentation(Intel intel)
         {
@@ -21,15 +25,45 @@ namespace EVEIntelAnalyzer
 
             if (Intel != null)
             {
-                message += Intel.System != null ? GetRed(Intel.Red) : "";
+                message += Intel.System != null ? Intel.Players : "";
                 message += GetSystem(Intel.System);
                 message += (message != "" ? " > " : "") + GetRawIntel(Intel);
             }
+
 
             return message;
         }
 
 
+        /*
+         * 
+           string message = "";
+
+            if (Intel != null)
+            {
+                string systemName = GetSystem(Intel.System);
+                message += (message != "" ? " >> " : "") + GetRawIntel(Intel);
+
+                string playerNames = Players != null ? Players : "unknown";
+                string systemName = system != null ? System.Name : "unknown";
+
+                if (!Intel.Clear)
+                {
+                    if (NoVisual)
+                    {
+                        return Intel.Players + " at " + GetSystem(Intel.System) + " [No Visual] >> " + Message;
+                    }
+                    else
+                    {
+                        return Intel.Players + " at " + GetSystem(Intel.System) + " (" + Location + ") >> " + Message;
+                    }
+                }
+                else
+                {
+                    return GetSystem(Intel.System) + " [Clear] >> " + LogMessage;
+                }
+         * 
+         */
         public string ToSpeach()
         {
             string message = "";
@@ -41,7 +75,7 @@ namespace EVEIntelAnalyzer
                 {
                     if (!Intel.Clear)
                     {
-                        message += GetRed(Intel.Red);
+                        message += Intel.Players;
                     }
 
                     // convert the system name into "spelled by letter" with '-' spelled as 'tac'.
@@ -89,7 +123,7 @@ namespace EVEIntelAnalyzer
             return message;
         }
 
-        private string GetRed(Player red)
+        private string GetPlayer(Player red)
         {
             if (red != null)
             {
@@ -118,7 +152,7 @@ namespace EVEIntelAnalyzer
 
         private string GetRawIntel(Intel intel)
         {
-            string rawIntel = Intel.Message.Message;
+            string rawIntel = Intel.Message;
             if (rawIntel.Length > 50)
             {
                 rawIntel = rawIntel.Substring(0, 50);

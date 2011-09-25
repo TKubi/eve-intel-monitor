@@ -25,7 +25,8 @@ namespace EVEIntelAnalyzer {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("[red.name] in [system.name] [red.location]")]
+        [global::System.Configuration.DefaultSettingValueAttribute("[intel.players.name] in [system.spell] [red.location] [intel.clear] [intel.novisu" +
+            "al]")]
         public string ReadKnownIntel {
             get {
                 return ((string)(this["ReadKnownIntel"]));
@@ -37,13 +38,97 @@ namespace EVEIntelAnalyzer {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Intel: [raw.intel]")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Intel: [intel.raw]")]
         public string ReadUnknownIntel {
             get {
                 return ((string)(this["ReadUnknownIntel"]));
             }
             set {
                 this["ReadUnknownIntel"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Additional, {0} intelligence reports")]
+        public string AdditionalIntelReports {
+            get {
+                return ((string)(this["AdditionalIntelReports"]));
+            }
+            set {
+                this["AdditionalIntelReports"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(" tac ")]
+        public string SystemNameDash {
+            get {
+                return ((string)(this["SystemNameDash"]));
+            }
+            set {
+                this["SystemNameDash"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(".")]
+        public string SystemNameLetterSeparator {
+            get {
+                return ((string)(this["SystemNameLetterSeparator"]));
+            }
+            set {
+                this["SystemNameLetterSeparator"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(",")]
+        public string SystemNameNumberSeparator {
+            get {
+                return ((string)(this["SystemNameNumberSeparator"]));
+            }
+            set {
+                this["SystemNameNumberSeparator"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(" is clear.")]
+        public string IsClear {
+            get {
+                return ((string)(this["IsClear"]));
+            }
+            set {
+                this["IsClear"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(" no visual.")]
+        public string NoVisual {
+            get {
+                return ((string)(this["NoVisual"]));
+            }
+            set {
+                this["NoVisual"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("  in [system.spell]")]
+        public string InSystem {
+            get {
+                return ((string)(this["InSystem"]));
+            }
+            set {
+                this["InSystem"] = value;
             }
         }
     }

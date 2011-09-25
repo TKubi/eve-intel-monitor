@@ -7,34 +7,14 @@ namespace EVELogMonitor
 {
     public class LogChannel
     {
-        private string channelID;
-        private string channelName;
-        private string listener;
-        private DateTime sessionStarted;
+        public string ChannelID { get; set; }
+        public string ChannelName { get; set; }
+        public string Listener { get; set; }
+        public DateTime SessionStarted { get; set; }
 
-        public string ChannelID
+        public override string ToString()
         {
-            set { this.channelID = value; }
-            get { return this.channelID; }
+            return ChannelName;
         }
-
-        public string ChannelName
-        {
-            set { this.channelName = value; }
-            get { return this.channelName; }
-        }
-
-        public string Listener
-        {
-            set { this.listener = value; }
-            get { return this.listener; }
-        }
-
-        public DateTime SessionStarted
-        {
-            set { this.sessionStarted = value; }
-            get { return this.sessionStarted; }
-        }
-
     }
 }

@@ -6,6 +6,7 @@ using System.IO;
 using System.Xml;
 using System.Reflection;
 using System.Windows.Forms;
+using System.Net;
 
 namespace EVEIntelManager
 {
@@ -48,30 +49,51 @@ namespace EVEIntelManager
         public static void CheckForUpdates(IWin32Window parent) {
             try
             {
-                AppVersion latestVersion = DownloadVersions();
-                if (latestVersion != null)
+                AppVersionList versionList = DownloadVersions();
+
+                AppVersion currentVersion = GetCurrentVersion();
+                
+                if (UpdateAvailable(versionList, currentVersion))
                 {
-                    PromptWindow.Show(parent, "Update", "Update to " + latestVersion + "? (Yes/No)", "Yes", YesNoInputValidator);
+                    ApplicationInstallerForm installerForm = new ApplicationInstallerForm();
+                    installerForm.CurrentVersion = currentVersion;
+                    installerForm.VersionList = versionList;
+
+                    installerForm.LoadForm();
+
+                    installerForm.Show(parent);
                 }
             }
             catch (Exception e)
             {
-                Console.WriteLine("Unable to run an update: " + e.Message);
+                Console.WriteLine("Unable to check for update: " + e.Message);
             }
         }
 
-        public static bool YesNoInputValidator(string input)
+        private static bool UpdateAvailable(AppVersionList list, AppVersion currentVersion)
         {
-            return !string.IsNullOrEmpty(input) &&
-                (input.Trim().ToLower().Equals("yes") || input.Trim().ToLower().Equals("no"));
+            if (list != null && list.Latest != null)
+            {
+                if (currentVersion.GetVersion() < list.Latest.GetVersion())
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
         }
+
         /// <summary>
         /// http://developer.yahoo.com/dotnet/howto-xml_cs.html
         /// </summary>
-        public static AppVersion DownloadVersions()
+        public static AppVersionList DownloadVersions()
         {
-            AppVersion currentVersion = GetCurrentVersion();
-
             string url = Properties.Settings.Default.UpdateVersionPath;
 
             System.Xml.Serialization.XmlSerializer serializer = new System.Xml.Serialization.XmlSerializer(typeof(AppVersionList));
@@ -83,58 +105,7 @@ namespace EVEIntelManager
                 list = obj as AppVersionList;
             }
 
-            if (list != null && list.Latest != null) 
-            {
-                if (currentVersion.GetVersion() < list.Latest.GetVersion())
-                {
-                    return list.Latest;
-                }
-                else
-                {
-                    return null;
-                }
-            } else {
-                
-                list = new AppVersionList();
-                list.Versions = new AppVersion[] {
-                    new AppVersion("Beta", "0.3", @"http://eve-intel-monitor.googlecode.com/files/EVE-Intel-Monitor.v0.3.msi", true),
-                    new AppVersion("Beta", "0.4", @"http://eve-intel-monitor.googlecode.com/files/EVE-Intel-Monitor.v0.4.msi", true),
-                    new AppVersion("Beta", "0.5", @"http://eve-intel-monitor.googlecode.com/files/EVE-Intel-Monitor.v0.5.msi", true)
-                };
-                list.Latest = list.Versions[list.Versions.Length - 1];
-
-                using (FileStream stream = new FileStream(@"C:\Users\Simon\Documents\Visual Studio 2008\Projects\eve-intel-monitor\doc\versions4.xml",
-                    FileMode.Create))
-                {
-
-                    serializer.Serialize(stream, list);
-                }
-            }
-    
-            return null;
-            //serializer.Serialize(new FileStream(url, FileMode.Create), list);
-
-
-/*            // Retrieve XML document  
-            
-            // Skip non-significant whitespace  
-            reader.WhitespaceHandling = WhitespaceHandling.Significant;  
-            
-            // Read nodes one at a time  
-            while (reader.Read())  
-            {
-                string configuration = "";
-
-                if (reader.NodeType.ToString() == "version")
-                {
-                    reader.MoveToAttribute(1);
-                    if (reader.Name == "configuration")
-                    {
-                    }
-                }
-                // Print out info on node  
-                Console.WriteLine("{0}: {1}", reader.NodeType.ToString(), reader.Name);  
-            }  */
+            return list;
         }
     }
 
@@ -166,6 +137,7 @@ namespace EVEIntelManager
         public string URL { get; set; }
         public string Description { get; set; }
         public bool Released { get; set; }
+        public long Size { get; set; }
 
         public Version GetVersion() {
             return version;

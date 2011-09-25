@@ -134,7 +134,12 @@
       <DependentUpon>SettingsUI.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="ApplicationInstallerForm.resx">
+      <DependentUpon>ApplicationInstallerForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <None Include="app.config" />
+    <None Include="Properties\DataSources\EVEIntelAnalyzer.Intel.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -150,6 +155,12 @@
     </Compile>
     <Compile Include="SettingsUI.Designer.cs">
       <DependentUpon>SettingsUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ApplicationInstallerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ApplicationInstallerForm.Designer.cs">
+      <DependentUpon>ApplicationInstallerForm.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
