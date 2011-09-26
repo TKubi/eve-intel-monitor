@@ -51,6 +51,7 @@ namespace EVEIntelAnalyzer
         }
     }
 
+    /*
     public class Player
     {
         public string name;
@@ -62,7 +63,7 @@ namespace EVEIntelAnalyzer
         {
             return name;
         }
-    }
+    }*/
 
     public class Intel
     {

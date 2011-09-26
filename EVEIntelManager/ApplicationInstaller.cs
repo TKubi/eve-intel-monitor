@@ -5,13 +5,16 @@ using System.Text;
 using System.IO;
 using System.Xml;
 using System.Reflection;
-using System.Windows.Forms;
 using System.Net;
+using System.Media;
 
 namespace EVEIntelManager
 {
     public class ApplicationInstaller
     {
+        public delegate AppVersion GetSelectedVersionDelegate();
+        public delegate void SetToolTipDelegate(string toolTip);
+        public delegate void SetProgressDelegate(int value);
 
         public static AppVersion GetCurrentVersion()
         {
@@ -46,32 +49,49 @@ namespace EVEIntelManager
             return appAssembly.GetName().Version;
         }
 
-        public static void CheckForUpdates(IWin32Window parent) {
+        public static bool CheckForUpdates(out AppVersionList versionList) {
             try
             {
-                AppVersionList versionList = DownloadVersions();
-
-                AppVersion currentVersion = GetCurrentVersion();
+                versionList = DownloadVersions();
                 
-                if (UpdateAvailable(versionList, currentVersion))
+                if (UpdateAvailable(versionList))
                 {
-                    ApplicationInstallerForm installerForm = new ApplicationInstallerForm();
-                    installerForm.CurrentVersion = currentVersion;
-                    installerForm.VersionList = versionList;
-
-                    installerForm.LoadForm();
-
-                    installerForm.Show(parent);
+                    return true;
                 }
             }
             catch (Exception e)
             {
+                SystemSounds.Beep.Play();
                 Console.WriteLine("Unable to check for update: " + e.Message);
+
+                versionList = null;
             }
+
+            return false;
         }
 
-        private static bool UpdateAvailable(AppVersionList list, AppVersion currentVersion)
+        public static bool PromptUpgrade(out AppVersionList versionList)
         {
+            try
+            {
+                versionList = DownloadVersions();
+                return true;
+            }
+            catch (Exception e)
+            {
+                SystemSounds.Beep.Play();
+                Console.WriteLine("Unable to check for update: " + e.Message);
+
+                versionList = null;
+            }
+
+            return false;
+        }
+
+        private static bool UpdateAvailable(AppVersionList list)
+        {
+            AppVersion currentVersion = GetCurrentVersion();
+
             if (list != null && list.Latest != null)
             {
                 if (currentVersion.GetVersion() < list.Latest.GetVersion())
@@ -106,6 +126,46 @@ namespace EVEIntelManager
             }
 
             return list;
+        }
+
+        public static bool DownloadVersion(string URL, string outputPath, 
+            SetToolTipDelegate SetToolTip, 
+            SetProgressDelegate SetProgressMax,
+            SetProgressDelegate AddProgressValue)
+        {
+            try
+            {
+                SetToolTip("Downloading " + URL);
+
+                WebRequest objRequest = System.Net.HttpWebRequest.Create(URL);
+                WebResponse objResponse = objRequest.GetResponse();
+
+                SetProgressMax((int)objResponse.ContentLength);
+
+                using (BinaryReader inputReader = new BinaryReader(objResponse.GetResponseStream()))
+                {
+                    using (FileStream outputStream = new FileStream(outputPath, FileMode.CreateNew))
+                    {
+
+                        byte[] buffer = new byte[32768];
+                        int read;
+                        while ((read = inputReader.Read(buffer, 0, buffer.Length)) > 0)
+                        {
+                            AddProgressValue(read);
+                            outputStream.Write(buffer, 0, read);
+                        }
+                    }
+                }
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                SetToolTip("Unable to download " + URL + ": " + e.Message);
+                SystemSounds.Beep.Play();
+
+                return false;
+            }
         }
     }
 

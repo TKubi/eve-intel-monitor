@@ -69,17 +69,6 @@ namespace EVEIntelManager.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public bool SettingsTabLast {
-            get {
-                return ((bool)(this["SettingsTabLast"]));
-            }
-            set {
-                this["SettingsTabLast"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public bool FirstLoad {
             get {
                 return ((bool)(this["FirstLoad"]));
@@ -210,6 +199,18 @@ namespace EVEIntelManager.Properties {
             }
             set {
                 this["UpdateVersionPath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://code.google.com/p/eve-intel-monitor/")]
+        public string HomePage {
+            get {
+                return ((string)(this["HomePage"]));
+            }
+            set {
+                this["HomePage"] = value;
             }
         }
     }

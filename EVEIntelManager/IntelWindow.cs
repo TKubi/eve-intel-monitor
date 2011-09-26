@@ -21,8 +21,8 @@ namespace EVEIntelManager
 
     public partial class IntelWindow : Form
     {
-        private LogDirectoryMonitor monitor;
         public IntelAnalyzer Analyzer { set { intelUI.Analyzer = value; } get { return intelUI.Analyzer; } }
+        private SettingsForm settingsForm = new SettingsForm();
 
         public LogDirectoryMonitor Monitor
         {
@@ -30,7 +30,7 @@ namespace EVEIntelManager
                 this.monitor = value;
                 
                 ApplySettings();
-                settingsUI.ReadProperties();
+                settingsForm.ReadProperties();
 
                 if (!Properties.Settings.Default.FirstLoad &&
                     Properties.Settings.Default.AutoLoadDefaultChannel)
@@ -46,19 +46,18 @@ namespace EVEIntelManager
             get { return this.monitor; }
         }
 
-
         public IntelWindow()
         {
             InitializeComponent();
             
-            if (Properties.Settings.Default.SettingsTabLast)
-            {
-                this.tabControl.Controls.Remove(this.tabSettings);
-                this.tabControl.Controls.Add(this.tabSettings);
-            }
+            settingsForm.ChangedSettings += ApplySettings;
 
             this.Text = "EVE Intel Monitor - " + ApplicationInstaller.GetCurrentVersion();
         }
+
+        private LogDirectoryMonitor monitor;
+        private ApplicationInstallerForm installerForm = new ApplicationInstallerForm();
+        private AboutBox aboutBox = new AboutBox();
 
         private void ApplySettings()
         {
@@ -68,32 +67,6 @@ namespace EVEIntelManager
 
             intelUI.Analyzer.MatchStrings = Properties.Settings.Default.Keywords;
 
-            if (Properties.Settings.Default.SettingsTabLast)
-            {
-                if (this.tabControl.Controls.IndexOf(this.tabSettings) == 0)
-                {
-                    this.tabControl.Controls.Remove(this.tabChannels);
-                    this.tabControl.Controls.Remove(this.tabIntel);
-                    this.tabControl.Controls.Remove(this.tabSettings);
-                    this.tabControl.Controls.Add(this.tabChannels);
-                    this.tabControl.Controls.Add(this.tabIntel);
-                    this.tabControl.Controls.Add(this.tabSettings);
-                }
-            }
-            else
-            {
-                if (this.tabControl.Controls.IndexOf(this.tabSettings) == this.tabControl.Controls.Count - 1)
-                {
-                    this.tabControl.Controls.Remove(this.tabChannels);
-                    this.tabControl.Controls.Remove(this.tabIntel);
-                    this.tabControl.Controls.Remove(this.tabSettings);
-                    this.tabControl.Controls.Add(this.tabSettings);
-                    this.tabControl.Controls.Add(this.tabChannels);
-                    this.tabControl.Controls.Add(this.tabIntel);
-                }
-            }
-
-            this.tabControl.Refresh();
             statusStrip.Visible = Properties.Settings.Default.ShowStatusBar;
 
             toolStripStatusLabel.Text = "Settings have been applied.";
@@ -221,8 +194,86 @@ namespace EVEIntelManager
 
         private void CheckForUpdates()
         {
-            toolStripStatusLabel.Text = "Checking for updates.";
-            ApplicationInstaller.CheckForUpdates(this);
+            toolStripStatusLabel.Text = "Checking for updates...";
+            
+            AppVersionList versionList;
+
+            if (ApplicationInstaller.CheckForUpdates(out versionList))
+            {
+                installerForm.VersionList = versionList;
+
+                installerForm.PopulateLatestVersion();
+                installerForm.Show(this);
+
+                toolStripStatusLabel.Text = "New version found.";
+            }
+            else
+            {
+                toolStripStatusLabel.Text = "Current version is up to dated.";
+            }
+        }
+
+        private void upgradeToVersionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            toolStripStatusLabel.Text = "Loading all available versions.";
+
+            AppVersionList versionList;
+
+            if (ApplicationInstaller.PromptUpgrade(out versionList))
+            {
+                installerForm.VersionList = versionList;
+
+                installerForm.PopulateVersions();
+                installerForm.Show(this);
+            }
+            else
+            {
+                toolStripStatusLabel.Text = "No versions avaialble for download.";
+            }
+        }
+
+        private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            settingsForm.ShowDialog(this);
+        }
+
+        private void checkForUpdatesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            backgroundUpdateWorker.RunWorkerAsync();
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            aboutBox.ShowDialog(this);
+        }
+
+        private void qandaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start(Properties.Settings.Default.HomePage);
+        }
+
+        private void ShowOptionsDialog()
+        {
+            if (this.InvokeRequired)
+            {
+                this.Invoke((VoidDelegate)ShowOptionsDialog);
+                return;
+            }
+            settingsForm.TopMost = this.TopMost;
+            settingsForm.ShowDialog();
+        }
+
+        private void IntelWindow_Shown(object sender, EventArgs e)
+        {
+            if (Properties.Settings.Default.FirstLoad)
+            {
+                ShowOptionsDialog();
+            }
         }
     }
 }

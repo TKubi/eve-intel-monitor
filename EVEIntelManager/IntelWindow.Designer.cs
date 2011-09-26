@@ -31,7 +31,6 @@
             EVEIntelAnalyzer.IntelAnalyzer intelAnalyzer1 = new EVEIntelAnalyzer.IntelAnalyzer();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(IntelWindow));
             this.tabControl = new System.Windows.Forms.TabControl();
-            this.tabSettings = new System.Windows.Forms.TabPage();
             this.tabChannels = new System.Windows.Forms.TabPage();
             this.panelChannelHeader = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
@@ -49,11 +48,24 @@
             this.backgroundUpdateWorker = new System.ComponentModel.BackgroundWorker();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.settingsUI = new EVEIntelManager.SettingsUI();
+            this.menuStrip = new System.Windows.Forms.MenuStrip();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.importSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
+            this.checkForUpdatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.upgradeToVersionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.qandaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.logReaderUI = new EVEIntelManager.LogReaderUI();
             this.intelUI = new EVEIntelManager.IntelUI();
             this.tabControl.SuspendLayout();
-            this.tabSettings.SuspendLayout();
             this.tabChannels.SuspendLayout();
             this.panelChannelHeader.SuspendLayout();
             this.splitContainer.Panel1.SuspendLayout();
@@ -61,6 +73,7 @@
             this.splitContainer.SuspendLayout();
             this.tabIntel.SuspendLayout();
             this.statusStrip.SuspendLayout();
+            this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl
@@ -68,26 +81,14 @@
             this.tabControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabControl.Controls.Add(this.tabSettings);
             this.tabControl.Controls.Add(this.tabChannels);
             this.tabControl.Controls.Add(this.tabIntel);
-            this.tabControl.Location = new System.Drawing.Point(0, 0);
+            this.tabControl.Location = new System.Drawing.Point(0, 27);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
             this.tabControl.ShowToolTips = true;
-            this.tabControl.Size = new System.Drawing.Size(839, 513);
+            this.tabControl.Size = new System.Drawing.Size(604, 348);
             this.tabControl.TabIndex = 0;
-            // 
-            // tabSettings
-            // 
-            this.tabSettings.BackColor = System.Drawing.Color.White;
-            this.tabSettings.Controls.Add(this.settingsUI);
-            this.tabSettings.Location = new System.Drawing.Point(4, 22);
-            this.tabSettings.Name = "tabSettings";
-            this.tabSettings.Padding = new System.Windows.Forms.Padding(3);
-            this.tabSettings.Size = new System.Drawing.Size(831, 487);
-            this.tabSettings.TabIndex = 1;
-            this.tabSettings.Text = "Settings";
             // 
             // tabChannels
             // 
@@ -96,7 +97,7 @@
             this.tabChannels.Location = new System.Drawing.Point(4, 22);
             this.tabChannels.Name = "tabChannels";
             this.tabChannels.Padding = new System.Windows.Forms.Padding(3);
-            this.tabChannels.Size = new System.Drawing.Size(831, 487);
+            this.tabChannels.Size = new System.Drawing.Size(596, 322);
             this.tabChannels.TabIndex = 0;
             this.tabChannels.Text = "Channels";
             this.tabChannels.UseVisualStyleBackColor = true;
@@ -109,7 +110,7 @@
             this.panelChannelHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelChannelHeader.Location = new System.Drawing.Point(3, 3);
             this.panelChannelHeader.Name = "panelChannelHeader";
-            this.panelChannelHeader.Size = new System.Drawing.Size(825, 28);
+            this.panelChannelHeader.Size = new System.Drawing.Size(590, 28);
             this.panelChannelHeader.TabIndex = 10;
             // 
             // label1
@@ -124,7 +125,7 @@
             // buttonRead
             // 
             this.buttonRead.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonRead.Location = new System.Drawing.Point(735, 1);
+            this.buttonRead.Location = new System.Drawing.Point(500, 1);
             this.buttonRead.Name = "buttonRead";
             this.buttonRead.Size = new System.Drawing.Size(87, 23);
             this.buttonRead.TabIndex = 1;
@@ -138,7 +139,7 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.textChannelName.Location = new System.Drawing.Point(96, 3);
             this.textChannelName.Name = "textChannelName";
-            this.textChannelName.Size = new System.Drawing.Size(633, 20);
+            this.textChannelName.Size = new System.Drawing.Size(398, 20);
             this.textChannelName.TabIndex = 2;
             // 
             // splitContainer
@@ -163,14 +164,14 @@
             // 
             this.splitContainer.Panel2.Controls.Add(this.logReaderUI);
             this.splitContainer.Panel2.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.splitContainer.Size = new System.Drawing.Size(825, 449);
-            this.splitContainer.SplitterDistance = 269;
+            this.splitContainer.Size = new System.Drawing.Size(590, 284);
+            this.splitContainer.SplitterDistance = 192;
             this.splitContainer.TabIndex = 7;
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(5, 7);
+            this.label7.Location = new System.Drawing.Point(3, 2);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(121, 13);
             this.label7.TabIndex = 9;
@@ -180,9 +181,9 @@
             // 
             this.buttonUnloadChannel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonUnloadChannel.Location = new System.Drawing.Point(3, 421);
+            this.buttonUnloadChannel.Location = new System.Drawing.Point(0, 256);
             this.buttonUnloadChannel.Name = "buttonUnloadChannel";
-            this.buttonUnloadChannel.Size = new System.Drawing.Size(265, 25);
+            this.buttonUnloadChannel.Size = new System.Drawing.Size(188, 25);
             this.buttonUnloadChannel.TabIndex = 8;
             this.buttonUnloadChannel.Text = "&Unload Channel";
             this.buttonUnloadChannel.UseVisualStyleBackColor = true;
@@ -190,10 +191,10 @@
             // 
             // labelSelectedChannels
             // 
-            this.labelSelectedChannels.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+            this.labelSelectedChannels.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.labelSelectedChannels.AutoSize = true;
-            this.labelSelectedChannels.Location = new System.Drawing.Point(3, 252);
+            this.labelSelectedChannels.Location = new System.Drawing.Point(3, 159);
             this.labelSelectedChannels.Name = "labelSelectedChannels";
             this.labelSelectedChannels.Size = new System.Drawing.Size(99, 13);
             this.labelSelectedChannels.TabIndex = 7;
@@ -201,21 +202,22 @@
             // 
             // listLoadedChannels
             // 
-            this.listLoadedChannels.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+            this.listLoadedChannels.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.listLoadedChannels.FormattingEnabled = true;
-            this.listLoadedChannels.Location = new System.Drawing.Point(2, 268);
+            this.listLoadedChannels.Location = new System.Drawing.Point(2, 179);
             this.listLoadedChannels.Name = "listLoadedChannels";
-            this.listLoadedChannels.Size = new System.Drawing.Size(265, 147);
+            this.listLoadedChannels.Size = new System.Drawing.Size(186, 69);
             this.listLoadedChannels.TabIndex = 6;
             // 
             // buttonLoadChannels
             // 
-            this.buttonLoadChannels.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+            this.buttonLoadChannels.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonLoadChannels.Location = new System.Drawing.Point(3, 226);
+            this.buttonLoadChannels.Location = new System.Drawing.Point(1, 133);
             this.buttonLoadChannels.Name = "buttonLoadChannels";
-            this.buttonLoadChannels.Size = new System.Drawing.Size(265, 23);
+            this.buttonLoadChannels.Size = new System.Drawing.Size(188, 23);
             this.buttonLoadChannels.TabIndex = 5;
             this.buttonLoadChannels.Text = "&Load Channels";
             this.buttonLoadChannels.UseVisualStyleBackColor = true;
@@ -223,13 +225,12 @@
             // 
             // listFiles
             // 
-            this.listFiles.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
+            this.listFiles.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.listFiles.FormattingEnabled = true;
-            this.listFiles.Location = new System.Drawing.Point(3, 34);
+            this.listFiles.Location = new System.Drawing.Point(2, 18);
             this.listFiles.Name = "listFiles";
-            this.listFiles.Size = new System.Drawing.Size(265, 184);
+            this.listFiles.Size = new System.Drawing.Size(186, 109);
             this.listFiles.TabIndex = 4;
             // 
             // tabIntel
@@ -238,7 +239,7 @@
             this.tabIntel.Location = new System.Drawing.Point(4, 22);
             this.tabIntel.Name = "tabIntel";
             this.tabIntel.Padding = new System.Windows.Forms.Padding(3);
-            this.tabIntel.Size = new System.Drawing.Size(831, 487);
+            this.tabIntel.Size = new System.Drawing.Size(596, 322);
             this.tabIntel.TabIndex = 2;
             this.tabIntel.Text = "Intel";
             this.tabIntel.UseVisualStyleBackColor = true;
@@ -249,7 +250,7 @@
             this.checkAlwaysOnTop.AutoSize = true;
             this.checkAlwaysOnTop.Checked = true;
             this.checkAlwaysOnTop.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkAlwaysOnTop.Location = new System.Drawing.Point(736, 1);
+            this.checkAlwaysOnTop.Location = new System.Drawing.Point(502, 27);
             this.checkAlwaysOnTop.Name = "checkAlwaysOnTop";
             this.checkAlwaysOnTop.Size = new System.Drawing.Size(98, 17);
             this.checkAlwaysOnTop.TabIndex = 9;
@@ -265,9 +266,9 @@
             // 
             this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel});
-            this.statusStrip.Location = new System.Drawing.Point(0, 516);
+            this.statusStrip.Location = new System.Drawing.Point(0, 378);
             this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(839, 22);
+            this.statusStrip.Size = new System.Drawing.Size(604, 22);
             this.statusStrip.TabIndex = 12;
             this.statusStrip.Text = "statusStrip1";
             // 
@@ -276,14 +277,120 @@
             this.toolStripStatusLabel.Name = "toolStripStatusLabel";
             this.toolStripStatusLabel.Size = new System.Drawing.Size(0, 17);
             // 
-            // settingsUI
+            // menuStrip
             // 
-            this.settingsUI.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.settingsUI.Location = new System.Drawing.Point(3, 3);
-            this.settingsUI.Name = "settingsUI";
-            this.settingsUI.Size = new System.Drawing.Size(825, 481);
-            this.settingsUI.TabIndex = 0;
-            this.settingsUI.ChangedSettings += new EVEIntelManager.NotifySettingsChanged(this.ApplySettings);
+            this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem,
+            this.toolsToolStripMenuItem,
+            this.helpToolStripMenuItem});
+            this.menuStrip.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip.Name = "menuStrip";
+            this.menuStrip.Size = new System.Drawing.Size(604, 24);
+            this.menuStrip.TabIndex = 13;
+            this.menuStrip.Text = "menuStrip1";
+            // 
+            // fileToolStripMenuItem
+            // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.exportSettingsToolStripMenuItem,
+            this.importSettingsToolStripMenuItem,
+            this.toolStripMenuItem1,
+            this.exitToolStripMenuItem});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Text = "&File";
+            // 
+            // exportSettingsToolStripMenuItem
+            // 
+            this.exportSettingsToolStripMenuItem.Enabled = false;
+            this.exportSettingsToolStripMenuItem.Name = "exportSettingsToolStripMenuItem";
+            this.exportSettingsToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.exportSettingsToolStripMenuItem.Text = "Export Settings...";
+            // 
+            // importSettingsToolStripMenuItem
+            // 
+            this.importSettingsToolStripMenuItem.Enabled = false;
+            this.importSettingsToolStripMenuItem.Name = "importSettingsToolStripMenuItem";
+            this.importSettingsToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.importSettingsToolStripMenuItem.Text = "Import Settings...";
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(161, 6);
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.exitToolStripMenuItem.Text = "&Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
+            // toolsToolStripMenuItem
+            // 
+            this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.optionsToolStripMenuItem,
+            this.toolStripMenuItem3,
+            this.checkForUpdatesToolStripMenuItem,
+            this.upgradeToVersionToolStripMenuItem});
+            this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
+            this.toolsToolStripMenuItem.Text = "&Tools";
+            // 
+            // optionsToolStripMenuItem
+            // 
+            this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
+            this.optionsToolStripMenuItem.Text = "&Options...";
+            this.optionsToolStripMenuItem.Click += new System.EventHandler(this.optionsToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(184, 6);
+            // 
+            // checkForUpdatesToolStripMenuItem
+            // 
+            this.checkForUpdatesToolStripMenuItem.Name = "checkForUpdatesToolStripMenuItem";
+            this.checkForUpdatesToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
+            this.checkForUpdatesToolStripMenuItem.Text = "&Check For Updates...";
+            this.checkForUpdatesToolStripMenuItem.Click += new System.EventHandler(this.checkForUpdatesToolStripMenuItem_Click);
+            // 
+            // upgradeToVersionToolStripMenuItem
+            // 
+            this.upgradeToVersionToolStripMenuItem.Name = "upgradeToVersionToolStripMenuItem";
+            this.upgradeToVersionToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
+            this.upgradeToVersionToolStripMenuItem.Text = "&Upgrade To Version...";
+            this.upgradeToVersionToolStripMenuItem.Click += new System.EventHandler(this.upgradeToVersionToolStripMenuItem_Click);
+            // 
+            // helpToolStripMenuItem
+            // 
+            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.qandaToolStripMenuItem,
+            this.toolStripMenuItem2,
+            this.aboutToolStripMenuItem});
+            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.helpToolStripMenuItem.Text = "&Help";
+            // 
+            // qandaToolStripMenuItem
+            // 
+            this.qandaToolStripMenuItem.Name = "qandaToolStripMenuItem";
+            this.qandaToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.qandaToolStripMenuItem.Text = "Q&&A";
+            this.qandaToolStripMenuItem.Click += new System.EventHandler(this.qandaToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(104, 6);
+            // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.aboutToolStripMenuItem.Text = "&About";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // logReaderUI
             // 
@@ -292,7 +399,7 @@
             this.logReaderUI.ForeColor = System.Drawing.SystemColors.ControlText;
             this.logReaderUI.Location = new System.Drawing.Point(0, 0);
             this.logReaderUI.Name = "logReaderUI";
-            this.logReaderUI.Size = new System.Drawing.Size(552, 449);
+            this.logReaderUI.Size = new System.Drawing.Size(394, 284);
             this.logReaderUI.TabIndex = 6;
             this.logReaderUI.TimerInterval = 5000;
             // 
@@ -304,23 +411,25 @@
             this.intelUI.Dock = System.Windows.Forms.DockStyle.Fill;
             this.intelUI.Location = new System.Drawing.Point(3, 3);
             this.intelUI.Name = "intelUI";
-            this.intelUI.Size = new System.Drawing.Size(825, 481);
+            this.intelUI.Size = new System.Drawing.Size(590, 316);
             this.intelUI.TabIndex = 0;
             // 
             // IntelWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(839, 538);
+            this.ClientSize = new System.Drawing.Size(604, 400);
             this.Controls.Add(this.statusStrip);
+            this.Controls.Add(this.menuStrip);
             this.Controls.Add(this.checkAlwaysOnTop);
             this.Controls.Add(this.tabControl);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MainMenuStrip = this.menuStrip;
             this.Name = "IntelWindow";
             this.Text = "EVE Intel Monitor - Beta";
             this.TopMost = true;
+            this.Shown += new System.EventHandler(this.IntelWindow_Shown);
             this.tabControl.ResumeLayout(false);
-            this.tabSettings.ResumeLayout(false);
             this.tabChannels.ResumeLayout(false);
             this.panelChannelHeader.ResumeLayout(false);
             this.panelChannelHeader.PerformLayout();
@@ -331,6 +440,8 @@
             this.tabIntel.ResumeLayout(false);
             this.statusStrip.ResumeLayout(false);
             this.statusStrip.PerformLayout();
+            this.menuStrip.ResumeLayout(false);
+            this.menuStrip.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -344,7 +455,6 @@
         private System.Windows.Forms.Button buttonRead;
         private System.Windows.Forms.TextBox textChannelName;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TabPage tabSettings;
         private System.Windows.Forms.Button buttonLoadChannels;
         private System.Windows.Forms.CheckedListBox listFiles;
         private LogReaderUI logReaderUI;
@@ -353,13 +463,27 @@
         private System.Windows.Forms.Button buttonUnloadChannel;
         private System.Windows.Forms.Label labelSelectedChannels;
         private System.Windows.Forms.Label label7;
-        private SettingsUI settingsUI;
         private System.ComponentModel.BackgroundWorker backgroundUpdateWorker;
         private System.Windows.Forms.Panel panelChannelHeader;
         private System.Windows.Forms.StatusStrip statusStrip;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel;
         private System.Windows.Forms.TabPage tabIntel;
         private IntelUI intelUI;
+        private System.Windows.Forms.MenuStrip menuStrip;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exportSettingsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem importSettingsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem qandaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem checkForUpdatesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem upgradeToVersionToolStripMenuItem;
     }
 }
 

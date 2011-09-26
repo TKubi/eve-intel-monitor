@@ -34,13 +34,13 @@
             this.labelPausingIntel = new System.Windows.Forms.Label();
             this.buttonMonitorIntel = new System.Windows.Forms.Button();
             this.dataGridIntel = new System.Windows.Forms.DataGridView();
-            this.backgroundIntelSound = new System.ComponentModel.BackgroundWorker();
             this.intelBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.backgroundIntelSound = new System.ComponentModel.BackgroundWorker();
             this.timestampDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.systemDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.playersDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.locationDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.messageDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.locationDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.reportedByDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clearDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.noVisualDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
@@ -106,8 +106,8 @@
             this.timestampDataGridViewTextBoxColumn,
             this.systemDataGridViewTextBoxColumn,
             this.playersDataGridViewTextBoxColumn,
-            this.locationDataGridViewTextBoxColumn,
             this.messageDataGridViewTextBoxColumn,
+            this.locationDataGridViewTextBoxColumn,
             this.reportedByDataGridViewTextBoxColumn,
             this.clearDataGridViewCheckBoxColumn,
             this.noVisualDataGridViewCheckBoxColumn,
@@ -120,13 +120,13 @@
             this.dataGridIntel.Size = new System.Drawing.Size(545, 325);
             this.dataGridIntel.TabIndex = 18;
             // 
-            // backgroundIntelSound
-            // 
-            this.backgroundIntelSound.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundIntelSound_DoWork);
-            // 
             // intelBindingSource
             // 
             this.intelBindingSource.DataSource = typeof(EVEIntelAnalyzer.Intel);
+            // 
+            // backgroundIntelSound
+            // 
+            this.backgroundIntelSound.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundIntelSound_DoWork);
             // 
             // timestampDataGridViewTextBoxColumn
             // 
@@ -151,13 +151,6 @@
             this.playersDataGridViewTextBoxColumn.Name = "playersDataGridViewTextBoxColumn";
             this.playersDataGridViewTextBoxColumn.ReadOnly = true;
             // 
-            // locationDataGridViewTextBoxColumn
-            // 
-            this.locationDataGridViewTextBoxColumn.DataPropertyName = "Location";
-            this.locationDataGridViewTextBoxColumn.HeaderText = "Location";
-            this.locationDataGridViewTextBoxColumn.Name = "locationDataGridViewTextBoxColumn";
-            this.locationDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
             // messageDataGridViewTextBoxColumn
             // 
             this.messageDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
@@ -166,6 +159,13 @@
             this.messageDataGridViewTextBoxColumn.Name = "messageDataGridViewTextBoxColumn";
             this.messageDataGridViewTextBoxColumn.ReadOnly = true;
             this.messageDataGridViewTextBoxColumn.Width = 75;
+            // 
+            // locationDataGridViewTextBoxColumn
+            // 
+            this.locationDataGridViewTextBoxColumn.DataPropertyName = "Location";
+            this.locationDataGridViewTextBoxColumn.HeaderText = "Location";
+            this.locationDataGridViewTextBoxColumn.Name = "locationDataGridViewTextBoxColumn";
+            this.locationDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // reportedByDataGridViewTextBoxColumn
             // 
@@ -224,8 +224,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn timestampDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn systemDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn playersDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn locationDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn messageDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn locationDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn reportedByDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewCheckBoxColumn clearDataGridViewCheckBoxColumn;
         private System.Windows.Forms.DataGridViewCheckBoxColumn noVisualDataGridViewCheckBoxColumn;

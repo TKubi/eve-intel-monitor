@@ -2,32 +2,73 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="EVEIntelAnalyzer" GeneratedClassName="IntelSettings">
   <Profiles />
   <Settings>
-    <Setting Name="ReadKnownIntel" Type="System.String" Scope="User">
-      <Value Profile="(Default)">[intel.players.name] in [system.spell] [red.location] [intel.clear] [intel.novisual]</Value>
+    <Setting Name="ReadKnownSystemPlayer" Type="System.String" Scope="User">
+      <Value Profile="(Default)">[players] in [system] [location]</Value>
     </Setting>
     <Setting Name="ReadUnknownIntel" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Intel: [intel.raw]</Value>
+      <Value Profile="(Default)">Intel: [raw]</Value>
     </Setting>
-    <Setting Name="AdditionalIntelReports" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Additional, {0} intelligence reports</Value>
+    <Setting Name="ReadAdditionalIntelReports" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Additional, [count] intelligence reports</Value>
     </Setting>
     <Setting Name="SystemNameDash" Type="System.String" Scope="User">
       <Value Profile="(Default)"> tac </Value>
     </Setting>
     <Setting Name="SystemNameLetterSeparator" Type="System.String" Scope="User">
-      <Value Profile="(Default)">.</Value>
+      <Value Profile="(Default)">,</Value>
     </Setting>
     <Setting Name="SystemNameNumberSeparator" Type="System.String" Scope="User">
       <Value Profile="(Default)">,</Value>
     </Setting>
-    <Setting Name="IsClear" Type="System.String" Scope="User">
-      <Value Profile="(Default)"> is clear.</Value>
+    <Setting Name="ReadKnownSystemPlayerNoVisual" Type="System.String" Scope="User">
+      <Value Profile="(Default)">[players] in [system] no visual.</Value>
     </Setting>
-    <Setting Name="NoVisual" Type="System.String" Scope="User">
-      <Value Profile="(Default)"> no visual.</Value>
+    <Setting Name="ReadKnownSystem" Type="System.String" Scope="User">
+      <Value Profile="(Default)">reds in [system]</Value>
     </Setting>
-    <Setting Name="InSystem" Type="System.String" Scope="User">
-      <Value Profile="(Default)">  in [system.spell]</Value>
+    <Setting Name="ReadKnownSystemClear" Type="System.String" Scope="User">
+      <Value Profile="(Default)">[system] is clear.</Value>
+    </Setting>
+    <Setting Name="DetectSystem" Type="System.Collections.Specialized.StringCollection" Scope="User">
+      <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;string&gt;Solar System&lt;/string&gt;
+  &lt;string&gt;Звездная система&lt;/string&gt;
+  &lt;string&gt;Sonnensystem&lt;/string&gt;
+&lt;/ArrayOfString&gt;</Value>
+    </Setting>
+    <Setting Name="DetectIgroreWords" Type="System.Collections.Specialized.StringCollection" Scope="User">
+      <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;string&gt;at &lt;/string&gt;
+  &lt;string&gt;near &lt;/string&gt;
+  &lt;string&gt;in &lt;/string&gt;
+  &lt;string&gt;the &lt;/string&gt;
+  &lt;string&gt;a &lt;/string&gt;
+&lt;/ArrayOfString&gt;</Value>
+    </Setting>
+    <Setting Name="DetectRegexSearch" Type="System.String" Scope="User">
+      <Value Profile="(Default)">.*[keyword].*</Value>
+    </Setting>
+    <Setting Name="DetectNoVisual" Type="System.Collections.Specialized.StringCollection" Scope="User">
+      <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;string&gt;nv&lt;/string&gt;
+  &lt;string&gt;no visual&lt;/string&gt;
+  &lt;string&gt;novisual&lt;/string&gt;
+&lt;/ArrayOfString&gt;</Value>
+    </Setting>
+    <Setting Name="DetectClear" Type="System.Collections.Specialized.StringCollection" Scope="User">
+      <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;string&gt;clear&lt;/string&gt;
+  &lt;string&gt;isclear&lt;/string&gt;
+  &lt;string&gt;clr&lt;/string&gt;
+  &lt;string&gt;crl&lt;/string&gt;
+&lt;/ArrayOfString&gt;</Value>
+    </Setting>
+    <Setting Name="ReadUseOldSpeechGeneration" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
     </Setting>
   </Settings>
 </SettingsFile>

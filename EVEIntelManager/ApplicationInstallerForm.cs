@@ -13,20 +13,15 @@ using System.Media;
 namespace EVEIntelManager
 {
     public partial class ApplicationInstallerForm : Form
-    {
-        private delegate AppVersion GetSelectedVersionDelegate();
-        private delegate void SetToolTipDelegate(string toolTip);
-        private delegate void SetProgressDelegate(int value);
-        
+    {   
         public AppVersionList VersionList { get; set; }
-        public AppVersion CurrentVersion { get; set; }
 
         public ApplicationInstallerForm()
         {
             InitializeComponent();
         }
 
-        public void LoadForm()
+        public void PopulateVersions()
         {
             listVersions.Items.Clear();
 
@@ -34,12 +29,20 @@ namespace EVEIntelManager
             {
                 foreach (AppVersion version in VersionList.Versions)
                 {
-                    if (CurrentVersion.GetVersion() < version.GetVersion())
-                    {
-                        listVersions.Items.Add(version);
-                    }
+                    listVersions.Items.Add(version);
                 }
+            }
+            textTemporaryInstallerPath.Text = System.IO.Path.GetTempPath();
+        }
 
+        public void PopulateLatestVersion()
+        {
+            listVersions.Items.Clear();
+
+            if (VersionList != null)
+            {
+                listVersions.Items.Add(VersionList.Latest);
+                listVersions.SelectedIndex = 0;
             }
             textTemporaryInstallerPath.Text = System.IO.Path.GetTempPath();
         }
@@ -87,7 +90,7 @@ namespace EVEIntelManager
         {
             if (this.InvokeRequired)
             {
-                return this.Invoke((GetSelectedVersionDelegate)GetSelectedVersion) as AppVersion;
+                return this.Invoke((ApplicationInstaller.GetSelectedVersionDelegate)GetSelectedVersion) as AppVersion;
             }
             return listVersions.SelectedItem as AppVersion;
         }
@@ -96,7 +99,7 @@ namespace EVEIntelManager
         {
             if (this.InvokeRequired)
             {
-                this.Invoke((SetToolTipDelegate)SetToolTip, toolTip);
+                this.Invoke((ApplicationInstaller.SetToolTipDelegate)SetToolTip, toolTip);
                 return;
             }
             toolStripStatusLabel.Text = toolTip;
@@ -106,29 +109,21 @@ namespace EVEIntelManager
         {
             if (this.InvokeRequired)
             {
-                this.Invoke((SetProgressDelegate)SetProgressMax, max);
+                this.Invoke((ApplicationInstaller.SetProgressDelegate)SetProgressMax, max);
                 return;
             }
-            progressBarDownload.Maximum = max;
-        }
 
-        private void SetProgressValue(int value)
-        {
-            if (this.InvokeRequired)
-            {
-                this.Invoke((SetProgressDelegate)SetProgressValue, value);
-                return;
-            }
-            progressBarDownload.Value = value;
+            progressBarDownload.Maximum = max;
         }
 
         private void AddProgressValue(int value)
         {
             if (this.InvokeRequired)
             {
-                this.Invoke((SetProgressDelegate)AddProgressValue, value);
+                this.Invoke((ApplicationInstaller.SetProgressDelegate)AddProgressValue, value);
                 return;
             }
+
             progressBarDownload.Value += value;
         }
 
@@ -161,7 +156,8 @@ namespace EVEIntelManager
 
                 if (downloadFile)
                 {
-                    installerAvaialble = DownloadVersion(version.URL, path);
+                    installerAvaialble = ApplicationInstaller.DownloadVersion(version.URL, path,
+                                            SetToolTip, SetProgressMax, AddProgressValue);
                 }
 
                 if (installerAvaialble) {
@@ -176,38 +172,5 @@ namespace EVEIntelManager
         }
 
 
-        private bool DownloadVersion(string URL, string outputPath)
-        {
-            try {
-                SetToolTip("Downloading " + URL);
-
-                WebRequest objRequest = System.Net.HttpWebRequest.Create(URL);
-                WebResponse objResponse = objRequest.GetResponse();
-
-                SetProgressMax((int)objResponse.ContentLength);
-
-                using (BinaryReader inputReader = new BinaryReader(objResponse.GetResponseStream()))
-                {
-                    using (FileStream outputStream = new FileStream(outputPath, FileMode.CreateNew))
-                    {
-
-                        byte[] buffer = new byte[32768];
-                        int read;
-                        while ((read = inputReader.Read(buffer, 0, buffer.Length)) > 0)
-                        {
-                            AddProgressValue(read);
-                            outputStream.Write(buffer, 0, read);
-                        }
-                    }
-                }
-
-                return true;
-            } catch (Exception e) {
-                SetToolTip("Unable to download " + URL + ": " + e.Message);
-                SystemSounds.Beep.Play();
-
-                return false;
-            }
-        }
     }
 }

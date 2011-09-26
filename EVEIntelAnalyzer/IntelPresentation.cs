@@ -34,37 +34,43 @@ namespace EVEIntelAnalyzer
             return message;
         }
 
-
-        /*
-         * 
-           string message = "";
-
-            if (Intel != null)
+        private string BuildSpeekSolarSystem(string system)
+        {
+            string speakSystem = "";
+            for (int i = 0; i < system.Length; i++)
             {
-                string systemName = GetSystem(Intel.System);
-                message += (message != "" ? " >> " : "") + GetRawIntel(Intel);
+                char letter = system[i];
+                char nextLetter = i + 1 < system.Length ? system[i + 1] : '\0';
 
-                string playerNames = Players != null ? Players : "unknown";
-                string systemName = system != null ? System.Name : "unknown";
-
-                if (!Intel.Clear)
+                if (char.IsLetter(letter))
                 {
-                    if (NoVisual)
+                    speakSystem += system[i];
+                    if (char.IsLetter(nextLetter))
                     {
-                        return Intel.Players + " at " + GetSystem(Intel.System) + " [No Visual] >> " + Message;
-                    }
-                    else
-                    {
-                        return Intel.Players + " at " + GetSystem(Intel.System) + " (" + Location + ") >> " + Message;
+                        speakSystem += ". ";
                     }
                 }
-                else
+
+                // only if this and next charecter is a numbe, put a separator
+                else if (char.IsNumber(letter))
                 {
-                    return GetSystem(Intel.System) + " [Clear] >> " + LogMessage;
+                    speakSystem += system[i];
+                    if (char.IsNumber(nextLetter) || nextLetter == '-')
+                    {
+                        speakSystem += IntelSettings.Default.SystemNameNumberSeparator; // ", ";
+                    }
                 }
-         * 
-         */
-        public string ToSpeach()
+
+                // if this is a '-' put a verbal transaction of '-' (i.e. tac)
+                else if (letter == '-')
+                {
+                    speakSystem += IntelSettings.Default.SystemNameDash; // " tac ";
+                }
+            }
+            return speakSystem;
+        }
+
+        private string ToSpeechOld()
         {
             string message = "";
 
@@ -123,6 +129,62 @@ namespace EVEIntelAnalyzer
             return message;
         }
 
+        private string ToSpeechNew()
+        {
+            string message = "";
+
+            if (Intel != null)
+            {
+
+
+                if (Intel.System != null && Intel.System.Name != null)
+                {
+                    if (!Intel.Clear)
+                    {
+                        message += Intel.Players;
+                    }
+
+                    // convert the system name into "spelled by letter" and '-' spelled as 'tac', 
+                    // based on settings.
+                    string speakSystem = BuildSpeekSolarSystem(Intel.System.Name);
+
+                    if (Intel.Clear)
+                    {
+                        message += speakSystem + " is clear.";
+                    }
+                    else
+                    {
+                        message += " in " + speakSystem;
+
+                        if (Intel.NoVisual)
+                        {
+                            message += " no visual.";
+                        }
+                    }
+
+                }
+                else
+                {
+                    message += GetRawIntel(Intel);
+                }
+            }
+
+            return message;
+        }
+
+        public string ToSpeech()
+        {
+            if (IntelSettings.Default.ReadUseOldSpeechGeneration)
+            {
+                return ToSpeechOld();
+            }
+            else
+            {
+                return ToSpeechNew();
+            }
+        }
+
+        /*
         private string GetPlayer(Player red)
         {
             if (red != null)
@@ -135,7 +197,7 @@ namespace EVEIntelAnalyzer
             {
                 return "red";
             }
-        }
+        }*/
 
         private string GetSystem(SolarSystem system)
         {
@@ -161,3 +223,34 @@ namespace EVEIntelAnalyzer
         }
     }
 }
+
+/*
+ * 
+   string message = "";
+
+    if (Intel != null)
+    {
+        string systemName = GetSystem(Intel.System);
+        message += (message != "" ? " >> " : "") + GetRawIntel(Intel);
+
+        string playerNames = Players != null ? Players : "unknown";
+        string systemName = system != null ? System.Name : "unknown";
+
+        if (!Intel.Clear)
+        {
+            if (NoVisual)
+            {
+                return Intel.Players + " at " + GetSystem(Intel.System) + " [No Visual] >> " + Message;
+            }
+            else
+            {
+                return Intel.Players + " at " + GetSystem(Intel.System) + " (" + Location + ") >> " + Message;
+            }
+        }
+        else
+        {
+            return GetSystem(Intel.System) + " [Clear] >> " + LogMessage;
+        }
+ * 
+ */
+
