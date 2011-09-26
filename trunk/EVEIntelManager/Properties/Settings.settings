@@ -14,9 +14,6 @@
     <Setting Name="AutoLoadDefaultChannel" GenerateDefaultValueInCode="false" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="SettingsTabLast" GenerateDefaultValueInCode="false" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
     <Setting Name="FirstLoad" GenerateDefaultValueInCode="false" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
@@ -66,6 +63,9 @@
     </Setting>
     <Setting Name="UpdateVersionPath" Type="System.String" Scope="User">
       <Value Profile="(Default)">http://eve-intel-monitor.googlecode.com/files/versions.xml</Value>
+    </Setting>
+    <Setting Name="HomePage" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://code.google.com/p/eve-intel-monitor/</Value>
     </Setting>
   </Settings>
 </SettingsFile>

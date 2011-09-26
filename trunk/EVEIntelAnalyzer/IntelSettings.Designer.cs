@@ -25,20 +25,19 @@ namespace EVEIntelAnalyzer {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("[intel.players.name] in [system.spell] [red.location] [intel.clear] [intel.novisu" +
-            "al]")]
-        public string ReadKnownIntel {
+        [global::System.Configuration.DefaultSettingValueAttribute("[players] in [system] [location]")]
+        public string ReadKnownSystemPlayer {
             get {
-                return ((string)(this["ReadKnownIntel"]));
+                return ((string)(this["ReadKnownSystemPlayer"]));
             }
             set {
-                this["ReadKnownIntel"] = value;
+                this["ReadKnownSystemPlayer"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Intel: [intel.raw]")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Intel: [raw]")]
         public string ReadUnknownIntel {
             get {
                 return ((string)(this["ReadUnknownIntel"]));
@@ -50,13 +49,13 @@ namespace EVEIntelAnalyzer {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Additional, {0} intelligence reports")]
-        public string AdditionalIntelReports {
+        [global::System.Configuration.DefaultSettingValueAttribute("Additional, [count] intelligence reports")]
+        public string ReadAdditionalIntelReports {
             get {
-                return ((string)(this["AdditionalIntelReports"]));
+                return ((string)(this["ReadAdditionalIntelReports"]));
             }
             set {
-                this["AdditionalIntelReports"] = value;
+                this["ReadAdditionalIntelReports"] = value;
             }
         }
         
@@ -74,7 +73,7 @@ namespace EVEIntelAnalyzer {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute(".")]
+        [global::System.Configuration.DefaultSettingValueAttribute(",")]
         public string SystemNameLetterSeparator {
             get {
                 return ((string)(this["SystemNameLetterSeparator"]));
@@ -98,37 +97,130 @@ namespace EVEIntelAnalyzer {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute(" is clear.")]
-        public string IsClear {
+        [global::System.Configuration.DefaultSettingValueAttribute("[players] in [system] no visual.")]
+        public string ReadKnownSystemPlayerNoVisual {
             get {
-                return ((string)(this["IsClear"]));
+                return ((string)(this["ReadKnownSystemPlayerNoVisual"]));
             }
             set {
-                this["IsClear"] = value;
+                this["ReadKnownSystemPlayerNoVisual"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute(" no visual.")]
-        public string NoVisual {
+        [global::System.Configuration.DefaultSettingValueAttribute("reds in [system]")]
+        public string ReadKnownSystem {
             get {
-                return ((string)(this["NoVisual"]));
+                return ((string)(this["ReadKnownSystem"]));
             }
             set {
-                this["NoVisual"] = value;
+                this["ReadKnownSystem"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("  in [system.spell]")]
-        public string InSystem {
+        [global::System.Configuration.DefaultSettingValueAttribute("[system] is clear.")]
+        public string ReadKnownSystemClear {
             get {
-                return ((string)(this["InSystem"]));
+                return ((string)(this["ReadKnownSystemClear"]));
             }
             set {
-                this["InSystem"] = value;
+                this["ReadKnownSystemClear"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(@"<?xml version=""1.0"" encoding=""utf-16""?>
+<ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
+  <string>Solar System</string>
+  <string>Звездная система</string>
+  <string>Sonnensystem</string>
+</ArrayOfString>")]
+        public global::System.Collections.Specialized.StringCollection DetectSystem {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["DetectSystem"]));
+            }
+            set {
+                this["DetectSystem"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(@"<?xml version=""1.0"" encoding=""utf-16""?>
+<ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
+  <string>at </string>
+  <string>near </string>
+  <string>in </string>
+  <string>the </string>
+  <string>a </string>
+</ArrayOfString>")]
+        public global::System.Collections.Specialized.StringCollection DetectIgroreWords {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["DetectIgroreWords"]));
+            }
+            set {
+                this["DetectIgroreWords"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(".*[keyword].*")]
+        public string DetectRegexSearch {
+            get {
+                return ((string)(this["DetectRegexSearch"]));
+            }
+            set {
+                this["DetectRegexSearch"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("<?xml version=\"1.0\" encoding=\"utf-16\"?>\r\n<ArrayOfString xmlns:xsi=\"http://www.w3." +
+            "org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">\r\n  <s" +
+            "tring>nv</string>\r\n  <string>no visual</string>\r\n  <string>novisual</string>\r\n</" +
+            "ArrayOfString>")]
+        public global::System.Collections.Specialized.StringCollection DetectNoVisual {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["DetectNoVisual"]));
+            }
+            set {
+                this["DetectNoVisual"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(@"<?xml version=""1.0"" encoding=""utf-16""?>
+<ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
+  <string>clear</string>
+  <string>isclear</string>
+  <string>clr</string>
+  <string>crl</string>
+</ArrayOfString>")]
+        public global::System.Collections.Specialized.StringCollection DetectClear {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["DetectClear"]));
+            }
+            set {
+                this["DetectClear"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ReadUseOldSpeechGeneration {
+            get {
+                return ((bool)(this["ReadUseOldSpeechGeneration"]));
+            }
+            set {
+                this["ReadUseOldSpeechGeneration"] = value;
             }
         }
     }

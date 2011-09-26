@@ -47,6 +47,23 @@ namespace EVEIntelManager
             }
         }
 
+        public void ResumeSpeech()
+        {
+            if (InvokeRequired)
+            {
+                this.Invoke((VoidDelegate)PauseSpeech);
+                return;
+            }
+
+            lock (this)
+            {
+                if (lastSynth != null && lastSynth.State != SynthesizerState.Paused)
+                {
+                    lastSynth.Resume();
+                }
+            }
+        }
+
         private IntelAnalyzer analyzer;
         private SpeechSynthesizer lastSynth;
 
@@ -69,7 +86,7 @@ namespace EVEIntelManager
             if (Analyzer.Active)
             {
                 buttonMonitorIntel.Text = "&Stop";
-                setPausingText("");
+                setMessageText("");
                 if (!backgroundIntelSound.IsBusy)
                 {
                     backgroundIntelSound.RunWorkerAsync();
@@ -81,7 +98,7 @@ namespace EVEIntelManager
 
                 if (backgroundIntelSound.IsBusy)
                 {
-                    setPausingText("Pausing intel...");
+                    setMessageText("Pausing intel...");
                 }
             }
         }
@@ -123,16 +140,16 @@ namespace EVEIntelManager
         {
             intelBindingSource.Clear();
             synthesizerMessages.Clear();
-            setPausingText("");
+            setMessageText("");
         }
 
         private delegate void SetText(string text);
 
-        private void setPausingText(string text)
+        private void setMessageText(string text)
         {
             if (this.InvokeRequired)
             {
-                this.Invoke((SetText)setPausingText, text);
+                this.Invoke((SetText)setMessageText, text);
 
                 return;
             }
@@ -164,24 +181,26 @@ namespace EVEIntelManager
                         if (Analyzer.Active)
                         {
                             IntelPresentation message = synthesizerMessages.Dequeue();
-                            setPausingText(message.ToString());
-                            synth.Speak(message.ToSpeach());
+                            setMessageText(message.ToString());
+                            synth.Speak(message.ToSpeech());
                         }
                         else
                         {
-                            setPausingText("Intel Paused.");
+                            setMessageText("Intel Paused.");
                             return;
                         }
                     }
 
                     if (synthesizerMessages.Count > 0)
                     {
-                        string text = "Additional, " + synthesizerMessages.Count + " intelligence reports";
-                        setPausingText(text);
+                        string text = IntelSettings.Default.ReadAdditionalIntelReports;
+                        text = text.Replace("[count]", synthesizerMessages.Count.ToString());
+                        
+                        setMessageText(text);
                         synth.Speak(text);
                     }
                     synthesizerMessages.Clear();
-                    setPausingText("");
+                    setMessageText("");
                 }
                 finally
                 {

@@ -69,27 +69,41 @@ namespace EVEIntelAnalyzer
                     Intel intel = new Intel();
                     intel.LogMessage = message;
 
-                    string formattedMessage = message.Message.Replace("at ", "").
+                    string formattedMessage = message.Message;
+
+                    foreach (string word in IntelSettings.Default.DetectIgroreWords)
+                    {
+                        formattedMessage = formattedMessage.Replace(word, "");
+                    }
+                    /*(string formattedMessage = message.Message.Replace("at ", "").
                                                    Replace("near ", "").
                                                    Replace("in ", "").
                                                    Replace("the ", "").
                                                    Replace("a ", "");
+                    */
 
-                    string[] messageParts = formattedMessage.Split(' ');
-                    if (messageParts.Contains("Solar") && messageParts.Contains("System"))
+                    string[] systemKeywords = null;
+
+                    foreach (string systemKeyword in IntelSettings.Default.DetectSystem)
+                    {
+                        if (formattedMessage.Contains(systemKeyword)) {
+                            systemKeywords = systemKeyword.Split(' ');
+                            break;
+                        }
+                    }
+
+                    string[] messageParts = formattedMessage.Split(new char[] {' '}, StringSplitOptions.RemoveEmptyEntries);
+                    if (systemKeywords != null)
                     {
                         for (int i = 0; i < messageParts.Length; i++)
                         {
-                            if (messageParts[i] == "Solar" && i - 1 >= 0)
+                            if (systemKeywords[0] == messageParts[i] && i - 1 >= 0)
                             {
                                 intel.System = SolarSystem.GetSystem(messageParts[i - 1]);
-                                for (int j = 0; j < i - 1; j++)
-                                {
-                                    if (messageParts[j] != "")
-                                    {
-                                        intel.Players += messageParts[j] + " ";
-                                    }
-                                }
+                            }
+                            else if (systemKeywords.Contains(messageParts[i]))
+                            {
+                                // ignore the rest of the solar system keyword
                             }
                             else if (messageParts[i].ToLower() == "nv")
                             {
@@ -100,6 +114,10 @@ namespace EVEIntelAnalyzer
                             {
                                 intel.Clear = true;
                                 intel.Location = "Clear";
+                            }
+                            else if (i + 1 < messageParts.Length && !systemKeywords.Contains(messageParts[i + 1]))
+                            {
+                                intel.Players += (intel.Players != "" ? " " : "") + messageParts[i];
                             }
                         }
 

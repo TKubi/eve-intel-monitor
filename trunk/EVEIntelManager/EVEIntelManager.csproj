@@ -87,6 +87,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AboutBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AboutBox.Designer.cs">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="ApplicationInstaller.cs" />
     <Compile Include="IntelUI.cs">
       <SubType>UserControl</SubType>
@@ -114,6 +120,10 @@
       <DependentUpon>PromptWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="AboutBox.resx">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="IntelUI.resx">
       <DependentUpon>IntelUI.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -130,8 +140,8 @@
       <DependentUpon>PromptWindow.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SettingsUI.resx">
-      <DependentUpon>SettingsUI.cs</DependentUpon>
+    <EmbeddedResource Include="SettingsForm.resx">
+      <DependentUpon>SettingsForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="ApplicationInstallerForm.resx">
@@ -150,11 +160,11 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="Settings.cs" />
-    <Compile Include="SettingsUI.cs">
-      <SubType>UserControl</SubType>
+    <Compile Include="SettingsForm.cs">
+      <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SettingsUI.Designer.cs">
-      <DependentUpon>SettingsUI.cs</DependentUpon>
+    <Compile Include="SettingsForm.Designer.cs">
+      <DependentUpon>SettingsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="ApplicationInstallerForm.cs">
       <SubType>Form</SubType>
@@ -179,9 +189,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="IntelMonitor.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Properties\DataSources\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
