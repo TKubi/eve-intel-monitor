@@ -223,5 +223,17 @@ namespace EVEIntelAnalyzer {
                 this["ReadUseOldSpeechGeneration"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("[count] older intelligence reports have been skipped")]
+        public string ReadSkipIntel {
+            get {
+                return ((string)(this["ReadSkipIntel"]));
+            }
+            set {
+                this["ReadSkipIntel"] = value;
+            }
+        }
     }
 }

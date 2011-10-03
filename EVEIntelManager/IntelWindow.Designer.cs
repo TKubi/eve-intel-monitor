@@ -43,7 +43,9 @@
             this.listLoadedChannels = new System.Windows.Forms.ListBox();
             this.buttonLoadChannels = new System.Windows.Forms.Button();
             this.listFiles = new System.Windows.Forms.CheckedListBox();
+            this.logReaderUI = new EVEIntelManager.LogReaderUI();
             this.tabIntel = new System.Windows.Forms.TabPage();
+            this.intelUI = new EVEIntelManager.IntelUI();
             this.checkAlwaysOnTop = new System.Windows.Forms.CheckBox();
             this.backgroundUpdateWorker = new System.ComponentModel.BackgroundWorker();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
@@ -63,8 +65,6 @@
             this.qandaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.logReaderUI = new EVEIntelManager.LogReaderUI();
-            this.intelUI = new EVEIntelManager.IntelUI();
             this.tabControl.SuspendLayout();
             this.tabChannels.SuspendLayout();
             this.panelChannelHeader.SuspendLayout();
@@ -87,7 +87,7 @@
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
             this.tabControl.ShowToolTips = true;
-            this.tabControl.Size = new System.Drawing.Size(604, 348);
+            this.tabControl.Size = new System.Drawing.Size(630, 399);
             this.tabControl.TabIndex = 0;
             // 
             // tabChannels
@@ -233,16 +233,39 @@
             this.listFiles.Size = new System.Drawing.Size(186, 109);
             this.listFiles.TabIndex = 4;
             // 
+            // logReaderUI
+            // 
+            this.logReaderUI.BackColor = System.Drawing.Color.Transparent;
+            this.logReaderUI.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.logReaderUI.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.logReaderUI.Location = new System.Drawing.Point(0, 0);
+            this.logReaderUI.Name = "logReaderUI";
+            this.logReaderUI.Size = new System.Drawing.Size(394, 284);
+            this.logReaderUI.TabIndex = 6;
+            this.logReaderUI.TimerInterval = 5000;
+            // 
             // tabIntel
             // 
             this.tabIntel.Controls.Add(this.intelUI);
             this.tabIntel.Location = new System.Drawing.Point(4, 22);
             this.tabIntel.Name = "tabIntel";
             this.tabIntel.Padding = new System.Windows.Forms.Padding(3);
-            this.tabIntel.Size = new System.Drawing.Size(596, 322);
+            this.tabIntel.Size = new System.Drawing.Size(622, 373);
             this.tabIntel.TabIndex = 2;
             this.tabIntel.Text = "Intel";
             this.tabIntel.UseVisualStyleBackColor = true;
+            // 
+            // intelUI
+            // 
+            intelAnalyzer1.Active = true;
+            intelAnalyzer1.MatchStrings = null;
+            this.intelUI.Analyzer = intelAnalyzer1;
+            this.intelUI.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.intelUI.Location = new System.Drawing.Point(3, 3);
+            this.intelUI.Name = "intelUI";
+            this.intelUI.ShowGrid = true;
+            this.intelUI.Size = new System.Drawing.Size(616, 367);
+            this.intelUI.TabIndex = 0;
             // 
             // checkAlwaysOnTop
             // 
@@ -250,7 +273,7 @@
             this.checkAlwaysOnTop.AutoSize = true;
             this.checkAlwaysOnTop.Checked = true;
             this.checkAlwaysOnTop.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkAlwaysOnTop.Location = new System.Drawing.Point(502, 27);
+            this.checkAlwaysOnTop.Location = new System.Drawing.Point(528, 27);
             this.checkAlwaysOnTop.Name = "checkAlwaysOnTop";
             this.checkAlwaysOnTop.Size = new System.Drawing.Size(98, 17);
             this.checkAlwaysOnTop.TabIndex = 9;
@@ -266,9 +289,9 @@
             // 
             this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel});
-            this.statusStrip.Location = new System.Drawing.Point(0, 378);
+            this.statusStrip.Location = new System.Drawing.Point(0, 429);
             this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(604, 22);
+            this.statusStrip.Size = new System.Drawing.Size(630, 22);
             this.statusStrip.TabIndex = 12;
             this.statusStrip.Text = "statusStrip1";
             // 
@@ -285,7 +308,7 @@
             this.helpToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
-            this.menuStrip.Size = new System.Drawing.Size(604, 24);
+            this.menuStrip.Size = new System.Drawing.Size(630, 24);
             this.menuStrip.TabIndex = 13;
             this.menuStrip.Text = "menuStrip1";
             // 
@@ -392,33 +415,11 @@
             this.aboutToolStripMenuItem.Text = "&About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
-            // logReaderUI
-            // 
-            this.logReaderUI.BackColor = System.Drawing.Color.Transparent;
-            this.logReaderUI.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.logReaderUI.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.logReaderUI.Location = new System.Drawing.Point(0, 0);
-            this.logReaderUI.Name = "logReaderUI";
-            this.logReaderUI.Size = new System.Drawing.Size(394, 284);
-            this.logReaderUI.TabIndex = 6;
-            this.logReaderUI.TimerInterval = 5000;
-            // 
-            // intelUI
-            // 
-            intelAnalyzer1.Active = true;
-            intelAnalyzer1.MatchStrings = null;
-            this.intelUI.Analyzer = intelAnalyzer1;
-            this.intelUI.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.intelUI.Location = new System.Drawing.Point(3, 3);
-            this.intelUI.Name = "intelUI";
-            this.intelUI.Size = new System.Drawing.Size(590, 316);
-            this.intelUI.TabIndex = 0;
-            // 
             // IntelWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(604, 400);
+            this.ClientSize = new System.Drawing.Size(630, 451);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.menuStrip);
             this.Controls.Add(this.checkAlwaysOnTop);

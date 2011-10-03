@@ -67,5 +67,11 @@
     <Setting Name="HomePage" Type="System.String" Scope="User">
       <Value Profile="(Default)">http://code.google.com/p/eve-intel-monitor/</Value>
     </Setting>
+    <Setting Name="SkipOlderIntel" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="ShowIntelGrid" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

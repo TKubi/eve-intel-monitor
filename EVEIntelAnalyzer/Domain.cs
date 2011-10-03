@@ -71,6 +71,7 @@ namespace EVEIntelAnalyzer
 
         public string Players { get; set; }
         public bool Clear { get; set; }
+        public bool Docked { get; set; }
         public bool NoVisual { get; set; }
 
         public SolarSystem System

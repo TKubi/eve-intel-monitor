@@ -74,6 +74,25 @@ namespace EVEIntelManager
             InitializeComponent();
 
             this.Analyzer = new IntelAnalyzer();
+
+            if (Properties.Settings.Default.FirstLoad) {
+                setMessageText("The List View is activated. If the performance is poor, try switching to List View (button ->).");
+            }
+
+        }
+
+        public bool ShowGrid 
+        {
+            get
+            {
+                return dataGridIntel.Visible;
+            }
+            set
+            {
+                dataGridIntel.Visible = value;
+                listIntel.Visible = !value;
+                buttonToggleView.ImageIndex = ShowGrid ? 0 : 1;
+            }
         }
 
         private void buttonMonitorIntel_Click(object sender, EventArgs e)
@@ -122,6 +141,15 @@ namespace EVEIntelManager
                 intelBindingSource.Add(intel);
             }
 
+            if (listIntel.Items.Count > 0)
+            {
+                listIntel.Items.Insert(0, intelDisplay);
+            }
+            else
+            {
+                listIntel.Items.Add(intelDisplay);
+            }
+
             if (Properties.Settings.Default.TextToSpeech)
             {
                 synthesizerMessages.Enqueue(intelDisplay);
@@ -139,6 +167,7 @@ namespace EVEIntelManager
         private void buttonClearIntel_Click(object sender, EventArgs e)
         {
             intelBindingSource.Clear();
+            listIntel.Items.Clear();
             synthesizerMessages.Clear();
             setMessageText("");
         }
@@ -176,8 +205,31 @@ namespace EVEIntelManager
                     synth.Rate = Properties.Settings.Default.TextToSpeechRate;
 
                     int maxItel = Properties.Settings.Default.TextToSpeechMaxMessages;
-                    for (int intel = 0; synthesizerMessages.Count > 0 && intel < maxItel; intel++)
+                    int skippedIntel = 0;
+
+                    for (int intel = 0; synthesizerMessages.Count > 0 && intel <= maxItel; intel++)
                     {
+                        if (Properties.Settings.Default.SkipOlderIntel)
+                        {
+                            // keep looping through the queue until there are 
+                            // less then maxIntel messages remaining
+                            int intelToKeep = Math.Max(maxItel, 0);
+                            
+                            while (synthesizerMessages.Count > intelToKeep)
+                            {
+                                IntelPresentation message = synthesizerMessages.Dequeue();
+                                // set the text of the message anyway.
+                                setMessageText(message.ToString());
+                                skippedIntel++;
+                            }
+                        }
+
+                        // since we may have skipped everything, we should check if the queue is empty
+                        if (synthesizerMessages.Count == 0)
+                        {
+                            break;
+                        }
+
                         if (Analyzer.Active)
                         {
                             IntelPresentation message = synthesizerMessages.Dequeue();
@@ -189,16 +241,27 @@ namespace EVEIntelManager
                             setMessageText("Intel Paused.");
                             return;
                         }
+
+                    }
+
+                    if (skippedIntel > 0)
+                    {
+                        string text = IntelSettings.Default.ReadSkipIntel;
+                        text = text.Replace("[count]", skippedIntel.ToString());
+
+                        setMessageText(text);
+                        synth.Speak(text);
                     }
 
                     if (synthesizerMessages.Count > 0)
                     {
                         string text = IntelSettings.Default.ReadAdditionalIntelReports;
                         text = text.Replace("[count]", synthesizerMessages.Count.ToString());
-                        
+
                         setMessageText(text);
                         synth.Speak(text);
                     }
+
                     synthesizerMessages.Clear();
                     setMessageText("");
                 }
@@ -209,6 +272,19 @@ namespace EVEIntelManager
                         this.lastSynth = null;
                     }
                 }
+            }
+        }
+
+        private void buttonToggleView_Click(object sender, EventArgs e)
+        {
+            ShowGrid = !ShowGrid;
+            if (ShowGrid)
+            {
+                setMessageText("The Grid View is activated. Go to Tools -> Options to make this setting permanent.");
+            }
+            else
+            {
+                setMessageText("The List View is activated. Go to Tools -> Options to make this setting permanent.");
             }
         }
     }

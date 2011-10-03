@@ -50,13 +50,12 @@ namespace EVEIntelManager
         {
             InitializeComponent();
             
-            settingsForm.ChangedSettings += ApplySettings;
+            //settingsForm.ChangedSettings += ApplySettings;
 
             this.Text = "EVE Intel Monitor - " + ApplicationInstaller.GetCurrentVersion();
         }
 
         private LogDirectoryMonitor monitor;
-        private ApplicationInstallerForm installerForm = new ApplicationInstallerForm();
         private AboutBox aboutBox = new AboutBox();
 
         private void ApplySettings()
@@ -68,6 +67,8 @@ namespace EVEIntelManager
             intelUI.Analyzer.MatchStrings = Properties.Settings.Default.Keywords;
 
             statusStrip.Visible = Properties.Settings.Default.ShowStatusBar;
+            intelUI.Analyzer.MatchStrings = Properties.Settings.Default.Keywords;
+            intelUI.ShowGrid = Properties.Settings.Default.ShowIntelGrid;
 
             toolStripStatusLabel.Text = "Settings have been applied.";
         }
@@ -200,6 +201,7 @@ namespace EVEIntelManager
 
             if (ApplicationInstaller.CheckForUpdates(out versionList))
             {
+                ApplicationInstallerForm installerForm = new ApplicationInstallerForm();
                 installerForm.VersionList = versionList;
 
                 installerForm.PopulateLatestVersion();
@@ -221,6 +223,7 @@ namespace EVEIntelManager
 
             if (ApplicationInstaller.PromptUpgrade(out versionList))
             {
+                ApplicationInstallerForm installerForm = new ApplicationInstallerForm();
                 installerForm.VersionList = versionList;
 
                 installerForm.PopulateVersions();

@@ -70,5 +70,8 @@
     <Setting Name="ReadUseOldSpeechGeneration" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
+    <Setting Name="ReadSkipIntel" Type="System.String" Scope="User">
+      <Value Profile="(Default)">[count] older intelligence reports have been skipped</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
