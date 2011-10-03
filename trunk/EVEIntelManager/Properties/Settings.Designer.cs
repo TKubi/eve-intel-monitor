@@ -213,5 +213,29 @@ namespace EVEIntelManager.Properties {
                 this["HomePage"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool SkipOlderIntel {
+            get {
+                return ((bool)(this["SkipOlderIntel"]));
+            }
+            set {
+                this["SkipOlderIntel"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ShowIntelGrid {
+            get {
+                return ((bool)(this["ShowIntelGrid"]));
+            }
+            set {
+                this["ShowIntelGrid"] = value;
+            }
+        }
     }
 }

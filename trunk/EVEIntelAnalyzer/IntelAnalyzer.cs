@@ -105,17 +105,34 @@ namespace EVEIntelAnalyzer
                             {
                                 // ignore the rest of the solar system keyword
                             }
-                            else if (messageParts[i].ToLower() == "nv")
+                            else if (messageParts[i].ToLower() == "nv" ||
+                                messageParts[i].ToLower() == "novisual" ||
+                                messageParts[i].ToLower() == "visual")
                             {
                                 intel.NoVisual = true;
                                 intel.Location = "No Visual";
                             }
-                            else if (messageParts[i].ToLower() == "clear" || messageParts[i].ToLower() == "clr")
+                            else if (messageParts[i].ToLower() == "docked" 
+                                || messageParts[i].ToLower() == "doc")
+                            {   
+                                intel.Docked = true;
+                                intel.Location = "Docked";
+                            }
+                            else if (messageParts[i].ToLower() == "clear" 
+                                    || messageParts[i].ToLower() == "clr")
                             {
                                 intel.Clear = true;
                                 intel.Location = "Clear";
                             }
                             else if (i + 1 < messageParts.Length && !systemKeywords.Contains(messageParts[i + 1]))
+                            {
+                                intel.Players += (intel.Players != "" ? " " : "") + messageParts[i];
+                            }
+                            else if (i + 1 < messageParts.Length && systemKeywords.Contains(messageParts[i + 1]))
+                            {
+                                // since this keyword is a system, we need to skip it.
+                            }
+                            else if (i < messageParts.Length && !systemKeywords.Contains(messageParts[i]))
                             {
                                 intel.Players += (intel.Players != "" ? " " : "") + messageParts[i];
                             }

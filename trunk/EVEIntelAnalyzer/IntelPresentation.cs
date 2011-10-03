@@ -25,9 +25,11 @@ namespace EVEIntelAnalyzer
 
             if (Intel != null)
             {
-                message += Intel.System != null ? Intel.Players : "";
-                message += GetSystem(Intel.System);
-                message += (message != "" ? " > " : "") + GetRawIntel(Intel);
+                message += Intel.Timestamp.ToString("HH:mm:ss");
+                message += Intel.System   != null ? " | " + GetSystem(Intel.System) : "";
+                message += Intel.System   != null ? " | " + Intel.Players  : "";
+                message += Intel.Location != null ? " | " + Intel.Location : "";
+                message += " > " + GetRawIntel(Intel);
             }
 
 
@@ -109,6 +111,10 @@ namespace EVEIntelAnalyzer
                     {
                         message += speakSystem + " is clear.";
                     }
+                    else if (Intel.Docked)
+                    {
+                        message +=  " is docked in " + speakSystem + ".";
+                    }
                     else
                     {
                         message += " in " + speakSystem;
@@ -151,6 +157,10 @@ namespace EVEIntelAnalyzer
                     if (Intel.Clear)
                     {
                         message += speakSystem + " is clear.";
+                    }
+                    else if (Intel.Docked)
+                    {
+                        message += speakSystem + " is docked.";
                     }
                     else
                     {
@@ -217,9 +227,9 @@ namespace EVEIntelAnalyzer
             string rawIntel = Intel.Message;
             if (rawIntel.Length > 50)
             {
-                rawIntel = rawIntel.Substring(0, 50);
+                rawIntel = rawIntel.Substring(0, 50) + "...";
             }
-            return "Intel: " + rawIntel;
+            return rawIntel;
         }
     }
 }

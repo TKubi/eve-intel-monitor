@@ -15,8 +15,26 @@
     {
         "Entry"
         {
+        "MsmKey" = "8:_05F0A1495142206EE1D3A2378EA69508"
+        "OwnerKey" = "8:_0E38CA70B4C14BBBAF066FE203AAA8A2"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_0E38CA70B4C14BBBAF066FE203AAA8A2"
         "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_3D91C9646196D71FABBCAAD7BFDD0D62"
+        "OwnerKey" = "8:_05F0A1495142206EE1D3A2378EA69508"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_3D91C9646196D71FABBCAAD7BFDD0D62"
+        "OwnerKey" = "8:_0E38CA70B4C14BBBAF066FE203AAA8A2"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -27,31 +45,13 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_B15B7E6B21C6841AA2CDA3F48E84389C"
-        "OwnerKey" = "8:_F840CCEF001B44F238E2508AD63B477A"
+        "MsmKey" = "8:_D88BFD70748C5F996FC03EB07D82C1F3"
+        "OwnerKey" = "8:_3D91C9646196D71FABBCAAD7BFDD0D62"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_B15B7E6B21C6841AA2CDA3F48E84389C"
-        "OwnerKey" = "8:_0E38CA70B4C14BBBAF066FE203AAA8A2"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_F840CCEF001B44F238E2508AD63B477A"
-        "OwnerKey" = "8:_FC505FC1CB5E67076E4EF18076F1782E"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_F840CCEF001B44F238E2508AD63B477A"
-        "OwnerKey" = "8:_0E38CA70B4C14BBBAF066FE203AAA8A2"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_FC505FC1CB5E67076E4EF18076F1782E"
+        "MsmKey" = "8:_D88BFD70748C5F996FC03EB07D82C1F3"
         "OwnerKey" = "8:_0E38CA70B4C14BBBAF066FE203AAA8A2"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -64,19 +64,19 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_FC505FC1CB5E67076E4EF18076F1782E"
+        "OwnerKey" = "8:_05F0A1495142206EE1D3A2378EA69508"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_F840CCEF001B44F238E2508AD63B477A"
+        "OwnerKey" = "8:_3D91C9646196D71FABBCAAD7BFDD0D62"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_B15B7E6B21C6841AA2CDA3F48E84389C"
+        "OwnerKey" = "8:_D88BFD70748C5F996FC03EB07D82C1F3"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -184,40 +184,20 @@
         }
         "File"
         {
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_83C98054DE354F3EAB6AF920E9D7DE08"
-            {
-            "SourcePath" = "8:uninstall.bat"
-            "TargetName" = "8:uninstall.bat"
-            "Tag" = "8:"
-            "Folder" = "8:_915AAC710E2244699F92FBD28E282966"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_B15B7E6B21C6841AA2CDA3F48E84389C"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_05F0A1495142206EE1D3A2378EA69508"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:LogMonitor, Version=0.3.4254.35673, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:EVEIntelAnalyzer, Version=0.3.4286.2518, Culture=neutral, processorArchitecture=x86"
                 "ScatterAssemblies"
                 {
-                    "_B15B7E6B21C6841AA2CDA3F48E84389C"
+                    "_05F0A1495142206EE1D3A2378EA69508"
                     {
-                    "Name" = "8:LogMonitor.dll"
+                    "Name" = "8:EVEIntelAnalyzer.dll"
                     "Attributes" = "3:512"
                     }
                 }
-            "SourcePath" = "8:LogMonitor.dll"
+            "SourcePath" = "8:EVEIntelAnalyzer.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_915AAC710E2244699F92FBD28E282966"
@@ -235,14 +215,14 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_F840CCEF001B44F238E2508AD63B477A"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_3D91C9646196D71FABBCAAD7BFDD0D62"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:EVELogMonitor, Version=0.3.4254.35673, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:EVELogMonitor, Version=0.3.4286.2518, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_F840CCEF001B44F238E2508AD63B477A"
+                    "_3D91C9646196D71FABBCAAD7BFDD0D62"
                     {
                     "Name" = "8:EVELogMonitor.dll"
                     "Attributes" = "3:512"
@@ -266,20 +246,40 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_FC505FC1CB5E67076E4EF18076F1782E"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_83C98054DE354F3EAB6AF920E9D7DE08"
+            {
+            "SourcePath" = "8:uninstall.bat"
+            "TargetName" = "8:uninstall.bat"
+            "Tag" = "8:"
+            "Folder" = "8:_915AAC710E2244699F92FBD28E282966"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_D88BFD70748C5F996FC03EB07D82C1F3"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:EVEIntelAnalyzer, Version=0.3.4254.35673, Culture=neutral, processorArchitecture=x86"
+            "AssemblyAsmDisplayName" = "8:LogMonitor, Version=0.3.4286.2518, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_FC505FC1CB5E67076E4EF18076F1782E"
+                    "_D88BFD70748C5F996FC03EB07D82C1F3"
                     {
-                    "Name" = "8:EVEIntelAnalyzer.dll"
+                    "Name" = "8:LogMonitor.dll"
                     "Attributes" = "3:512"
                     }
                 }
-            "SourcePath" = "8:EVEIntelAnalyzer.dll"
+            "SourcePath" = "8:LogMonitor.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_915AAC710E2244699F92FBD28E282966"
@@ -375,7 +375,7 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:EVE-Intel-Monitor"
-        "ProductCode" = "8:{0356A0E3-2863-4460-8CBC-E50AE75C56AD}"
+        "ProductCode" = "8:{22BD8945-9A8A-4DC2-9412-398FB1075EFD}"
         "PackageCode" = "8:{2A1EB26A-2208-4545-979F-AB11DEDAC2E4}"
         "UpgradeCode" = "8:{A70177D0-5A08-4090-8D7E-6CA40725592D}"
         "RestartWWWService" = "11:FALSE"
