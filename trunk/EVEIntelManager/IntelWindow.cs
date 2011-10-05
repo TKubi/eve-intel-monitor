@@ -50,7 +50,7 @@ namespace EVEIntelManager
         {
             InitializeComponent();
             
-            //settingsForm.ChangedSettings += ApplySettings;
+            settingsForm.SettingsUI.ChangedSettings += ApplySettings;
 
             this.Text = "EVE Intel Monitor - " + ApplicationInstaller.GetCurrentVersion();
         }

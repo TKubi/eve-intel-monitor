@@ -28,13 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Speech");
-            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Analysis");
-            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Intelegance", new System.Windows.Forms.TreeNode[] {
-            treeNode6,
-            treeNode7});
-            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("General");
-            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("User Interface");
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Speech");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Analysis");
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Intelegance", new System.Windows.Forms.TreeNode[] {
+            treeNode1,
+            treeNode2});
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("General");
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("User Interface");
             this.splitContainer = new System.Windows.Forms.SplitContainer();
             this.treeMenu = new System.Windows.Forms.TreeView();
             this.panelGeneral = new System.Windows.Forms.Panel();
@@ -77,6 +77,7 @@
             this.label13 = new System.Windows.Forms.Label();
             this.tabPageUserInterface = new System.Windows.Forms.TabPage();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.checkBoxIntelGrid = new System.Windows.Forms.CheckBox();
             this.checkShowStatusBar = new System.Windows.Forms.CheckBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -87,7 +88,6 @@
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonApply = new System.Windows.Forms.Button();
             this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
-            this.checkBoxIntelGrid = new System.Windows.Forms.CheckBox();
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.Panel2.SuspendLayout();
             this.splitContainer.SuspendLayout();
@@ -131,20 +131,20 @@
             this.treeMenu.FullRowSelect = true;
             this.treeMenu.Location = new System.Drawing.Point(0, 0);
             this.treeMenu.Name = "treeMenu";
-            treeNode6.Name = "inteleganceSpeechNode";
-            treeNode6.Text = "Speech";
-            treeNode7.Name = "inteleganceAnalysisNode";
-            treeNode7.Text = "Analysis";
-            treeNode8.Name = "inteleganceNode";
-            treeNode8.Text = "Intelegance";
-            treeNode9.Name = "generalNode";
-            treeNode9.Text = "General";
-            treeNode10.Name = "uiNode";
-            treeNode10.Text = "User Interface";
+            treeNode1.Name = "inteleganceSpeechNode";
+            treeNode1.Text = "Speech";
+            treeNode2.Name = "inteleganceAnalysisNode";
+            treeNode2.Text = "Analysis";
+            treeNode3.Name = "inteleganceNode";
+            treeNode3.Text = "Intelegance";
+            treeNode4.Name = "generalNode";
+            treeNode4.Text = "General";
+            treeNode5.Name = "uiNode";
+            treeNode5.Text = "User Interface";
             this.treeMenu.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode8,
-            treeNode9,
-            treeNode10});
+            treeNode3,
+            treeNode4,
+            treeNode5});
             this.treeMenu.Size = new System.Drawing.Size(135, 356);
             this.treeMenu.TabIndex = 0;
             this.treeMenu.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeMenu_AfterSelect);
@@ -274,8 +274,8 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(305, 31);
             this.label2.TabIndex = 8;
-            this.label2.Text = "Default channel list that would be loaded at strartup. \r\nPress [ctrl+alt+A] or us" +
-                "e \"+\" to add a new channel.";
+            this.label2.Text = "Default channel list that would be loaded at strartup. \r\nPress [enter] or use \"+\"" +
+                " to add a new channel.";
             // 
             // labelKeywordsDesc
             // 
@@ -593,6 +593,16 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "UI Settings";
             // 
+            // checkBoxIntelGrid
+            // 
+            this.checkBoxIntelGrid.AutoSize = true;
+            this.checkBoxIntelGrid.Location = new System.Drawing.Point(9, 42);
+            this.checkBoxIntelGrid.Name = "checkBoxIntelGrid";
+            this.checkBoxIntelGrid.Size = new System.Drawing.Size(161, 17);
+            this.checkBoxIntelGrid.TabIndex = 9;
+            this.checkBoxIntelGrid.Text = "Show \'Grid View\' in Intel Tab";
+            this.checkBoxIntelGrid.UseVisualStyleBackColor = true;
+            // 
             // checkShowStatusBar
             // 
             this.checkShowStatusBar.AutoSize = true;
@@ -692,16 +702,6 @@
             this.buttonApply.Text = "&Apply";
             this.buttonApply.UseVisualStyleBackColor = true;
             this.buttonApply.Click += new System.EventHandler(this.buttonApply_Click);
-            // 
-            // checkBoxIntelGrid
-            // 
-            this.checkBoxIntelGrid.AutoSize = true;
-            this.checkBoxIntelGrid.Location = new System.Drawing.Point(9, 42);
-            this.checkBoxIntelGrid.Name = "checkBoxIntelGrid";
-            this.checkBoxIntelGrid.Size = new System.Drawing.Size(161, 17);
-            this.checkBoxIntelGrid.TabIndex = 9;
-            this.checkBoxIntelGrid.Text = "Show \'Grid View\' in Intel Tab";
-            this.checkBoxIntelGrid.UseVisualStyleBackColor = true;
             // 
             // SettingsUI
             // 
