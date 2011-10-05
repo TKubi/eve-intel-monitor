@@ -16,8 +16,9 @@ namespace EVEIntelManager
             InitializeComponent();
             settingsUI.CloseWindowRequested += delegate { CloseWindow(); };
             this.CancelButton = settingsUI.ButtonCancel;
-            this.AcceptButton = settingsUI.ButtonOK;
         }
+
+        public SettingsUI SettingsUI { get { return settingsUI; } }
 
         private void CloseWindow()
         {

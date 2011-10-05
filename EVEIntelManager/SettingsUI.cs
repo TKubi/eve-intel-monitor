@@ -371,7 +371,7 @@ namespace EVEIntelManager
 
         private void textDefaultChannel_KeyUp(object sender, KeyEventArgs e)
         {
-            if (e.Control && e.Alt && e.KeyCode == Keys.A)
+            if (e.KeyCode == Keys.Enter)
             {
                 buttonAddChannel_Click(sender, e);
             }
