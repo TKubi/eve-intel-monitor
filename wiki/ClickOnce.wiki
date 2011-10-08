@@ -6,5 +6,4 @@ ClickOnce is a Microsoft technology that allows applications to be installed dir
 
 [http://msdn.microsoft.com/en-US/library/t71a733d(v=VS.80).aspx Like to Microsoft MSDN site]
 
-===Please use this link to download and install EVE Intel Monitor using ClickOnce:===
-[http://eve-intel-monitor.googlecode.com/svn/trunk/ClickOnceDeployment/setup.exe Download & Install]
+Please use *[http://eve-intel-monitor.googlecode.com/svn/trunk/ClickOnceDeployment/setup.exe this link]* to download and install EVE Intel Monitor using ClickOnce:
