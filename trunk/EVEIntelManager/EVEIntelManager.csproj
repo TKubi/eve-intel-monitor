@@ -16,6 +16,27 @@
     <TargetZone>Internet</TargetZone>
     <GenerateManifests>true</GenerateManifests>
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+    <ManifestCertificateThumbprint>FE445690EDDE6BC71EC47F739906C8B17F35F9D4</ManifestCertificateThumbprint>
+    <ManifestKeyFile>EVEIntelManager_TemporaryKey.pfx</ManifestKeyFile>
+    <SignManifests>true</SignManifests>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <PublishUrl>C:\Users\Simon\Documents\Visual Studio 2008\Projects\eve-intel-monitor\ClickOnceDeployment\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Web</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <InstallUrl>https://eve-intel-monitor.googlecode.com/svn/trunk/ClickOnceDeployment/</InstallUrl>
+    <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
+    <WebPage>publish.htm</WebPage>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>0.4.0.0</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -210,10 +231,33 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="IntelMonitor.ico" />
+    <None Include="EVEIntelManager_TemporaryKey.pfx" />
     <None Include="Properties\app.manifest" />
     <None Include="Resources\IntelMonitor.ico" />
     <None Include="Resources\ListboxIcon.jpg" />
     <None Include="Resources\GridIcon.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
