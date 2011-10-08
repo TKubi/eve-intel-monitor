@@ -13,8 +13,9 @@
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ApplicationIcon>IntelMonitor.ico</ApplicationIcon>
-    <TargetZone>LocalIntranet</TargetZone>
-    <GenerateManifests>false</GenerateManifests>
+    <TargetZone>Internet</TargetZone>
+    <GenerateManifests>true</GenerateManifests>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -209,6 +210,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="IntelMonitor.ico" />
+    <None Include="Properties\app.manifest" />
     <None Include="Resources\IntelMonitor.ico" />
     <None Include="Resources\ListboxIcon.jpg" />
     <None Include="Resources\GridIcon.jpg" />

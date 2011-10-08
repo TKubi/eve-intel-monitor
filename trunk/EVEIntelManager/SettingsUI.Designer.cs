@@ -88,6 +88,7 @@
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonApply = new System.Windows.Forms.Button();
             this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
+            this.checkBoxReadFolderAutoLoadFirstChannel = new System.Windows.Forms.CheckBox();
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.Panel2.SuspendLayout();
             this.splitContainer.SuspendLayout();
@@ -581,6 +582,7 @@
             // 
             this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox3.Controls.Add(this.checkBoxReadFolderAutoLoadFirstChannel);
             this.groupBox3.Controls.Add(this.checkBoxIntelGrid);
             this.groupBox3.Controls.Add(this.checkShowStatusBar);
             this.groupBox3.Controls.Add(this.label6);
@@ -617,7 +619,7 @@
             // 
             this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(342, 65);
+            this.label6.Location = new System.Drawing.Point(342, 103);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(98, 13);
             this.label6.TabIndex = 6;
@@ -626,7 +628,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(6, 65);
+            this.label7.Location = new System.Drawing.Point(6, 103);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(148, 13);
             this.label7.TabIndex = 5;
@@ -639,7 +641,7 @@
             this.comboBox1.Items.AddRange(new object[] {
             "Default",
             "Dark"});
-            this.comboBox1.Location = new System.Drawing.Point(160, 62);
+            this.comboBox1.Location = new System.Drawing.Point(160, 100);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(121, 21);
             this.comboBox1.TabIndex = 4;
@@ -702,6 +704,16 @@
             this.buttonApply.Text = "&Apply";
             this.buttonApply.UseVisualStyleBackColor = true;
             this.buttonApply.Click += new System.EventHandler(this.buttonApply_Click);
+            // 
+            // checkBoxReadFolderAutoLoadFirstChannel
+            // 
+            this.checkBoxReadFolderAutoLoadFirstChannel.AutoSize = true;
+            this.checkBoxReadFolderAutoLoadFirstChannel.Location = new System.Drawing.Point(9, 65);
+            this.checkBoxReadFolderAutoLoadFirstChannel.Name = "checkBoxReadFolderAutoLoadFirstChannel";
+            this.checkBoxReadFolderAutoLoadFirstChannel.Size = new System.Drawing.Size(360, 17);
+            this.checkBoxReadFolderAutoLoadFirstChannel.TabIndex = 10;
+            this.checkBoxReadFolderAutoLoadFirstChannel.Text = "Auto Load first detected channel when \"Read Folder\" button is clicked";
+            this.checkBoxReadFolderAutoLoadFirstChannel.UseVisualStyleBackColor = true;
             // 
             // SettingsUI
             // 
@@ -792,6 +804,7 @@
         private System.Windows.Forms.Button buttonOK;
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.CheckBox checkBoxIntelGrid;
+        private System.Windows.Forms.CheckBox checkBoxReadFolderAutoLoadFirstChannel;
 
     }
 }

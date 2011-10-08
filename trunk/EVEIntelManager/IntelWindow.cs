@@ -21,7 +21,7 @@ namespace EVEIntelManager
 
     public partial class IntelWindow : Form
     {
-        public IntelAnalyzer Analyzer { set { intelUI.Analyzer = value; } get { return intelUI.Analyzer; } }
+        public IntelAnalyzer Analyzer { get { return intelUI.Analyzer; } }
         private SettingsForm settingsForm = new SettingsForm();
 
         public LogDirectoryMonitor Monitor
@@ -75,17 +75,51 @@ namespace EVEIntelManager
 
         private void buttonRead_Click(object sender, EventArgs e)
         {
+            WriteMessage("Searching eve-chat folder for " + textChannelName.Text + " channel.");
             LogFileMonitor monitor = ReadChannel(textChannelName.Text);
 
             if (monitor == null)
             {
-                MessageBox.Show(this, 
-                    "Channel \"" + textChannelName.Text + "\" is not found.\n"+
+                string readLogsAferMinutes = (this.Monitor.ReadLogsAferSeconds / 60).ToString();
+
+                WriteMessage("Channel \"" + textChannelName.Text + "\" is not found or is not active.\n");
+
+                MessageBox.Show(this,
+                    "Channel \"" + textChannelName.Text + "\" is not found or is not active.\n" +
                     "Is the game currently running?\n" +
                     "Is the channel window open in the game?\n" +
-                    "Try replacing non-alphanumeric charecters with underscors ( _ )", 
-                    "Channel not found", 
+                    "Has the channel been updated in the past " + readLogsAferMinutes + " minutes?\n\n" +
+                    "If you answered 'yes' to any question above, this is normal behavior.\n" +
+                    "Otherwise, try replacing non-alphanumeric characters with \nunderscores ( _ )",
+                    "Channel not found or is not active",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else if (Properties.Settings.Default.ReadFolderAutoLoadFirstChannel)
+            {
+                if (LoadLogFileMonitor(monitor)) {
+                    WriteMessage("Channel is automatically loaded. See UI settings to disable this feature.");
+                }
+            }
+            else
+            {
+                WriteMessage("Channel file(s) are identified on the left, please select a channel to start monitoring.");
+            }
+        }
+
+        private bool LoadLogFileMonitor(LogFileMonitor monitor)
+        {
+
+            if (!listLoadedChannels.Items.Contains(monitor))
+            {
+                logReaderUI.Add(monitor);
+                listLoadedChannels.Items.Add(monitor);
+                Analyzer.Add(monitor);
+
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 
@@ -97,9 +131,7 @@ namespace EVEIntelManager
 
                 if (fileMonitor != null)
                 {
-                    logReaderUI.Add(fileMonitor);
-                    listLoadedChannels.Items.Add(fileMonitor);
-                    Analyzer.Add(fileMonitor);
+                    LoadLogFileMonitor(fileMonitor);
                 }
             }
         }
@@ -278,5 +310,27 @@ namespace EVEIntelManager
                 ShowOptionsDialog();
             }
         }
+
+        private void showActiveKeywordsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            foreach (string keyword in Analyzer.MatchStrings) 
+            {
+                WriteMessage(keyword);
+            }
+            WriteMessage("Active Keywords:");
+        }
+
+        private void WriteMessage(string message)
+        {
+            if (logReaderUI.Visible)
+            {
+                logReaderUI.WriteMessage(message);
+            }
+            else if (intelUI.Visible)
+            {
+                intelUI.WriteMessage(message);
+            }
+        }
+
     }
 }

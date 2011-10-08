@@ -7,6 +7,7 @@ using System.Xml;
 using System.Reflection;
 using System.Net;
 using System.Media;
+using System.Deployment.Application;
 
 namespace EVEIntelManager
 {
@@ -52,12 +53,48 @@ namespace EVEIntelManager
         public static bool CheckForUpdates(out AppVersionList versionList) {
             try
             {
-                versionList = DownloadVersions();
-                
-                if (UpdateAvailable(versionList))
+                if (ApplicationDeployment.IsNetworkDeployed)
                 {
-                    return true;
+                    ApplicationDeployment deployment = ApplicationDeployment.CurrentDeployment;
+                    
+                    UpdateCheckInfo info = deployment.CheckForDetailedUpdate();
+
+                    versionList = new AppVersionList();
+                    
+                    if (info.UpdateAvailable) {
+                        versionList.Latest = new AppVersion(null, info.AvailableVersion, null, true);
+                        versionList.Versions = new AppVersion[] { versionList.Latest };
+                    }
+                    
+                    return info.UpdateAvailable;
                 }
+                else
+                {
+                    versionList = DownloadVersions();
+
+                    if (UpdateAvailable(versionList))
+                    {
+                        return true;
+                    }
+                }
+            }
+            catch (DeploymentDownloadException dde)
+            {
+                SystemSounds.Beep.Play();
+                Console.WriteLine("The new version of the application cannot be downloaded at this time. \n\nPlease check your network connection, or try again later. Error: " + dde.Message);
+                versionList = null;
+            }
+            catch (InvalidDeploymentException ide)
+            {
+                SystemSounds.Beep.Play();
+                Console.WriteLine("Cannot check for a new version of the application. The ClickOnce deployment is corrupt. Please redeploy the application and try again. Error: " + ide.Message);
+                versionList = null;
+            }
+            catch (InvalidOperationException ioe)
+            {
+                SystemSounds.Beep.Play();
+                Console.WriteLine("This application cannot be updated. It is likely not a ClickOnce application. Error: " + ioe.Message);
+                versionList = null;
             }
             catch (Exception e)
             {
@@ -213,6 +250,14 @@ namespace EVEIntelManager
         {
             this.Configuration = configuration;
             this.Version = version;
+            this.URL = url;
+            this.Released = released;
+        }
+
+        public AppVersion(string configuration, Version version, string url, bool released)
+        {
+            this.Configuration = configuration;
+            this.version = version;
             this.URL = url;
             this.Released = released;
         }

@@ -69,17 +69,6 @@ namespace EVEIntelManager.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public bool FirstLoad {
-            get {
-                return ((bool)(this["FirstLoad"]));
-            }
-            set {
-                this["FirstLoad"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public bool PlayIntelSound {
             get {
                 return ((bool)(this["PlayIntelSound"]));
@@ -235,6 +224,30 @@ namespace EVEIntelManager.Properties {
             }
             set {
                 this["ShowIntelGrid"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool FirstLoad {
+            get {
+                return ((bool)(this["FirstLoad"]));
+            }
+            set {
+                this["FirstLoad"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ReadFolderAutoLoadFirstChannel {
+            get {
+                return ((bool)(this["ReadFolderAutoLoadFirstChannel"]));
+            }
+            set {
+                this["ReadFolderAutoLoadFirstChannel"] = value;
             }
         }
     }

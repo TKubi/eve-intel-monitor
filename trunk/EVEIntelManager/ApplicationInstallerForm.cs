@@ -171,6 +171,16 @@ namespace EVEIntelManager
             }
         }
 
+        private void buttonBrowse_Click(object sender, EventArgs e)
+        {
+            folderBrowserDialog.SelectedPath = textTemporaryInstallerPath.Text;
+            DialogResult result = folderBrowserDialog.ShowDialog(this);
+            if (result == DialogResult.OK)
+            {
+                textTemporaryInstallerPath.Text = folderBrowserDialog.SelectedPath;
+            }
+        }
+
 
     }
 }

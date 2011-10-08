@@ -37,6 +37,10 @@
             this.labelPausingIntel = new System.Windows.Forms.Label();
             this.buttonMonitorIntel = new System.Windows.Forms.Button();
             this.dataGridIntel = new System.Windows.Forms.DataGridView();
+            this.intelBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.backgroundIntelSound = new System.ComponentModel.BackgroundWorker();
+            this.listIntel = new System.Windows.Forms.ListBox();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.timestampDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.systemDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.playersDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -47,9 +51,6 @@
             this.Docked = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.noVisualDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.channelDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.intelBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.backgroundIntelSound = new System.ComponentModel.BackgroundWorker();
-            this.listIntel = new System.Windows.Forms.ListBox();
             this.panelIntellHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridIntel)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.intelBindingSource)).BeginInit();
@@ -76,6 +77,7 @@
             this.buttonToggleView.Name = "buttonToggleView";
             this.buttonToggleView.Size = new System.Drawing.Size(30, 23);
             this.buttonToggleView.TabIndex = 11;
+            this.toolTip.SetToolTip(this.buttonToggleView, "Toggle the Grid/List View");
             this.buttonToggleView.UseVisualStyleBackColor = true;
             this.buttonToggleView.Click += new System.EventHandler(this.buttonToggleView_Click);
             // 
@@ -93,6 +95,7 @@
             this.buttonClearIntel.Size = new System.Drawing.Size(75, 23);
             this.buttonClearIntel.TabIndex = 8;
             this.buttonClearIntel.Text = "&Clear Intel";
+            this.toolTip.SetToolTip(this.buttonClearIntel, "Clear all Intel Messages");
             this.buttonClearIntel.UseVisualStyleBackColor = true;
             this.buttonClearIntel.Click += new System.EventHandler(this.buttonClearIntel_Click);
             // 
@@ -117,6 +120,7 @@
             this.buttonMonitorIntel.TabIndex = 1;
             this.buttonMonitorIntel.Tag = "";
             this.buttonMonitorIntel.Text = "&Start";
+            this.toolTip.SetToolTip(this.buttonMonitorIntel, "Start/Stop Watching the Intel");
             this.buttonMonitorIntel.UseVisualStyleBackColor = true;
             this.buttonMonitorIntel.Click += new System.EventHandler(this.buttonMonitorIntel_Click);
             // 
@@ -148,86 +152,6 @@
             this.dataGridIntel.Size = new System.Drawing.Size(664, 340);
             this.dataGridIntel.TabIndex = 18;
             // 
-            // timestampDataGridViewTextBoxColumn
-            // 
-            this.timestampDataGridViewTextBoxColumn.DataPropertyName = "Timestamp";
-            this.timestampDataGridViewTextBoxColumn.HeaderText = "Timestamp";
-            this.timestampDataGridViewTextBoxColumn.Name = "timestampDataGridViewTextBoxColumn";
-            this.timestampDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // systemDataGridViewTextBoxColumn
-            // 
-            this.systemDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.systemDataGridViewTextBoxColumn.DataPropertyName = "SystemName";
-            this.systemDataGridViewTextBoxColumn.HeaderText = "System";
-            this.systemDataGridViewTextBoxColumn.Name = "systemDataGridViewTextBoxColumn";
-            this.systemDataGridViewTextBoxColumn.ReadOnly = true;
-            this.systemDataGridViewTextBoxColumn.Width = 66;
-            // 
-            // playersDataGridViewTextBoxColumn
-            // 
-            this.playersDataGridViewTextBoxColumn.DataPropertyName = "Players";
-            this.playersDataGridViewTextBoxColumn.HeaderText = "Players";
-            this.playersDataGridViewTextBoxColumn.Name = "playersDataGridViewTextBoxColumn";
-            this.playersDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // locationDataGridViewTextBoxColumn
-            // 
-            this.locationDataGridViewTextBoxColumn.DataPropertyName = "Location";
-            this.locationDataGridViewTextBoxColumn.HeaderText = "Location";
-            this.locationDataGridViewTextBoxColumn.Name = "locationDataGridViewTextBoxColumn";
-            this.locationDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // messageDataGridViewTextBoxColumn
-            // 
-            this.messageDataGridViewTextBoxColumn.DataPropertyName = "Message";
-            this.messageDataGridViewTextBoxColumn.HeaderText = "Message";
-            this.messageDataGridViewTextBoxColumn.Name = "messageDataGridViewTextBoxColumn";
-            this.messageDataGridViewTextBoxColumn.ReadOnly = true;
-            this.messageDataGridViewTextBoxColumn.Width = 250;
-            // 
-            // reportedByDataGridViewTextBoxColumn
-            // 
-            this.reportedByDataGridViewTextBoxColumn.DataPropertyName = "ReportedBy";
-            this.reportedByDataGridViewTextBoxColumn.HeaderText = "ReportedBy";
-            this.reportedByDataGridViewTextBoxColumn.Name = "reportedByDataGridViewTextBoxColumn";
-            this.reportedByDataGridViewTextBoxColumn.ReadOnly = true;
-            this.reportedByDataGridViewTextBoxColumn.Visible = false;
-            // 
-            // clearDataGridViewCheckBoxColumn
-            // 
-            this.clearDataGridViewCheckBoxColumn.DataPropertyName = "Clear";
-            this.clearDataGridViewCheckBoxColumn.HeaderText = "Clear";
-            this.clearDataGridViewCheckBoxColumn.Name = "clearDataGridViewCheckBoxColumn";
-            this.clearDataGridViewCheckBoxColumn.ReadOnly = true;
-            this.clearDataGridViewCheckBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.clearDataGridViewCheckBoxColumn.Visible = false;
-            // 
-            // Docked
-            // 
-            this.Docked.DataPropertyName = "Docked";
-            this.Docked.HeaderText = "Docked";
-            this.Docked.Name = "Docked";
-            this.Docked.ReadOnly = true;
-            this.Docked.Visible = false;
-            // 
-            // noVisualDataGridViewCheckBoxColumn
-            // 
-            this.noVisualDataGridViewCheckBoxColumn.DataPropertyName = "NoVisual";
-            this.noVisualDataGridViewCheckBoxColumn.HeaderText = "NoVisual";
-            this.noVisualDataGridViewCheckBoxColumn.Name = "noVisualDataGridViewCheckBoxColumn";
-            this.noVisualDataGridViewCheckBoxColumn.ReadOnly = true;
-            this.noVisualDataGridViewCheckBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.noVisualDataGridViewCheckBoxColumn.Visible = false;
-            // 
-            // channelDataGridViewTextBoxColumn
-            // 
-            this.channelDataGridViewTextBoxColumn.DataPropertyName = "Channel";
-            this.channelDataGridViewTextBoxColumn.HeaderText = "Channel";
-            this.channelDataGridViewTextBoxColumn.Name = "channelDataGridViewTextBoxColumn";
-            this.channelDataGridViewTextBoxColumn.ReadOnly = true;
-            this.channelDataGridViewTextBoxColumn.Visible = false;
-            // 
             // intelBindingSource
             // 
             this.intelBindingSource.DataSource = typeof(EVEIntelAnalyzer.Intel);
@@ -247,6 +171,96 @@
             this.listIntel.Size = new System.Drawing.Size(664, 342);
             this.listIntel.TabIndex = 11;
             // 
+            // timestampDataGridViewTextBoxColumn
+            // 
+            this.timestampDataGridViewTextBoxColumn.DataPropertyName = "Timestamp";
+            this.timestampDataGridViewTextBoxColumn.HeaderText = "Timestamp";
+            this.timestampDataGridViewTextBoxColumn.Name = "timestampDataGridViewTextBoxColumn";
+            this.timestampDataGridViewTextBoxColumn.ReadOnly = true;
+            this.timestampDataGridViewTextBoxColumn.ToolTipText = "The time of the message";
+            // 
+            // systemDataGridViewTextBoxColumn
+            // 
+            this.systemDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.systemDataGridViewTextBoxColumn.DataPropertyName = "SystemName";
+            this.systemDataGridViewTextBoxColumn.HeaderText = "System";
+            this.systemDataGridViewTextBoxColumn.Name = "systemDataGridViewTextBoxColumn";
+            this.systemDataGridViewTextBoxColumn.ReadOnly = true;
+            this.systemDataGridViewTextBoxColumn.ToolTipText = "The name of the System (if available)";
+            this.systemDataGridViewTextBoxColumn.Width = 66;
+            // 
+            // playersDataGridViewTextBoxColumn
+            // 
+            this.playersDataGridViewTextBoxColumn.DataPropertyName = "Players";
+            this.playersDataGridViewTextBoxColumn.HeaderText = "Players";
+            this.playersDataGridViewTextBoxColumn.Name = "playersDataGridViewTextBoxColumn";
+            this.playersDataGridViewTextBoxColumn.ReadOnly = true;
+            this.playersDataGridViewTextBoxColumn.ToolTipText = "List of all players (if available)";
+            // 
+            // locationDataGridViewTextBoxColumn
+            // 
+            this.locationDataGridViewTextBoxColumn.DataPropertyName = "Location";
+            this.locationDataGridViewTextBoxColumn.HeaderText = "Location";
+            this.locationDataGridViewTextBoxColumn.Name = "locationDataGridViewTextBoxColumn";
+            this.locationDataGridViewTextBoxColumn.ReadOnly = true;
+            this.locationDataGridViewTextBoxColumn.ToolTipText = "Location within the system, docked, no visual, clear, etc... (if available)";
+            // 
+            // messageDataGridViewTextBoxColumn
+            // 
+            this.messageDataGridViewTextBoxColumn.DataPropertyName = "Message";
+            this.messageDataGridViewTextBoxColumn.HeaderText = "Message";
+            this.messageDataGridViewTextBoxColumn.Name = "messageDataGridViewTextBoxColumn";
+            this.messageDataGridViewTextBoxColumn.ReadOnly = true;
+            this.messageDataGridViewTextBoxColumn.ToolTipText = "Raw message from the intel channel";
+            this.messageDataGridViewTextBoxColumn.Width = 250;
+            // 
+            // reportedByDataGridViewTextBoxColumn
+            // 
+            this.reportedByDataGridViewTextBoxColumn.DataPropertyName = "ReportedBy";
+            this.reportedByDataGridViewTextBoxColumn.HeaderText = "ReportedBy";
+            this.reportedByDataGridViewTextBoxColumn.Name = "reportedByDataGridViewTextBoxColumn";
+            this.reportedByDataGridViewTextBoxColumn.ReadOnly = true;
+            this.reportedByDataGridViewTextBoxColumn.ToolTipText = "The name of the character that reported the itnel";
+            this.reportedByDataGridViewTextBoxColumn.Visible = false;
+            // 
+            // clearDataGridViewCheckBoxColumn
+            // 
+            this.clearDataGridViewCheckBoxColumn.DataPropertyName = "Clear";
+            this.clearDataGridViewCheckBoxColumn.HeaderText = "Clear";
+            this.clearDataGridViewCheckBoxColumn.Name = "clearDataGridViewCheckBoxColumn";
+            this.clearDataGridViewCheckBoxColumn.ReadOnly = true;
+            this.clearDataGridViewCheckBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.clearDataGridViewCheckBoxColumn.ToolTipText = "Flag that indicates that system is clear";
+            this.clearDataGridViewCheckBoxColumn.Visible = false;
+            // 
+            // Docked
+            // 
+            this.Docked.DataPropertyName = "Docked";
+            this.Docked.HeaderText = "Docked";
+            this.Docked.Name = "Docked";
+            this.Docked.ReadOnly = true;
+            this.Docked.ToolTipText = "Flag that indicates that player(s) is docked";
+            this.Docked.Visible = false;
+            // 
+            // noVisualDataGridViewCheckBoxColumn
+            // 
+            this.noVisualDataGridViewCheckBoxColumn.DataPropertyName = "NoVisual";
+            this.noVisualDataGridViewCheckBoxColumn.HeaderText = "NoVisual";
+            this.noVisualDataGridViewCheckBoxColumn.Name = "noVisualDataGridViewCheckBoxColumn";
+            this.noVisualDataGridViewCheckBoxColumn.ReadOnly = true;
+            this.noVisualDataGridViewCheckBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.noVisualDataGridViewCheckBoxColumn.ToolTipText = "Flag that indicates that there is no visual on the player(s)";
+            this.noVisualDataGridViewCheckBoxColumn.Visible = false;
+            // 
+            // channelDataGridViewTextBoxColumn
+            // 
+            this.channelDataGridViewTextBoxColumn.DataPropertyName = "Channel";
+            this.channelDataGridViewTextBoxColumn.HeaderText = "Channel";
+            this.channelDataGridViewTextBoxColumn.Name = "channelDataGridViewTextBoxColumn";
+            this.channelDataGridViewTextBoxColumn.ReadOnly = true;
+            this.channelDataGridViewTextBoxColumn.ToolTipText = "The channel source of the intel";
+            this.channelDataGridViewTextBoxColumn.Visible = false;
+            // 
             // IntelUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -256,6 +270,7 @@
             this.Controls.Add(this.listIntel);
             this.Name = "IntelUI";
             this.Size = new System.Drawing.Size(664, 372);
+            this.Load += new System.EventHandler(this.IntelUI_Load);
             this.panelIntellHeader.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridIntel)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.intelBindingSource)).EndInit();
@@ -272,6 +287,10 @@
         private System.Windows.Forms.DataGridView dataGridIntel;
         private System.ComponentModel.BackgroundWorker backgroundIntelSound;
         private System.Windows.Forms.BindingSource intelBindingSource;
+        private System.Windows.Forms.ListBox listIntel;
+        private System.Windows.Forms.Button buttonToggleView;
+        private System.Windows.Forms.ImageList imageListToggleView;
+        private System.Windows.Forms.ToolTip toolTip;
         private System.Windows.Forms.DataGridViewTextBoxColumn timestampDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn systemDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn playersDataGridViewTextBoxColumn;
@@ -282,9 +301,6 @@
         private System.Windows.Forms.DataGridViewCheckBoxColumn Docked;
         private System.Windows.Forms.DataGridViewCheckBoxColumn noVisualDataGridViewCheckBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn channelDataGridViewTextBoxColumn;
-        private System.Windows.Forms.ListBox listIntel;
-        private System.Windows.Forms.Button buttonToggleView;
-        private System.Windows.Forms.ImageList imageListToggleView;
 
     }
 }
