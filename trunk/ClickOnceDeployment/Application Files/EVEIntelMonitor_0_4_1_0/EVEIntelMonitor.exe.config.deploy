@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+    <configSections>
+        <sectionGroup name="userSettings" type="System.Configuration.UserSettingsGroup, System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" >
+            <section name="EVEIntelManager.Properties.Settings" type="System.Configuration.ClientSettingsSection, System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" allowExeDefinition="MachineToLocalUser" requirePermission="false" />
+        </sectionGroup>
+    </configSections>
+    <connectionStrings />
+    <userSettings>
+        <EVEIntelManager.Properties.Settings>
+            <setting name="EVELogDirectory" serializeAs="String">
+                <value />
+            </setting>
+            <setting name="ReadLogsAferSeconds" serializeAs="String">
+                <value>7200</value>
+            </setting>
+            <setting name="LogRefreshRate" serializeAs="String">
+                <value>5000</value>
+            </setting>
+            <setting name="AutoLoadDefaultChannel" serializeAs="String">
+                <value>True</value>
+            </setting>
+            <setting name="PlayIntelSound" serializeAs="String">
+                <value>True</value>
+            </setting>
+            <setting name="TextToSpeech" serializeAs="String">
+                <value>True</value>
+            </setting>
+            <setting name="TextToSpeechRate" serializeAs="String">
+                <value>-1</value>
+            </setting>
+            <setting name="TextToSpeechVoice" serializeAs="String">
+                <value />
+            </setting>
+            <setting name="TextToSpeechMaxMessages" serializeAs="String">
+                <value>5</value>
+            </setting>
+            <setting name="DefaultChannel" serializeAs="String">
+                <value>Intel Cobalt</value>
+            </setting>
+            <setting name="StartupChannelList" serializeAs="Xml">
+                <value>
+                    <ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                        xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+                        <string>Intel Cobalt</string>
+                    </ArrayOfString>
+                </value>
+            </setting>
+            <setting name="UpgrateOnStartup" serializeAs="String">
+                <value>True</value>
+            </setting>
+            <setting name="KeywordArrayList" serializeAs="Xml">
+                <value>
+                    <ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                        xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+                        <string>E-B</string>
+                        <string>H23</string>
+                        <string>ETXT</string>
+                        <string>A-0</string>
+                        <string>I-C</string>
+                        <string>HB</string>
+                        <string>VY</string>
+                        <string>4LNE</string>
+                        <string>L-Z</string>
+                    </ArrayOfString>
+                </value>
+            </setting>
+            <setting name="ShowStatusBar" serializeAs="String">
+                <value>True</value>
+            </setting>
+            <setting name="UpdateVersionPath" serializeAs="String">
+                <value>http://eve-intel-monitor.googlecode.com/files/versions.xml</value>
+            </setting>
+            <setting name="HomePage" serializeAs="String">
+                <value>http://code.google.com/p/eve-intel-monitor/</value>
+            </setting>
+            <setting name="SkipOlderIntel" serializeAs="String">
+                <value>True</value>
+            </setting>
+            <setting name="ShowIntelGrid" serializeAs="String">
+                <value>True</value>
+            </setting>
+            <setting name="FirstLoad" serializeAs="String">
+                <value>True</value>
+            </setting>
+            <setting name="ReadFolderAutoLoadFirstChannel" serializeAs="String">
+                <value>True</value>
+            </setting>
+        </EVEIntelManager.Properties.Settings>
+    </userSettings>
+</configuration>
