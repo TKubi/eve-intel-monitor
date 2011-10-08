@@ -16,7 +16,7 @@ namespace EVEIntelManager
         [STAThread]
         static void Main()
         {
-
+            
             LogDirectoryMonitor monitor = new LogDirectoryMonitor();
 
             Application.EnableVisualStyles();

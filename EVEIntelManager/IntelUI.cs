@@ -22,12 +22,6 @@ namespace EVEIntelManager
             {
                 return analyzer; 
             }
-            set
-            {
-                this.analyzer = value;
-                this.analyzer.ChangedIntel += NotifyIntel;
-                this.analyzer.ChangedIntelActive += NotifyIntelActive;
-            }
         }
 
         public void PauseSpeech()
@@ -72,13 +66,7 @@ namespace EVEIntelManager
         public IntelUI()
         {
             InitializeComponent();
-
-            this.Analyzer = new IntelAnalyzer();
-
-            if (Properties.Settings.Default.FirstLoad) {
-                setMessageText("The List View is activated. If the performance is poor, try switching to List View (button ->).");
-            }
-
+            InitializeAnalyzer();
         }
 
         public bool ShowGrid 
@@ -93,6 +81,14 @@ namespace EVEIntelManager
                 listIntel.Visible = !value;
                 buttonToggleView.ImageIndex = ShowGrid ? 0 : 1;
             }
+        }
+
+        protected void InitializeAnalyzer()
+        {
+            this.analyzer = new IntelAnalyzer();
+            this.analyzer.Active = true;
+            this.analyzer.ChangedIntel += NotifyIntel;
+            this.analyzer.ChangedIntelActive += NotifyIntelActive;
         }
 
         private void buttonMonitorIntel_Click(object sender, EventArgs e)
@@ -161,6 +157,24 @@ namespace EVEIntelManager
             else if (Properties.Settings.Default.PlayIntelSound)
             {
                 SystemSounds.Exclamation.Play();
+            }
+        }
+
+        public void WriteMessage(string message)
+        {
+            if (ShowGrid)
+            {
+                ShowGrid = !ShowGrid;
+                setMessageText("Active Keyowrds displayed. Click the Grid View button on the right to switch back ->");
+            }
+
+            if (listIntel.Items.Count > 0)
+            {
+                listIntel.Items.Insert(0, message);
+            }
+            else
+            {
+                listIntel.Items.Add(message);
             }
         }
 
@@ -285,6 +299,14 @@ namespace EVEIntelManager
             else
             {
                 setMessageText("The List View is activated. Go to Tools -> Options to make this setting permanent.");
+            }
+        }
+
+        private void IntelUI_Load(object sender, EventArgs e)
+        {
+            if (Properties.Settings.Default.FirstLoad)
+            {
+                setMessageText("The Grod View is activated. If the performance is poor, try switching to List View (button ->).");
             }
         }
     }

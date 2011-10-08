@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            EVEIntelAnalyzer.IntelAnalyzer intelAnalyzer1 = new EVEIntelAnalyzer.IntelAnalyzer();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(IntelWindow));
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabChannels = new System.Windows.Forms.TabPage();
@@ -43,9 +42,7 @@
             this.listLoadedChannels = new System.Windows.Forms.ListBox();
             this.buttonLoadChannels = new System.Windows.Forms.Button();
             this.listFiles = new System.Windows.Forms.CheckedListBox();
-            this.logReaderUI = new EVEIntelManager.LogReaderUI();
             this.tabIntel = new System.Windows.Forms.TabPage();
-            this.intelUI = new EVEIntelManager.IntelUI();
             this.checkAlwaysOnTop = new System.Windows.Forms.CheckBox();
             this.backgroundUpdateWorker = new System.ComponentModel.BackgroundWorker();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
@@ -65,6 +62,9 @@
             this.qandaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.showActiveKeywordsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.logReaderUI = new EVEIntelManager.LogReaderUI();
+            this.intelUI = new EVEIntelManager.IntelUI();
             this.tabControl.SuspendLayout();
             this.tabChannels.SuspendLayout();
             this.panelChannelHeader.SuspendLayout();
@@ -87,7 +87,7 @@
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
             this.tabControl.ShowToolTips = true;
-            this.tabControl.Size = new System.Drawing.Size(630, 399);
+            this.tabControl.Size = new System.Drawing.Size(704, 356);
             this.tabControl.TabIndex = 0;
             // 
             // tabChannels
@@ -97,7 +97,7 @@
             this.tabChannels.Location = new System.Drawing.Point(4, 22);
             this.tabChannels.Name = "tabChannels";
             this.tabChannels.Padding = new System.Windows.Forms.Padding(3);
-            this.tabChannels.Size = new System.Drawing.Size(596, 322);
+            this.tabChannels.Size = new System.Drawing.Size(696, 330);
             this.tabChannels.TabIndex = 0;
             this.tabChannels.Text = "Channels";
             this.tabChannels.UseVisualStyleBackColor = true;
@@ -110,7 +110,7 @@
             this.panelChannelHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelChannelHeader.Location = new System.Drawing.Point(3, 3);
             this.panelChannelHeader.Name = "panelChannelHeader";
-            this.panelChannelHeader.Size = new System.Drawing.Size(590, 28);
+            this.panelChannelHeader.Size = new System.Drawing.Size(690, 28);
             this.panelChannelHeader.TabIndex = 10;
             // 
             // label1
@@ -125,7 +125,7 @@
             // buttonRead
             // 
             this.buttonRead.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonRead.Location = new System.Drawing.Point(500, 1);
+            this.buttonRead.Location = new System.Drawing.Point(600, 1);
             this.buttonRead.Name = "buttonRead";
             this.buttonRead.Size = new System.Drawing.Size(87, 23);
             this.buttonRead.TabIndex = 1;
@@ -139,7 +139,7 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.textChannelName.Location = new System.Drawing.Point(96, 3);
             this.textChannelName.Name = "textChannelName";
-            this.textChannelName.Size = new System.Drawing.Size(398, 20);
+            this.textChannelName.Size = new System.Drawing.Size(498, 20);
             this.textChannelName.TabIndex = 2;
             // 
             // splitContainer
@@ -164,8 +164,8 @@
             // 
             this.splitContainer.Panel2.Controls.Add(this.logReaderUI);
             this.splitContainer.Panel2.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.splitContainer.Size = new System.Drawing.Size(590, 284);
-            this.splitContainer.SplitterDistance = 192;
+            this.splitContainer.Size = new System.Drawing.Size(687, 292);
+            this.splitContainer.SplitterDistance = 223;
             this.splitContainer.TabIndex = 7;
             // 
             // label7
@@ -181,9 +181,9 @@
             // 
             this.buttonUnloadChannel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonUnloadChannel.Location = new System.Drawing.Point(0, 256);
+            this.buttonUnloadChannel.Location = new System.Drawing.Point(0, 264);
             this.buttonUnloadChannel.Name = "buttonUnloadChannel";
-            this.buttonUnloadChannel.Size = new System.Drawing.Size(188, 25);
+            this.buttonUnloadChannel.Size = new System.Drawing.Size(219, 25);
             this.buttonUnloadChannel.TabIndex = 8;
             this.buttonUnloadChannel.Text = "&Unload Channel";
             this.buttonUnloadChannel.UseVisualStyleBackColor = true;
@@ -208,7 +208,7 @@
             this.listLoadedChannels.FormattingEnabled = true;
             this.listLoadedChannels.Location = new System.Drawing.Point(2, 179);
             this.listLoadedChannels.Name = "listLoadedChannels";
-            this.listLoadedChannels.Size = new System.Drawing.Size(186, 69);
+            this.listLoadedChannels.Size = new System.Drawing.Size(217, 69);
             this.listLoadedChannels.TabIndex = 6;
             // 
             // buttonLoadChannels
@@ -217,7 +217,7 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonLoadChannels.Location = new System.Drawing.Point(1, 133);
             this.buttonLoadChannels.Name = "buttonLoadChannels";
-            this.buttonLoadChannels.Size = new System.Drawing.Size(188, 23);
+            this.buttonLoadChannels.Size = new System.Drawing.Size(219, 23);
             this.buttonLoadChannels.TabIndex = 5;
             this.buttonLoadChannels.Text = "&Load Channels";
             this.buttonLoadChannels.UseVisualStyleBackColor = true;
@@ -230,19 +230,8 @@
             this.listFiles.FormattingEnabled = true;
             this.listFiles.Location = new System.Drawing.Point(2, 18);
             this.listFiles.Name = "listFiles";
-            this.listFiles.Size = new System.Drawing.Size(186, 109);
+            this.listFiles.Size = new System.Drawing.Size(217, 109);
             this.listFiles.TabIndex = 4;
-            // 
-            // logReaderUI
-            // 
-            this.logReaderUI.BackColor = System.Drawing.Color.Transparent;
-            this.logReaderUI.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.logReaderUI.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.logReaderUI.Location = new System.Drawing.Point(0, 0);
-            this.logReaderUI.Name = "logReaderUI";
-            this.logReaderUI.Size = new System.Drawing.Size(394, 284);
-            this.logReaderUI.TabIndex = 6;
-            this.logReaderUI.TimerInterval = 5000;
             // 
             // tabIntel
             // 
@@ -255,25 +244,13 @@
             this.tabIntel.Text = "Intel";
             this.tabIntel.UseVisualStyleBackColor = true;
             // 
-            // intelUI
-            // 
-            intelAnalyzer1.Active = true;
-            intelAnalyzer1.MatchStrings = null;
-            this.intelUI.Analyzer = intelAnalyzer1;
-            this.intelUI.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.intelUI.Location = new System.Drawing.Point(3, 3);
-            this.intelUI.Name = "intelUI";
-            this.intelUI.ShowGrid = true;
-            this.intelUI.Size = new System.Drawing.Size(616, 367);
-            this.intelUI.TabIndex = 0;
-            // 
             // checkAlwaysOnTop
             // 
             this.checkAlwaysOnTop.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.checkAlwaysOnTop.AutoSize = true;
             this.checkAlwaysOnTop.Checked = true;
             this.checkAlwaysOnTop.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkAlwaysOnTop.Location = new System.Drawing.Point(528, 27);
+            this.checkAlwaysOnTop.Location = new System.Drawing.Point(602, 27);
             this.checkAlwaysOnTop.Name = "checkAlwaysOnTop";
             this.checkAlwaysOnTop.Size = new System.Drawing.Size(98, 17);
             this.checkAlwaysOnTop.TabIndex = 9;
@@ -289,9 +266,9 @@
             // 
             this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel});
-            this.statusStrip.Location = new System.Drawing.Point(0, 429);
+            this.statusStrip.Location = new System.Drawing.Point(0, 386);
             this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(630, 22);
+            this.statusStrip.Size = new System.Drawing.Size(704, 22);
             this.statusStrip.TabIndex = 12;
             this.statusStrip.Text = "statusStrip1";
             // 
@@ -308,7 +285,7 @@
             this.helpToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
-            this.menuStrip.Size = new System.Drawing.Size(630, 24);
+            this.menuStrip.Size = new System.Drawing.Size(704, 24);
             this.menuStrip.TabIndex = 13;
             this.menuStrip.Text = "menuStrip1";
             // 
@@ -353,6 +330,7 @@
             // 
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.optionsToolStripMenuItem,
+            this.showActiveKeywordsToolStripMenuItem,
             this.toolStripMenuItem3,
             this.checkForUpdatesToolStripMenuItem,
             this.upgradeToVersionToolStripMenuItem});
@@ -363,26 +341,26 @@
             // optionsToolStripMenuItem
             // 
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
             this.optionsToolStripMenuItem.Text = "&Options...";
             this.optionsToolStripMenuItem.Click += new System.EventHandler(this.optionsToolStripMenuItem_Click);
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(184, 6);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(190, 6);
             // 
             // checkForUpdatesToolStripMenuItem
             // 
             this.checkForUpdatesToolStripMenuItem.Name = "checkForUpdatesToolStripMenuItem";
-            this.checkForUpdatesToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
+            this.checkForUpdatesToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
             this.checkForUpdatesToolStripMenuItem.Text = "&Check For Updates...";
             this.checkForUpdatesToolStripMenuItem.Click += new System.EventHandler(this.checkForUpdatesToolStripMenuItem_Click);
             // 
             // upgradeToVersionToolStripMenuItem
             // 
             this.upgradeToVersionToolStripMenuItem.Name = "upgradeToVersionToolStripMenuItem";
-            this.upgradeToVersionToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
+            this.upgradeToVersionToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
             this.upgradeToVersionToolStripMenuItem.Text = "&Upgrade To Version...";
             this.upgradeToVersionToolStripMenuItem.Click += new System.EventHandler(this.upgradeToVersionToolStripMenuItem_Click);
             // 
@@ -415,11 +393,38 @@
             this.aboutToolStripMenuItem.Text = "&About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
+            // showActiveKeywordsToolStripMenuItem
+            // 
+            this.showActiveKeywordsToolStripMenuItem.Name = "showActiveKeywordsToolStripMenuItem";
+            this.showActiveKeywordsToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+            this.showActiveKeywordsToolStripMenuItem.Text = "Show &Active Keywords";
+            this.showActiveKeywordsToolStripMenuItem.Click += new System.EventHandler(this.showActiveKeywordsToolStripMenuItem_Click);
+            // 
+            // logReaderUI
+            // 
+            this.logReaderUI.BackColor = System.Drawing.Color.Transparent;
+            this.logReaderUI.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.logReaderUI.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.logReaderUI.Location = new System.Drawing.Point(0, 0);
+            this.logReaderUI.Name = "logReaderUI";
+            this.logReaderUI.Size = new System.Drawing.Size(460, 292);
+            this.logReaderUI.TabIndex = 6;
+            this.logReaderUI.TimerInterval = 5000;
+            // 
+            // intelUI
+            // 
+            this.intelUI.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.intelUI.Location = new System.Drawing.Point(3, 3);
+            this.intelUI.Name = "intelUI";
+            this.intelUI.ShowGrid = false;
+            this.intelUI.Size = new System.Drawing.Size(616, 367);
+            this.intelUI.TabIndex = 0;
+            // 
             // IntelWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(630, 451);
+            this.ClientSize = new System.Drawing.Size(704, 408);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.menuStrip);
             this.Controls.Add(this.checkAlwaysOnTop);
@@ -485,6 +490,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
         private System.Windows.Forms.ToolStripMenuItem checkForUpdatesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem upgradeToVersionToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem showActiveKeywordsToolStripMenuItem;
     }
 }
 

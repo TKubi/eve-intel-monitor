@@ -289,6 +289,7 @@ namespace EVEIntelManager
             Properties.Settings.Default.StartupChannels = GetStartupChannels();
             Properties.Settings.Default.ShowStatusBar = checkShowStatusBar.Checked;
             Properties.Settings.Default.ShowIntelGrid = checkBoxIntelGrid.Checked;
+            Properties.Settings.Default.ReadFolderAutoLoadFirstChannel = checkBoxReadFolderAutoLoadFirstChannel.Checked;
 
             Properties.Settings.Default.PlayIntelSound = !checkSynthesizeSpeech.Checked;
             Properties.Settings.Default.TextToSpeech = checkSynthesizeSpeech.Checked;
@@ -328,6 +329,8 @@ namespace EVEIntelManager
             checkUpgrateOnStartup.Checked = Properties.Settings.Default.UpgrateOnStartup;
             checkSynthesizeSpeech.Checked = Properties.Settings.Default.TextToSpeech;
             checkShowStatusBar.Checked = Properties.Settings.Default.ShowStatusBar;
+            checkBoxIntelGrid.Checked = Properties.Settings.Default.ShowIntelGrid;
+            checkBoxReadFolderAutoLoadFirstChannel.Checked = Properties.Settings.Default.ReadFolderAutoLoadFirstChannel;
 
             if (Properties.Settings.Default.KeywordArrayList != null)
             {

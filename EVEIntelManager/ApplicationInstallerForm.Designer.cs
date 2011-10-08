@@ -43,6 +43,7 @@
             this.buttonBrowse = new System.Windows.Forms.Button();
             this.textTemporaryInstallerPath = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -153,6 +154,7 @@
             this.buttonBrowse.TabIndex = 18;
             this.buttonBrowse.Text = "...";
             this.buttonBrowse.UseVisualStyleBackColor = true;
+            this.buttonBrowse.Click += new System.EventHandler(this.buttonBrowse_Click);
             // 
             // textTemporaryInstallerPath
             // 
@@ -220,5 +222,6 @@
         private System.Windows.Forms.Button buttonBrowse;
         private System.Windows.Forms.TextBox textTemporaryInstallerPath;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog;
     }
 }

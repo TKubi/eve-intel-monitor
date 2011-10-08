@@ -141,6 +141,18 @@ namespace EVEIntelManager
             }
         }
 
+        public void WriteMessage(string message)
+        {
+            if (eventList.Items.Count > 0)
+            {
+                eventList.Items.Insert(0, message);
+            }
+            else
+            {
+                eventList.Items.Add(message);
+            }
+        }
+
         private void buttonRemoveAll_Click(object sender, EventArgs e)
         {
             eventList.Items.Clear();
