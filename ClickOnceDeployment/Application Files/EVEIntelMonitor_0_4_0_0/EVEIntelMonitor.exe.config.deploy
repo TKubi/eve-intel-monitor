@@ -20,9 +20,6 @@
             <setting name="AutoLoadDefaultChannel" serializeAs="String">
                 <value>True</value>
             </setting>
-            <setting name="FirstLoad" serializeAs="String">
-                <value>True</value>
-            </setting>
             <setting name="PlayIntelSound" serializeAs="String">
                 <value>True</value>
             </setting>
@@ -81,6 +78,12 @@
                 <value>True</value>
             </setting>
             <setting name="ShowIntelGrid" serializeAs="String">
+                <value>True</value>
+            </setting>
+            <setting name="FirstLoad" serializeAs="String">
+                <value>True</value>
+            </setting>
+            <setting name="ReadFolderAutoLoadFirstChannel" serializeAs="String">
                 <value>True</value>
             </setting>
         </EVEIntelManager.Properties.Settings>
