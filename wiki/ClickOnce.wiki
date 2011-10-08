@@ -1,0 +1,7 @@
+#summary One-sentence summary of this page.
+
+= Introduction =
+
+ClickOnce is a Microsoft technology that allows applications to be installed directly from the web.
+
+[http://msdn.microsoft.com/en-US/library/t71a733d(v=VS.80).aspx Like to Microsoft MSDN site]
